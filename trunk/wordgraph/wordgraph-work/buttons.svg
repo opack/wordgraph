@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="buttons.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3961">
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="0"
+         id="stop3963" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.18852459;"
+         offset="1"
+         id="stop3965" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961"
+       id="radialGradient3967"
+       cx="234.28572"
+       cy="75.933613"
+       fx="234.28572"
+       fy="75.933613"
+       r="16"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-60.785721,-2.5714302)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961-1"
+       id="radialGradient3967-2"
+       cx="234.28572"
+       cy="75.933617"
+       fx="234.28572"
+       fy="75.933617"
+       r="16"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(8.2142804,-2.1428605)" />
+    <linearGradient
+       id="linearGradient3961-1">
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="0"
+         id="stop3963-6" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.18852459;"
+         offset="1"
+         id="stop3965-8" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961-1-1"
+       id="radialGradient3967-2-6"
+       cx="234.28572"
+       cy="75.933617"
+       fx="234.28572"
+       fy="75.933617"
+       r="16"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(8.2142804,-2.1428605)" />
+    <linearGradient
+       id="linearGradient3961-1-1">
+      <stop
+         style="stop-color:#000000;stop-opacity:0.1882353;"
+         offset="0"
+         id="stop3963-6-8" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop3965-8-9" />
+    </linearGradient>
+    <radialGradient
+       r="16"
+       fy="75.933617"
+       fx="234.28572"
+       cy="75.933617"
+       cx="234.28572"
+       gradientTransform="translate(-46.78572,-1.0714319)"
+       gradientUnits="userSpaceOnUse"
+       id="radialGradient4017"
+       xlink:href="#linearGradient3961-1-1"
+       inkscape:collect="always" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961-1-1"
+       id="radialGradient4044"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-46.78572,-1.0714319)"
+       cx="234.28572"
+       cy="75.933617"
+       fx="234.28572"
+       fy="75.933617"
+       r="16" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3961-1-1"
+       id="radialGradient4050"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-46.78572,-1.0714319)"
+       cx="234.28572"
+       cy="75.933617"
+       fx="234.28572"
+       fy="75.933617"
+       r="16" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="275.3478"
+     inkscape:cy="686.23119"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="994"
+     inkscape:window-x="1676"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g3810"
+       transform="translate(-38.92857,0)">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985"
+         style="color:#000000;fill:#d4aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1"
+         style="color:#000000;fill:#ffcc00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3820">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7"
+         style="color:#000000;fill:#d4aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4"
+         style="color:#000000;fill:#ffcc00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3810-0"
+       transform="translate(-37.499997,93.83929)">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985-9"
+         style="color:#000000;fill:#225500;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-48"
+         style="color:#000000;fill:#44aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       transform="translate(1.4285727,93.83929)"
+       id="g3820-8">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7-2"
+         style="color:#000000;fill:#225500;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4-4"
+         style="color:#000000;fill:#44aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3810-0-5"
+       transform="matrix(0.86570044,0,0,0.92371146,128.01381,107.10979)"
+       inkscape:export-filename="C:\Users\Didier\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\data\validate_up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985-9-5"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-48-1"
+         style="color:#000000;fill:#44aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       transform="matrix(0.86174883,0,0,0.93541209,162.29856,107.75729)"
+       id="g3820-8-7">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7-2-1"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4-4-1"
+         style="color:#000000;fill:#44aa00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3810-5"
+       transform="matrix(0.86570044,0,0,0.92371146,128.01381,12.702836)"
+       inkscape:export-filename="C:\Users\Didier\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\data\cancel_up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985-2"
+         style="color:#000000;fill:#676c53;fill-opacity:1;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-7"
+         style="color:#000000;fill:#ffcc00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       transform="matrix(0.86174883,0,0,0.93541209,162.29856,13.350339)"
+       id="g3820-6">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7-1"
+         style="color:#000000;fill:#676c53;fill-opacity:1;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4-42"
+         style="color:#000000;fill:#ffcc00;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g4040"
+       inkscape:export-filename="C:\Users\Didier\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\data\letter_down.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="57.790752"
+         x="226.5"
+         height="32"
+         width="32"
+         id="rect3923-3-5"
+         style="color:#000000;fill:#5599ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="57.790752"
+         x="226.5"
+         height="32"
+         width="32"
+         id="rect3923-3-2-7"
+         style="color:#000000;fill:url(#radialGradient3967-2);fill-opacity:1;stroke:none;stroke-width:3.5999999;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g4036"
+       inkscape:export-filename="C:\Users\Didier\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\data\letter_up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="translate(-15.357143,-0.35714285)">
+      <rect
+         y="58.862183"
+         x="171.5"
+         height="32"
+         width="32"
+         id="rect3923-3"
+         style="color:#000000;fill:#5599ff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="58.862183"
+         x="171.5"
+         height="32"
+         width="32"
+         id="rect3923-3-2-7-2"
+         style="color:#000000;fill:url(#radialGradient4050);fill-opacity:1;stroke:none;stroke-width:3.5999999;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3810-0-5-4"
+       transform="matrix(0.86570044,0,0,0.92371146,128.01381,202.80999)"
+       inkscape:export-filename="C:\perso\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\images\red_up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985-9-5-8"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-48-1-8"
+         style="color:#000000;fill:#d40000;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       transform="matrix(0.86174883,0,0,0.93541209,162.29856,203.45749)"
+       id="g3820-8-7-2">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7-2-1-4"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4-4-1-5"
+         style="color:#000000;fill:#d40000;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       id="g3810-0-5-5"
+       transform="matrix(0.86570044,0,0,0.92371146,128.01381,294.95284)"
+       inkscape:export-filename="C:\perso\Dropbox\WordGraph\code\WordGraph\wordgraph-android\assets\images\grey_up.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="142.36218"
+         x="42.5"
+         height="30"
+         width="144.28572"
+         id="rect2985-9-5-1"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="137.71933"
+         x="38.92857"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-48-1-7"
+         style="color:#000000;fill:#cccccc;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       transform="matrix(0.86174883,0,0,0.93541209,162.29856,295.60034)"
+       id="g3820-8-7-1">
+      <rect
+         y="183.61217"
+         x="3.5714333"
+         height="30"
+         width="144.28572"
+         id="rect2985-7-2-1-1"
+         style="color:#000000;fill:#676c53;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <rect
+         y="181.54074"
+         x="1.6428566"
+         height="30"
+         width="144.28572"
+         id="rect2985-1-4-4-1-52"
+         style="color:#000000;fill:#cccccc;stroke:none;stroke-width:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+  </g>
+</svg>
