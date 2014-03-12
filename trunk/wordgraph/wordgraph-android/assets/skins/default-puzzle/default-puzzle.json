@@ -29,7 +29,7 @@
 			"b":1.00,
 			"a":1.00
 		},
-		"blue-down":{
+		"blue-dark":{
 			"r":0.26,
 			"g":0.46,
 			"b":0.77,
@@ -41,7 +41,7 @@
 			"b":0.69,
 			"a":1.00
 		},
-		"brown-down":{
+		"brown-dark":{
 			"r":0.71,
 			"g":0.61,
 			"b":0.37,
@@ -53,7 +53,7 @@
 			"b":0.29,
 			"a":1.00
 		},
-		"green-down":{
+		"green-dark":{
 			"r":0.26,
 			"g":0.41,
 			"b":0.19,
@@ -71,7 +71,7 @@
 			"b":0.51,
 			"a":1.00
 		},
-		"yellow-down":{
+		"yellow-dark":{
 			"r":0.71,
 			"g":0.57,
 			"b":0.00,
@@ -94,52 +94,116 @@
 				"a":0.45
 			}
 		},
-		"button-blue":{
+		"button-blue-up":{
 			"name":"button",
 			"color":"blue"
 		},
 		"button-blue-down":{
 			"name":"button",
-			"color":"blue-down"
+			"color":"blue-dark"
 		},
-		"button-brown":{
+		"button-brown-up":{
 			"name":"button",
 			"color":"brown"
 		},
 		"button-brown-down":{
 			"name":"button",
-			"color":"brown-down"
+			"color":"brown-dark"
 		},
-		"button-green":{
+		"button-green-up":{
 			"name":"button",
 			"color":"green"
 		},
 		"button-green-down":{
 			"name":"button",
-			"color":"green-down"
+			"color":"green-dark"
 		},
-		"button-grey":{
+		"button-grey-up":{
 			"name":"button",
 			"color":"grey"
 		},
-		"button-yellow":{
+		"button-yellow-up":{
 			"name":"button",
 			"color":"yellow"
 		},
 		"button-yellow-down":{
 			"name":"button",
-			"color":"yellow-down"
+			"color":"yellow-dark"
+		},
+		"button-bishop-up":{
+			"name":"joker-bishop",
+			"color":"brown"
+		},
+		"button-bishop-down":{
+			"name":"joker-bishop",
+			"color":"green-dark"
+		},
+		"button-bishop-checked":{
+			"name":"joker-bishop",
+			"color":"green"
+		},
+		"button-bishop-disabled":{
+			"name":"joker-bishop",
+			"color":"grey"
+		},
+		"button-rook-up":{
+			"name":"joker-rook",
+			"color":"brown"
+		},
+		"button-rook-down":{
+			"name":"joker-rook",
+			"color":"green-dark"
+		},
+		"button-rook-checked":{
+			"name":"joker-rook",
+			"color":"green"
+		},
+		"button-rook-disabled":{
+			"name":"joker-rook",
+			"color":"grey"
+		},
+		"button-knight-up":{
+			"name":"joker-knight",
+			"color":"brown"
+		},
+		"button-knight-down":{
+			"name":"joker-knight",
+			"color":"green-dark"
+		},
+		"button-knight-checked":{
+			"name":"joker-knight",
+			"color":"green"
+		},
+		"button-knight-disabled":{
+			"name":"joker-knight",
+			"color":"grey"
+		},
+		"button-queen-up":{
+			"name":"joker-queen",
+			"color":"brown"
+		},
+		"button-queen-down":{
+			"name":"joker-queen",
+			"color":"green-dark"
+		},
+		"button-queen-checked":{
+			"name":"joker-queen",
+			"color":"green"
+		},
+		"button-queen-disabled":{
+			"name":"joker-queen",
+			"color":"grey"
 		}
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle":{
 		"main-play":{
-			"up":"button-blue",
+			"up":"button-blue-up",
 			"down":"button-blue-down",
 			"font":"default-font",
 			"fontColor":"black"
 		},
 		"main-quit":{
-			"up":"button-brown",
+			"up":"button-brown-up",
 			"down":"button-brown-down",
 			"font":"default-font",
 			"fontColor":"black"
@@ -164,22 +228,22 @@
 			"fontColor":"black"
 		},
 		"puzzle-letter":{
-			"up":"button-brown",
+			"up":"button-brown-up",
 			"font":"default-font",
 			"fontColor":"black",
 			"down":"button-brown-down",
 			"downFontColor":"black",
-			"disabled":"button-grey"
+			"disabled":"button-grey-up"
 		},
 		"puzzle-letter-selected":{
-			"up":"button-yellow",
+			"up":"button-yellow-up",
 			"font":"default-font",
 			"fontColor":"black",
 			"down":"button-yellow-down",
 			"downFontColor":"black"
 		},
 		"puzzle-letter-highlighted":{
-			"up":"button-green",
+			"up":"button-green-up",
 			"font":"default-font",
 			"fontColor":"black",
 			"down":"button-green-down",
@@ -193,50 +257,49 @@
 			"fontColor":"black"
 		},
 		"joker-riddle":{
-			"up":"joker-riddle-up",
+			"up":"button-brown-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"joker-riddle-down",
+			"down":"button-brown-down",
 			"downFontColor":"black",
-			"pressedOffsetY":-7,
-			"checked":"joker-riddle-checked",
-			"disabled":"joker-riddle-disabled"
+			"checked":"button-green-up",
+			"disabled":"button-grey-up"
 		},
 		"joker-bishop":{
-			"up":"joker-bishop-up",
+			"up":"button-bishop-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"joker-bishop-down",
+			"down":"button-bishop-down",
 			"downFontColor":"black",
-			"checked":"joker-bishop-checked",
-			"disabled":"joker-bishop-disabled"
+			"checked":"button-bishop-checked",
+			"disabled":"button-bishop-disabled"
 		},
 		"joker-rook":{
-			"up":"joker-rook-up",
+			"up":"button-rook-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"joker-rook-down",
+			"down":"button-rook-down",
 			"downFontColor":"black",
-			"checked":"joker-rook-checked",
-			"disabled":"joker-rook-disabled"
+			"checked":"button-rook-checked",
+			"disabled":"button-rook-disabled"
 		},
 		"joker-knight":{
-			"up":"joker-knight-up",
+			"up":"button-knight-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"joker-knight-down",
+			"down":"button-knight-down",
 			"downFontColor":"black",
-			"checked":"joker-knight-checked",
-			"disabled":"joker-knight-disabled"
+			"checked":"button-knight-checked",
+			"disabled":"button-knight-disabled"
 		},
 		"joker-queen":{
-			"up":"joker-queen-up",
+			"up":"button-queen-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"joker-queen-down",
+			"down":"button-queen-down",
 			"downFontColor":"black",
-			"checked":"joker-queen-checked",
-			"disabled":"joker-queen-disabled"
+			"checked":"button-queen-checked",
+			"disabled":"button-queen-disabled"
 		}
 		
 	},

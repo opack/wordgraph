@@ -144,28 +144,28 @@ joker-bishop-up
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-knight-checked
+joker-bishop
   rotate: false
   xy: 447, 267
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-knight-disabled
+joker-knight-checked
   rotate: false
   xy: 529, 286
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-knight-down
+joker-knight-disabled
   rotate: false
   xy: 611, 305
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-knight-up
+joker-knight-down
   rotate: false
   xy: 693, 305
   size: 80, 80
@@ -179,14 +179,14 @@ puzzle-letter-highlighted-down
   orig: 64, 64
   offset: 0, 0
   index: -1
-joker-queen-checked
+joker-knight-up
   rotate: false
   xy: 841, 289
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-queen-disabled
+joker-knight
   rotate: false
   xy: 923, 275
   size: 80, 80
@@ -200,14 +200,14 @@ puzzle-letter-highlighted-up
   orig: 64, 64
   offset: 0, 0
   index: -1
-joker-queen-down
+joker-queen-checked
   rotate: false
   xy: 841, 207
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-queen-up
+joker-queen-disabled
   rotate: false
   xy: 923, 193
   size: 80, 80
@@ -235,37 +235,65 @@ puzzle-letter-up
   orig: 64, 64
   offset: 0, 0
   index: -1
-joker-rook-checked
+joker-queen-down
   rotate: false
   xy: 611, 223
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-rook-disabled
+joker-queen-up
   rotate: false
   xy: 693, 223
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-rook-down
+joker-queen
   rotate: false
   xy: 529, 204
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-joker-rook-up
+joker-rook-checked
   rotate: false
   xy: 131, 135
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+joker-rook-disabled
+  rotate: false
+  xy: 213, 119
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-down
+  rotate: false
+  xy: 295, 119
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-up
+  rotate: false
+  xy: 611, 141
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook
+  rotate: false
+  xy: 693, 141
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
 puzzle-suggestion
   rotate: false
-  xy: 317, 249
+  xy: 775, 222
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5

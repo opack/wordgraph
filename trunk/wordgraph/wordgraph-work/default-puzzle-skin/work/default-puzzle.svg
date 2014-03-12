@@ -643,6 +643,21 @@
          offset="1"
          id="stop3787-8-41-82" />
     </linearGradient>
+    <linearGradient
+       id="linearGradient3783-0-34-4">
+      <stop
+         style="stop-color:#cfbf97;stop-opacity:1;"
+         offset="0"
+         id="stop3785-9-1-0" />
+      <stop
+         id="stop3791-4-13-9"
+         offset="0.5"
+         style="stop-color:#bdae8a;stop-opacity:1;" />
+      <stop
+         style="stop-color:#b4a683;stop-opacity:1;"
+         offset="1"
+         id="stop3787-8-87-4" />
+    </linearGradient>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -651,14 +666,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568544"
-     inkscape:cx="637.46101"
-     inkscape:cy="879.01328"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="960.13242"
+     inkscape:cy="958.67147"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1280"
-     inkscape:window-height="968"
+     inkscape:window-height="998"
      inkscape:window-x="-4"
      inkscape:window-y="-4"
      inkscape:window-maximized="1"
@@ -2232,19 +2247,19 @@
     <rect
        style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect3306"
-       width="323.85489"
-       height="121.62237"
-       x="564.62476"
-       y="1.2479448"
+       width="511.03564"
+       height="94.609718"
+       x="739.62476"
+       y="36.247944"
        rx="10.738427"
-       ry="5.5422878" />
+       ry="2.4734924" />
     <rect
        style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="rect3308"
        width="16"
        height="16"
-       x="600.33368"
-       y="30.149223"
+       x="795.33368"
+       y="70.149223"
        rx="0"
        ry="0"
        inkscape:export-filename="../images/white.png"
@@ -2255,7 +2270,7 @@
        inkscape:export-filename="../work/button.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
-       transform="translate(-3.3587571,78.488854)">
+       transform="translate(-4.0658639,92.630989)">
       <g
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -2279,7 +2294,8 @@
            height="53.189949"
            x="317.51279"
            y="318.83173"
-           ry="5.5343876" />
+           ry="5.5343876"
+           rx="5.5343876" />
       </g>
       <rect
          style="fill:#e6e6e6;fill-opacity:1;stroke:none"
@@ -2288,7 +2304,237 @@
          height="56.856533"
          x="760.51727"
          y="53.428455"
-         ry="5.9158936" />
+         ry="5.9158936"
+         rx="5.9158936" />
+    </g>
+    <g
+       id="g4673"
+       inkscape:export-filename="../work/joker-bishop.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(86.956368,99.813736)"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="../work/button.png"
+         id="g4146-0">
+        <g
+           id="g4048-45-2"
+           transform="matrix(1,0,0,1.1143223,442.46455,-303.05996)"
+           inkscape:export-filename="../images/button.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90">
+          <rect
+             rx="6.6591678"
+             transform="matrix(0,1,-1,0,0,0)"
+             ry="6.6591678"
+             y="-381.51279"
+             x="319.78357"
+             height="64"
+             width="56.482166"
+             id="rect2985-8-1-5-4"
+             style="color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+          <rect
+             rx="5.5343876"
+             ry="5.5343876"
+             y="318.83173"
+             x="317.51279"
+             height="53.189949"
+             width="64"
+             id="rect2985-7-2-3-1-8"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        </g>
+        <rect
+           rx="5.9158936"
+           ry="5.9158936"
+           y="53.428455"
+           x="760.51727"
+           height="56.856533"
+           width="62.920208"
+           id="rect2985-7-2-3-1-9-6"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:none" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="BBishop-7-1-7-8"
+         d="m 878.9208,160.71378 8.85234,6.90051 -3.26139,8.78359 c 1.69599,1.43453 2.7696,3.50895 2.7696,5.81927 0,2.65928 -1.42512,5.01138 -3.58495,6.42672 3.12326,0.24728 5.26741,0.72315 5.26741,1.27562 0,0.65141 -2.96373,1.18608 -7.02752,1.3728 0.69337,8.01575 7.33813,1.44134 7.33813,9.01442 l 0,2.32042 -20.68136,0 0,-2.32042 c 0,-7.57055 6.64102,-1.01805 7.33812,-9.01442 -4.07048,-0.18613 -7.0534,-0.7207 -7.0534,-1.3728 0,-0.55247 2.15709,-1.02834 5.28035,-1.27562 -2.16462,-1.41376 -3.572,-3.76424 -3.572,-6.42672 0,-2.30418 1.05556,-4.37299 2.74371,-5.80712 l -3.26139,-8.79574 8.85235,-6.90051 z m 0.0129,5.22398 c -0.25812,0 -0.46591,0.19506 -0.46591,0.43735 l 0,2.11389 -2.34252,0 c -0.25811,0 -0.4659,0.16256 -0.4659,0.36448 0,0.20191 0.20779,0.36445 0.4659,0.36445 l 2.34252,0 0,3.66894 c 0,0.24229 0.20779,0.43736 0.46591,0.43736 0.25812,0 0.46591,-0.19507 0.46591,-0.43736 l 0,-3.66894 2.34251,0 c 0.25811,0 0.46591,-0.16254 0.46591,-0.36445 0,-0.20192 -0.2078,-0.36448 -0.46591,-0.36448 l -2.34251,0 0,-2.11389 c 0,-0.24229 -0.20779,-0.43735 -0.46591,-0.43735 z"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#bababa;stroke-width:2.22901678;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         inkscape:label="Black Bishop"
+         inkscape:export-filename="D:\Dropbox\WordGraph\code\WordGraph\wordgraph-work\default-puzzle-skin\images\joker-bishop-up.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+    </g>
+    <g
+       id="g4681"
+       inkscape:export-filename="../work/joker-rook.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(164.73813,99.813736)"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="../work/button.png"
+         id="g4146-5">
+        <g
+           id="g4048-45-0"
+           transform="matrix(1,0,0,1.1143223,442.46455,-303.05996)"
+           inkscape:export-filename="../images/button.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90">
+          <rect
+             rx="6.6591678"
+             transform="matrix(0,1,-1,0,0,0)"
+             ry="6.6591678"
+             y="-381.51279"
+             x="319.78357"
+             height="64"
+             width="56.482166"
+             id="rect2985-8-1-5-9"
+             style="color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+          <rect
+             rx="5.5343876"
+             ry="5.5343876"
+             y="318.83173"
+             x="317.51279"
+             height="53.189949"
+             width="64"
+             id="rect2985-7-2-3-1-0"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        </g>
+        <rect
+           rx="5.9158936"
+           ry="5.9158936"
+           y="53.428455"
+           x="760.51727"
+           height="56.856533"
+           width="62.920208"
+           id="rect2985-7-2-3-1-9-0"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:none" />
+      </g>
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\WordGraph\code\WordGraph\wordgraph-work\default-puzzle-skin\images\joker-rook-up.png"
+         inkscape:connector-curvature="0"
+         d="m 943.79483,202.08918 c -0.3532,-0.25697 -0.39181,-0.56348 -0.36572,-2.90282 l 0.024,-2.15463 0.21849,-0.25052 c 0.19755,-0.22652 0.28897,-0.25052 0.95393,-0.25052 l 0.73544,0 3.1e-4,-1.844 c 2.3e-4,-1.64476 0.0165,-1.87766 0.15066,-2.15565 0.0827,-0.17141 0.81725,-1.24665 1.63234,-2.3894 l 1.48197,-2.07774 0.002,-7.37596 0.002,-7.37597 -1.83277,-1.85938 c -1.00802,-1.02266 -1.86627,-1.94288 -1.90721,-2.04494 -0.0433,-0.10789 -0.0745,-1.71241 -0.0745,-3.83358 0,-3.99058 0.0127,-4.11375 0.44871,-4.35468 0.15908,-0.0879 0.90241,-0.11427 2.61032,-0.0926 2.95689,0.0377 2.73023,-0.10971 2.76825,1.79903 l 0.0258,1.29599 1.31747,0 1.31747,0 0,-1.09414 c 0,-1.27032 0.10375,-1.7177 0.44158,-1.90439 0.16706,-0.0923 0.99262,-0.11766 3.12237,-0.0958 3.54533,0.0363 3.2372,-0.13281 3.27568,1.79835 l 0.0258,1.29599 1.31747,0 1.31747,0 0,-1.14791 c 0,-1.28948 0.0886,-1.65555 0.44871,-1.85456 0.15909,-0.0879 0.90242,-0.11427 2.61032,-0.0926 2.36636,0.0301 2.38949,0.0325 2.56517,0.26689 0.17711,0.23631 0.17729,0.23981 0.19953,4.03815 0.0184,3.14153 0.002,3.84003 -0.0879,4.02284 -0.0607,0.12166 -0.92011,1.03932 -1.90999,2.03924 l -1.79976,1.81801 -3.4e-4,7.37597 -3.3e-4,7.37596 1.56595,2.23162 c 0.86127,1.22737 1.59704,2.34071 1.63505,2.47407 0.038,0.13336 0.0691,1.02978 0.0691,1.99204 l 0,1.74959 0.77671,0.0357 c 1.17769,0.0542 1.13115,-0.0627 1.13115,2.84065 0,2.28793 -0.003,2.33612 -0.17737,2.56831 l -0.17737,0.23663 -12.82725,0.0223 c -10.97512,0.0191 -12.85662,7.7e-4 -13.03066,-0.12567 l 0,0 z"
+         id="path2449-3-1-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:#bababa;stroke-width:2.09459448;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
+    <g
+       id="g4689"
+       inkscape:export-filename="../work/joker-knight.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(242.5199,99.813736)"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="../work/button.png"
+         id="g4146-6">
+        <g
+           id="g4048-45-13"
+           transform="matrix(1,0,0,1.1143223,442.46455,-303.05996)"
+           inkscape:export-filename="../images/button.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90">
+          <rect
+             rx="6.6591678"
+             transform="matrix(0,1,-1,0,0,0)"
+             ry="6.6591678"
+             y="-381.51279"
+             x="319.78357"
+             height="64"
+             width="56.482166"
+             id="rect2985-8-1-5-8"
+             style="color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+          <rect
+             rx="5.5343876"
+             ry="5.5343876"
+             y="318.83173"
+             x="317.51279"
+             height="53.189949"
+             width="64"
+             id="rect2985-7-2-3-1-93"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        </g>
+        <rect
+           rx="5.9158936"
+           ry="5.9158936"
+           y="53.428455"
+           x="760.51727"
+           height="56.856533"
+           width="62.920208"
+           id="rect2985-7-2-3-1-9-4"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:none" />
+      </g>
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\WordGraph\code\WordGraph\wordgraph-work\default-puzzle-skin\images\joker-knight-up.png"
+         inkscape:label="Black Knight"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#bababa;stroke-width:2.12722397;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         d="m 1039.4509,170.58191 6.7368,7.47338 -3.222,4.40292 -7.1274,-2.89666 c 0,0 3.983,2.6411 7.4203,6.72024 3.4685,4.11605 2.7547,11.9013 1.512,15.1785 l -19.3793,0 c 7.6156,-11.12317 -6.5184,-22.05476 -1.4645,-32.44258 4.9208,-10.11455 12.8419,-8.54811 17.622,-1.09939 -0.7292,0.86535 -1.4237,1.86346 -2.0979,2.66359 z"
+         id="BKnight-0-2-9"
+         sodipodi:nodetypes="cccczcczcc"
+         inkscape:connector-curvature="0" />
+    </g>
+    <g
+       id="g4697"
+       inkscape:export-filename="../work/joker-queen.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(320.30159,99.813736)"
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="../work/button.png"
+         id="g4146-4">
+        <g
+           id="g4048-45-6"
+           transform="matrix(1,0,0,1.1143223,442.46455,-303.05996)"
+           inkscape:export-filename="../images/button.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90">
+          <rect
+             rx="6.6591678"
+             transform="matrix(0,1,-1,0,0,0)"
+             ry="6.6591678"
+             y="-381.51279"
+             x="319.78357"
+             height="64"
+             width="56.482166"
+             id="rect2985-8-1-5-0"
+             style="color:#000000;fill:#808080;fill-opacity:1;fill-rule:nonzero;stroke:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+          <rect
+             rx="5.5343876"
+             ry="5.5343876"
+             y="318.83173"
+             x="317.51279"
+             height="53.189949"
+             width="64"
+             id="rect2985-7-2-3-1-6"
+             style="fill:#ffffff;fill-opacity:1;stroke:none" />
+        </g>
+        <rect
+           rx="5.9158936"
+           ry="5.9158936"
+           y="53.428455"
+           x="760.51727"
+           height="56.856533"
+           width="62.920208"
+           id="rect2985-7-2-3-1-9-61"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:none" />
+      </g>
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\Dropbox\WordGraph\code\WordGraph\wordgraph-work\default-puzzle-skin\images\joker-queen-up.png"
+         inkscape:label="Black Queen"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#bababa;stroke-width:1.68826282;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         d="m 1112.2845,160.33559 1.8307,6.60377 3.6507,-2.42312 0.4282,5.56381 3.5009,-0.56158 -3.5651,8.03894 -0.1284,0 c 0.7447,1.0706 1.1883,2.36566 1.1883,3.75426 0,2.38149 -1.2843,4.45775 -3.2118,5.64701 2.7748,0.20465 4.6999,0.63032 4.6999,1.12316 0,0.56118 -2.4892,1.02605 -5.8989,1.18557 0.6342,7.31762 6.0595,8.21009 6.0595,11.75159 l 0,1.98633 -17.108,0 0.01,-1.98633 c 0,-3.24191 5.4223,-4.30094 6.0489,-11.75159 -3.4126,-0.15926 -5.9097,-0.62408 -5.9097,-1.18557 0,-0.49284 1.9251,-0.91851 4.6999,-1.12316 -1.9244,-1.18907 -3.2011,-3.268 -3.2011,-5.64701 0,-1.3886 0.4329,-2.68366 1.1776,-3.75426 l -0.1284,0 -3.5651,-8.03894 3.5009,0.56158 0.4389,-5.56381 3.6507,2.42312 1.8307,-6.60377 z"
+         id="BQueen-8-3-6"
+         sodipodi:nodetypes="cccccccscsccccccscsccccccc"
+         inkscape:connector-curvature="0" />
     </g>
   </g>
 </svg>

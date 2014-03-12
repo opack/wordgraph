@@ -1,7 +1,7 @@
 package com.slamdunk.wordgraph.pack;
 
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PackAttributes {
@@ -12,7 +12,7 @@ public class PackAttributes {
 	private Map<String, PuzzleInfos> puzzles;
 	
 	public PackAttributes() {
-		puzzles = new HashMap<String, PuzzleInfos>();
+		puzzles = new LinkedHashMap<String, PuzzleInfos>();
 	}
 
 	public String getLabel() {

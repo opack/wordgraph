@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.slamdunk.wordgraph.Assets;
+import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.TextButtonDecorator;
 import com.slamdunk.wordgraph.WordGraphGame;
 
@@ -45,8 +46,21 @@ public class PackButtonDecorator implements TextButtonDecorator {
 		if (infos != null) {
 			button.setName(infos.getName());
 			button.setText(infos.getLabel());
-			//DBG Remplacer puzzle-letter par un style 9-patch
-			button.setStyle(Assets.uiSkin.get("puzzle-letter", TextButtonStyle.class));
+			
+			PuzzlePreferencesHelper puzzlePreferences = new PuzzlePreferencesHelper(packAttributes.getName(), infos.getName());
+			if (puzzlePreferences.isFinished()) {
+				// Le puzzle est terminé
+				//DBG Remplacer puzzle-letter par un style 9-patch
+				button.setStyle(Assets.uiSkin.get("puzzle-letter-highlighted", TextButtonStyle.class));
+			} else if (puzzlePreferences.getElapsedTime() >= 1.0){
+				// Le puzzle a été commencé
+				//DBG Remplacer puzzle-letter par un style 9-patch
+				button.setStyle(Assets.uiSkin.get("puzzle-letter-selected", TextButtonStyle.class));
+			} else {
+				// Le puzzle n'a pas encore été commencé
+				//DBG Remplacer puzzle-letter par un style 9-patch
+				button.setStyle(Assets.uiSkin.get("puzzle-letter", TextButtonStyle.class));
+			}
 			if (infos.isAvailable()) {
 				button.addListener(nodeListener);
 				//DBG
