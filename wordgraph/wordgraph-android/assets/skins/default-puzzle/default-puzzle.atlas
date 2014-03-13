@@ -1,0 +1,309 @@
+
+default-puzzle.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+joker-riddle-checked
+  rotate: false
+  xy: 1, 453
+  size: 470, 50
+  orig: 470, 50
+  offset: 0, 0
+  index: -1
+joker-riddle-disabled
+  rotate: false
+  xy: 1, 401
+  size: 470, 50
+  orig: 470, 50
+  offset: 0, 0
+  index: -1
+joker-riddle-down
+  rotate: false
+  xy: 473, 453
+  size: 470, 50
+  orig: 470, 50
+  offset: 0, 0
+  index: -1
+joker-riddle-up
+  rotate: false
+  xy: 1, 349
+  size: 470, 50
+  orig: 470, 50
+  offset: 0, 0
+  index: -1
+puzzle-back-down
+  rotate: false
+  xy: 473, 368
+  size: 128, 83
+  orig: 128, 83
+  offset: 0, 0
+  index: -1
+puzzle-back-up
+  rotate: false
+  xy: 1, 264
+  size: 128, 83
+  orig: 128, 83
+  offset: 0, 0
+  index: -1
+puzzle-validate-disabled
+  rotate: false
+  xy: 603, 387
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+puzzle-validate-down
+  rotate: false
+  xy: 1, 198
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+puzzle-validate-up
+  rotate: false
+  xy: 131, 283
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+puzzle-joker-down
+  rotate: false
+  xy: 733, 388
+  size: 120, 63
+  orig: 120, 63
+  offset: 0, 0
+  index: -1
+puzzle-joker-up
+  rotate: false
+  xy: 1, 133
+  size: 120, 63
+  orig: 120, 63
+  offset: 0, 0
+  index: -1
+puzzle-cancel-disabled
+  rotate: false
+  xy: 131, 217
+  size: 102, 64
+  orig: 102, 64
+  offset: 0, 0
+  index: -1
+puzzle-cancel-down
+  rotate: false
+  xy: 261, 283
+  size: 102, 64
+  orig: 102, 64
+  offset: 0, 0
+  index: -1
+puzzle-cancel-up
+  rotate: false
+  xy: 1, 67
+  size: 102, 64
+  orig: 102, 64
+  offset: 0, 0
+  index: -1
+joker-bishop-checked
+  rotate: false
+  xy: 235, 201
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-bishop-disabled
+  rotate: false
+  xy: 365, 267
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-bishop-down
+  rotate: false
+  xy: 855, 371
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  split: 7, 8, 7, 12
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+puzzle-letter-down
+  rotate: false
+  xy: 945, 439
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+joker-bishop-up
+  rotate: false
+  xy: 937, 357
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-bishop
+  rotate: false
+  xy: 447, 267
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-knight-checked
+  rotate: false
+  xy: 529, 286
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-knight-disabled
+  rotate: false
+  xy: 611, 305
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-knight-down
+  rotate: false
+  xy: 693, 305
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+puzzle-letter-highlighted-down
+  rotate: false
+  xy: 775, 322
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+joker-knight-up
+  rotate: false
+  xy: 841, 289
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-knight
+  rotate: false
+  xy: 923, 275
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+puzzle-letter-highlighted-up
+  rotate: false
+  xy: 775, 256
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+joker-queen-checked
+  rotate: false
+  xy: 841, 207
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-queen-disabled
+  rotate: false
+  xy: 923, 193
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+puzzle-letter-selected-down
+  rotate: false
+  xy: 67, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+puzzle-letter-selected-up
+  rotate: false
+  xy: 105, 67
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+puzzle-letter-up
+  rotate: false
+  xy: 133, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+joker-queen-down
+  rotate: false
+  xy: 611, 223
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-queen-up
+  rotate: false
+  xy: 693, 223
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-queen
+  rotate: false
+  xy: 529, 204
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-checked
+  rotate: false
+  xy: 131, 135
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-disabled
+  rotate: false
+  xy: 213, 119
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-down
+  rotate: false
+  xy: 295, 119
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook-up
+  rotate: false
+  xy: 611, 141
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook
+  rotate: false
+  xy: 693, 141
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+puzzle-suggestion
+  rotate: false
+  xy: 775, 222
+  size: 32, 32
+  split: 4, 4, 5, 5
+  pad: 5, 5, 5, 5
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+white
+  rotate: false
+  xy: 473, 350
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
