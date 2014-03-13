@@ -1,0 +1,11 @@
+- Gestion des résolutions :
+	- Faire plusieurs assets pour plusieurs tailles
+	- Dans Assets.loadSkins, charger la skin correspondant à la taille de l'écran http://javamilf.blogspot.fr/2013/07/libgdx-android-no-stretching-at-any.html
+- Alléger la skin pour mettre uniquement les éléments nécessaires
+- Supprimer les TintedDrawable, pas assez souples. Faire un atlas pour la skin contenant toutes les images, c'est plus simple à comprendre et à maintenir.
+- Utiliser l'AssetManager au lieu de la classe Assets https://github.com/libgdx/libgdx/wiki/Asset-manager
+- Augmenter l'arrondi des boutons -> modifier le skin
+
+Notes
+- Génération dynamique de font : https://github.com/libgdx/libgdx/wiki/Gdx-freetype
+- Génération de 9-patches dans plusieurs résolutions : http://android-ui-utils.googlecode.com/hg/asset-studio/dist/nine-patches.html
