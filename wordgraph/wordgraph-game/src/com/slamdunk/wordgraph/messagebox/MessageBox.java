@@ -2,7 +2,7 @@ package com.slamdunk.wordgraph.messagebox;
 
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -109,7 +109,7 @@ public class MessageBox extends Window {
 	}
 
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
+	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (isVisible()) {
 			super.draw(batch, parentAlpha);
 		}
