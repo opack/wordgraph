@@ -1,6 +1,8 @@
 package com.slamdunk.wordgraph.joker;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -36,6 +38,7 @@ public class JokerScreen implements Screen {
 	
 	private TextButton validateButton;
 	
+	private Map<String, Riddle> riddlesByName;
 	private Riddle selectedRiddle;
 	private Joker selectedJoker;
 	
@@ -43,6 +46,7 @@ public class JokerScreen implements Screen {
 		this.game = game;
 		PropertiesManager.init("jokers");
 		stage = new Stage();
+		riddlesByName = new HashMap<String, Riddle>();
 	}
 	
 	public void setGraph(Graph graph) {
@@ -140,7 +144,7 @@ public class JokerScreen implements Screen {
 					}
 					
 					// Ajout du Riddle au bouton
-					clue.setUserObject(riddle);
+					riddlesByName.put(clue.getName(), riddle);
 					
 					// Ajout au ButtonGroup pour que seul un bouton soit sélectionné à la fois
 					riddleButtons.add(clue);
@@ -180,7 +184,7 @@ public class JokerScreen implements Screen {
 						clue.setDisabled(true);
 					}
 					// Ajout du Riddle au bouton
-					clue.setUserObject(riddle);
+					riddlesByName.put(clue.getName(), riddle);
 					
 					// Ajout au ButtonGroup pour que seul un bouton soit sélectionné à la fois
 					riddleButtons.add(clue);
@@ -222,7 +226,7 @@ public class JokerScreen implements Screen {
 				if (button.isDisabled()) {
 					return;
 				}
-				selectedRiddle = (Riddle)button.getUserObject();
+				selectedRiddle = riddlesByName.get(button.getName());
 				activateValidation();
 			}
 		};

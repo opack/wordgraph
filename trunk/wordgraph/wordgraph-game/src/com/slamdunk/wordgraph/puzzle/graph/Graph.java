@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -295,7 +295,7 @@ public class Graph extends Group {
 	}
 	
 	@Override
-	public void draw(Batch batch, float parentAlpha) {
+	public void draw(SpriteBatch batch, float parentAlpha) {
 		// Met en pause le batch pour dessiner les edges en premier
 		batch.end();
 		
