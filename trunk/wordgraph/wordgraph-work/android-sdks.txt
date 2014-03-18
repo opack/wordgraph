@@ -1,2 +1,0 @@
-Maison C:\Progz\dev\android-sdk
-Boulot C:\work\android\android-sdk-windows
