@@ -3,144 +3,151 @@ default-puzzle.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-puzzle-back-down
-  rotate: false
-  xy: 1, 44
-  size: 128, 83
-  orig: 128, 83
-  offset: 0, 0
-  index: -1
-puzzle-back-up
-  rotate: false
-  xy: 131, 44
-  size: 128, 83
-  orig: 128, 83
-  offset: 0, 0
-  index: -1
-puzzle-joker-down
-  rotate: false
-  xy: 261, 64
-  size: 120, 63
-  orig: 120, 63
-  offset: 0, 0
-  index: -1
-puzzle-joker-up
-  rotate: false
-  xy: 383, 64
-  size: 120, 63
-  orig: 120, 63
-  offset: 0, 0
-  index: -1
-obstacle-isle
-  rotate: false
-  xy: 505, 34
-  size: 93, 93
-  split: 21, 21, 20, 22
-  pad: 15, 15, 15, 15
-  orig: 93, 93
-  offset: 0, 0
-  index: -1
-joker-bishop
-  rotate: false
-  xy: 600, 47
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-joker-knight
-  rotate: false
-  xy: 682, 47
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-joker-queen
-  rotate: false
-  xy: 764, 47
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-joker-rook
-  rotate: false
-  xy: 846, 47
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-puzzle-cancel
-  rotate: false
-  xy: 928, 77
-  size: 80, 50
-  orig: 80, 50
-  offset: 0, 0
-  index: -1
-puzzle-validate
-  rotate: false
-  xy: 261, 12
-  size: 100, 50
-  orig: 100, 50
-  offset: 0, 0
-  index: -1
 button
   rotate: false
-  xy: 928, 11
+  xy: 929, 10
   size: 64, 64
   split: 7, 8, 7, 12
   orig: 64, 64
   offset: 0, 0
   index: -1
-popup-window
+edge
   rotate: false
-  xy: 1, 10
-  size: 32, 32
-  split: 4, 4, 5, 5
-  pad: 5, 5, 5, 5
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-puzzle-suggestion
-  rotate: false
-  xy: 363, 30
-  size: 32, 32
-  split: 4, 4, 5, 5
-  pad: 5, 5, 5, 5
-  orig: 32, 32
+  xy: 1011, 116
+  size: 10, 10
+  split: 3, 3, 3, 3
+  orig: 10, 10
   offset: 0, 0
   index: -1
 edge-highlighted
   rotate: false
-  xy: 1, 1
+  xy: 36, 34
+  size: 27, 7
+  orig: 27, 7
+  offset: 0, 0
+  index: -1
+edge-normal
+  rotate: false
+  xy: 446, 20
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
   index: -1
 edge2
   rotate: false
-  xy: 600, 35
+  xy: 601, 34
   size: 30, 10
   orig: 30, 10
   offset: 0, 0
   index: -1
-edge-normal
+joker-bishop
   rotate: false
-  xy: 30, 1
-  size: 27, 7
-  orig: 27, 7
+  xy: 601, 46
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-knight
+  rotate: false
+  xy: 683, 46
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-queen
+  rotate: false
+  xy: 765, 46
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+joker-rook
+  rotate: false
+  xy: 847, 46
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+obstacle-isle
+  rotate: false
+  xy: 506, 33
+  size: 93, 93
+  split: 21, 21, 20, 22
+  pad: 15, 15, 15, 15
+  orig: 93, 93
+  offset: 0, 0
+  index: -1
+popup-window
+  rotate: false
+  xy: 2, 9
+  size: 32, 32
+  split: 4, 4, 5, 5
+  pad: 5, 5, 5, 5
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+puzzle-back-down
+  rotate: false
+  xy: 2, 43
+  size: 128, 83
+  orig: 128, 83
+  offset: 0, 0
+  index: -1
+puzzle-back-up
+  rotate: false
+  xy: 132, 43
+  size: 128, 83
+  orig: 128, 83
+  offset: 0, 0
+  index: -1
+puzzle-backspace
+  rotate: false
+  xy: 929, 76
+  size: 80, 50
+  orig: 80, 50
+  offset: 0, 0
+  index: -1
+puzzle-cancel
+  rotate: false
+  xy: 364, 11
+  size: 80, 50
+  orig: 80, 50
+  offset: 0, 0
+  index: -1
+puzzle-joker-down
+  rotate: false
+  xy: 262, 63
+  size: 120, 63
+  orig: 120, 63
+  offset: 0, 0
+  index: -1
+puzzle-joker-up
+  rotate: false
+  xy: 384, 63
+  size: 120, 63
+  orig: 120, 63
+  offset: 0, 0
+  index: -1
+puzzle-suggestion
+  rotate: false
+  xy: 446, 29
+  size: 32, 32
+  split: 4, 4, 5, 5
+  pad: 5, 5, 5, 5
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+puzzle-validate
+  rotate: false
+  xy: 262, 11
+  size: 100, 50
+  orig: 100, 50
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 397, 46
+  xy: 446, 2
   size: 16, 16
   orig: 16, 16
-  offset: 0, 0
-  index: -1
-edge
-  rotate: false
-  xy: 1010, 117
-  size: 10, 10
-  split: 3, 3, 3, 3
-  orig: 10, 10
   offset: 0, 0
   index: -1

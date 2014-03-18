@@ -225,16 +225,16 @@
 			"name":"puzzle-validate",
 			"color":"brown-shallow"
 		},
-		"puzzle-cancel-up":{
-			"name":"puzzle-cancel",
+		"puzzle-backspace-up":{
+			"name":"puzzle-backspace",
 			"color":"brown"
 		},
-		"puzzle-cancel-down":{
-			"name":"puzzle-cancel",
+		"puzzle-backspace-down":{
+			"name":"puzzle-backspace",
 			"color":"red"
 		},
-		"puzzle-cancel-disabled":{
-			"name":"puzzle-cancel",
+		"puzzle-backspace-disabled":{
+			"name":"puzzle-backspace",
 			"color":"brown-shallow"
 		}
 	},
@@ -279,10 +279,10 @@
 			"font":"default-font",
 			"fontColor":"black"
 		},
-		"puzzle-cancel":{
-			"up":"puzzle-cancel-up",
-			"down":"puzzle-cancel-down",
-			"disabled":"puzzle-cancel-disabled",
+		"puzzle-backspace":{
+			"up":"puzzle-backspace-up",
+			"down":"puzzle-backspace-down",
+			"disabled":"puzzle-backspace-disabled",
 			"font":"default-font",
 			"fontColor":"black"
 		},

@@ -7,6 +7,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -18,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.slamdunk.utils.PropertiesManager;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
@@ -68,6 +69,8 @@ public class JokerScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		stage.act();
+		
+		Gdx.gl.glClearColor(245 / 255f, 237 / 255f, 217 / 255f, 1);
         Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         stage.draw();
 	}
@@ -213,15 +216,15 @@ public class JokerScreen implements Screen {
 		jokerButtons.uncheckAll();
 		
 		// Affectation des listeners
-		creator.getActor("back").addListener(new ClickListener(){
-        	@Override
-        	public void clicked(InputEvent event, float x, float y) {
+		creator.getActor("back").addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
         		onBack();
 			}
         });
-		final EventListener riddleListener = new ClickListener() {
+		final EventListener riddleListener = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				Button button = (Button)event.getListenerActor();
 				if (button.isDisabled()) {
 					return;
@@ -233,18 +236,20 @@ public class JokerScreen implements Screen {
 		for (Button button : riddleButtons.getButtons()) {
 			button.addListener(riddleListener);
 		}
+		final Label nameLabel = (Label)creator.getActor("name");
 		final Label descriptionLabel = (Label)creator.getActor("description");
-		final EventListener jokerListener = new ClickListener() {
+		final EventListener jokerListener = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				// Choisit le joker sélectionné
 				selectedJoker = Joker.valueOf(event.getListenerActor().getName());
 				// Change les libellés
-				String funnyKey = selectedJoker.toString() + ".funny." + Options.langCode;
-				String funnyText = PropertiesManager.asString("jokers", funnyKey, "");
+				String nameKey = selectedJoker.toString() + ".name." + Options.langCode;
+				String nameText = PropertiesManager.asString("jokers", nameKey, "");
+				nameLabel.setText(nameText);
 				String descriptionKey = selectedJoker.toString() + ".description." + Options.langCode;
 				String descriptionText = PropertiesManager.asString("jokers", descriptionKey, "");
-				descriptionLabel.setText(funnyText + "\r\n" + descriptionText);
+				descriptionLabel.setText(descriptionText);
 				// Active si possible le bouton de validation
 				activateValidation();
 			}
@@ -252,9 +257,9 @@ public class JokerScreen implements Screen {
 		for (Button button : jokerButtons.getButtons()) {
 			button.addListener(jokerListener);
 		}
-		validateButton.addListener(new ClickListener(){
-        	@Override
-        	public void clicked(InputEvent event, float x, float y) {
+		validateButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
         		Button button = (Button)event.getListenerActor();
         		if (button.isDisabled()) {
         			return;

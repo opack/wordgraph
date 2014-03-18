@@ -3,14 +3,14 @@ package com.slamdunk.wordgraph.messagebox;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MessageBox extends Window {
 	private static final int PAD_UNDER_MESSAGE = 20;
@@ -36,9 +36,9 @@ public class MessageBox extends Window {
 		message = new Label(messageText, style.messageStyle);
 		
 		leftButton = new TextButton(buttonText, style.leftButtonStyle);
-		leftButton.addListener(new ClickListener() {
+		leftButton.addListener(new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				setVisible(false);
 			}
 		});
@@ -58,9 +58,9 @@ public class MessageBox extends Window {
 		
 		message = new Label(messageText, style.messageStyle);
 		
-		ClickListener closeListener = new ClickListener() {
+		EventListener closeListener = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				setVisible(false);
 			}
 		};
