@@ -95,7 +95,7 @@ public class PuzzleAttributesReader {
 			// avec la skin par défaut
 			// TextButtonStyles
 			addDefault(skin, "puzzle-back", TextButtonStyle.class, Assets.defaultPuzzleSkin);
-			addDefault(skin, "puzzle-cancel", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "puzzle-backspace", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-joker", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter-selected", TextButtonStyle.class, Assets.defaultPuzzleSkin);

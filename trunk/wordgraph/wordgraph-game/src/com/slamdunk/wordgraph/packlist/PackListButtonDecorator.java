@@ -1,12 +1,12 @@
 package com.slamdunk.wordgraph.packlist;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.TextButtonDecorator;
 import com.slamdunk.wordgraph.WordGraphGame;
@@ -16,15 +16,15 @@ import com.slamdunk.wordgraph.pack.parsing.PackAttributesReader;
 public class PackListButtonDecorator implements TextButtonDecorator {
 
 	private final WordGraphGame game;
-	private final InputListener buttonListener;
+	private final EventListener buttonListener;
 	
 	public PackListButtonDecorator(WordGraphGame game) {
 		this.game = game;
 		
 		// Listener appelé lors d'un clic sur un noeud du graphe
-		buttonListener = new ClickListener(){
+		buttonListener = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				TextButton btn = (TextButton)event.getListenerActor();
 				selectPack(btn);
 			}

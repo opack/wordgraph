@@ -1,9 +1,10 @@
 package com.slamdunk.wordgraph.pack;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.TextButtonDecorator;
@@ -13,16 +14,16 @@ public class PackButtonDecorator implements TextButtonDecorator {
 
 	private final WordGraphGame game;
 	private final PackAttributes packAttributes;
-	private final ClickListener nodeListener;
+	private final EventListener nodeListener;
 	
 	public PackButtonDecorator(PackAttributes packAttributes, WordGraphGame game) {
 		this.game = game;
 		this.packAttributes = packAttributes;
 		
 		// Listener appelé lors d'un clic sur un noeud du graphe
-		nodeListener = new ClickListener(){
+		nodeListener = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				TextButton btn = (TextButton)event.getListenerActor();
 				selectPuzzle(btn);
 			}

@@ -1,12 +1,13 @@
 package com.slamdunk.utils;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.messagebox.MessageBox;
 import com.slamdunk.wordgraph.messagebox.MessageBox.MessageBoxStyle;
@@ -14,14 +15,14 @@ import com.slamdunk.wordgraph.messagebox.MessageBoxBuilder;
 
 public class MessageBoxUtils {
 	private static boolean isDisplayingBox;
-	private static final ClickListener toggleDisplayBoxBoolean;
+	private static final ChangeListener toggleDisplayBoxBoolean;
 	private static MessageBoxStyle messageBoxStyle;
 	private static MessageBoxStyle confirmBoxStyle;
 	
 	static {
-		toggleDisplayBoxBoolean = new ClickListener(){
+		toggleDisplayBoxBoolean = new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				isDisplayingBox = false;
 			}
 		};
@@ -75,10 +76,10 @@ public class MessageBoxUtils {
 	 * @param message
 	 * @param stage
 	 * @param okListener
-	 * @param cancelListener
+	 * @param backspaceListener
 	 * @return true si la boîte est affichée, false si une autre est déjà en cours d'affichage
 	 */
-	public static boolean showConfirm(String message, Stage stage, InputListener okListener, InputListener cancelListener) {
+	public static boolean showConfirm(String message, Stage stage, EventListener okListener, EventListener backspaceListener) {
 		if (isDisplayingBox) {
 			return false;
 		}
@@ -90,8 +91,8 @@ public class MessageBoxUtils {
 			builder.addLeftButtonListener(okListener);
 		}
 		builder.addRightButtonListener(toggleDisplayBoxBoolean);
-		if (cancelListener != null) {
-			builder.addRightButtonListener(cancelListener);
+		if (backspaceListener != null) {
+			builder.addRightButtonListener(backspaceListener);
 		}
 		
 		MessageBox msg = builder.createConfirm("", message, "OK", "Annuler");

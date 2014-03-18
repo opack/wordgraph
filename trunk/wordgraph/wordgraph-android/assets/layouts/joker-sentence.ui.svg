@@ -25,16 +25,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="206.42621"
+     inkscape:cx="248.99149"
      inkscape:cy="501.87522"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1280"
-     inkscape:window-height="998"
-     inkscape:window-x="-4"
-     inkscape:window-y="-4"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="662"
+     inkscape:window-height="797"
+     inkscape:window-x="430"
+     inkscape:window-y="69"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -88,7 +88,7 @@
        width="99.000008"
        height="49"
        x="190.5"
-       y="733.15802"
+       y="737.15802"
        ry="0"
        ui.style="puzzle-validate"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
@@ -160,10 +160,11 @@
        width="469"
        height="69"
        x="5.5000024"
-       y="627.78601"
+       y="659.78601"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="puzzle-riddle" />
+       ui.style="puzzle-riddle"
+       ui.align="3" />
     <rect
        style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="riddle"
@@ -260,5 +261,16 @@
        y="426.27399"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Table" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.65241283;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="name"
+       width="469.3476"
+       height="29.347588"
+       x="5.3262048"
+       y="627.61218"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text"
+       ui.align="1" />
   </g>
 </svg>
