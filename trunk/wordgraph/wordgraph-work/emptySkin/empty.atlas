@@ -1,0 +1,18 @@
+bank.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+coin
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+coin-down
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

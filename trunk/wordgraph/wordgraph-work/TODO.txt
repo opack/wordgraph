@@ -1,0 +1,12 @@
+- Remplacer les Edge par des objets Scene2d, pour pouvoir être manipulé en tant que tel (ex : dans un Scroller). Le lien se dessinera dans les limites de l'objet, ce qui fait qu'on pourra créer d'autres types de liens, par exemple courbés.
+- Pour les effets visuels et les obstacles, créer un objet AnimatedSprite qui est un objet Scene2d
+- Centrer le graph
+- Gestion des résolutions :
+	- Faire plusieurs assets pour plusieurs tailles
+	- Dans Assets.loadSkins, charger la skin correspondant à la taille de l'écran http://javamilf.blogspot.fr/2013/07/libgdx-android-no-stretching-at-any.html
+- Alléger la skin pour mettre uniquement les éléments nécessaires
+- Utiliser l'AssetManager au lieu de la classe Assets https://github.com/libgdx/libgdx/wiki/Asset-manager
+
+Notes
+- Génération dynamique de font : https://github.com/libgdx/libgdx/wiki/Gdx-freetype
+- Génération de 9-patches dans plusieurs résolutions : http://android-ui-utils.googlecode.com/hg/asset-studio/dist/nine-patches.html
