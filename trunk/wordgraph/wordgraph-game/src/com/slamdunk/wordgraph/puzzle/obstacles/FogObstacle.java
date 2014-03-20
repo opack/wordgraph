@@ -6,7 +6,7 @@ import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
- * Isole une lettre
+ * Masque une lettre
  */
 public class FogObstacle implements Obstacle{
 	private String letter;
@@ -21,18 +21,17 @@ public class FogObstacle implements Obstacle{
 
 	@Override
 	public void applyEffect(Graph graph) {
-		// Rien de spécial à faire
+		// Rien de spécial à faire si l'obstacle est toujours actif.
+		// Sinon on supprime l'image de brouillard s'il n'est plus actif
+		if (!isActive) {
+			image.remove();
+			node.setText(letter);
+		}
 	}
 
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
-		
-		// Supprime l'image de brouillard s'il n'est plus actif
-		if (!isActive) {
-			image.remove();
-			node.setText(letter);
-		}
 	}
 
 	@Override
@@ -51,20 +50,18 @@ public class FogObstacle implements Obstacle{
 
 	@Override
 	public void init(Graph graph) {
-		// Récupère la lettre isolée
+		// Récupère la lettre masquée
 		node = graph.getNode(letter);
-		if (node == null) {
-			// Aucun node n'existe avec cette lettre, on désactive l'obstacle
-			isActive = false;
+		isActive = node != null;
+		if (isActive) {
+			// Supprime le texte du bouton
+			node.setText("?");
+			
+			// Place une image de brouillard sur la lettre isolée
+			image = new Image(Assets.defaultPuzzleSkin.getDrawable("obstacle-fog"));
+			node.addActor(image);
+			image.setZIndex(0);
+			image.setPosition((node.getWidth() - image.getWidth()) / 2, (node.getHeight() - image.getHeight()) / 2);
 		}
-		
-		// Supprime le texte du bouton
-		node.setText("?");
-		
-		// Place une image de brouillard sur la lettre isolée
-		image = new Image(Assets.defaultPuzzleSkin.getDrawable("obstacle-fog"));
-		node.addActor(image);
-		image.setZIndex(0);
-		image.setPosition((node.getWidth() - image.getWidth()) / 2, (node.getHeight() - image.getHeight()) / 2);
 	}
 }

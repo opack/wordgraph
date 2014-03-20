@@ -2,12 +2,10 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import java.util.Map;
 
-
 /**
- * Gère tous les obstacles Isle
+ * Gère tous les obstacles Fog
  */
 public class FogObstacleManager extends ObstacleManager<FogObstacle> {
-
 	/**
 	 * Dissipe le brouillard sur les lettres du mot indiqué
 	 * @param validWord
@@ -18,7 +16,14 @@ public class FogObstacleManager extends ObstacleManager<FogObstacle> {
 			FogObstacle obstacle = obstacles.get(letter);
 			if (obstacle != null) {
 				obstacle.setActive(false);
+				obstacle.applyEffect(null);
 			}
 		}
+	}
+	
+	@Override
+	public void wordValidated(String word) {
+		// Désactivation des obstacles brouillard lorsqu'un mot est validé
+		clearFog(word);
 	}
 }

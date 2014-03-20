@@ -117,8 +117,8 @@ graph
 		label	"A"
 		graphics
 		[
-			x	332.0
-			y	315.0
+			x	315.5
+			y	280.0
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -139,7 +139,7 @@ graph
 		label	"E"
 		graphics
 		[
-			x	203.5
+			x	183.46211200000002
 			y	280.0
 			w	64.0
 			h	64.0
@@ -183,7 +183,7 @@ graph
 		label	"N"
 		graphics
 		[
-			x	274.0
+			x	315.5
 			y	430.0
 			w	64.0
 			h	64.0
@@ -227,7 +227,7 @@ graph
 		label	"V"
 		graphics
 		[
-			x	154.0
+			x	174.5
 			y	430.0
 			w	64.0
 			h	64.0
@@ -271,8 +271,8 @@ graph
 		label	"H"
 		graphics
 		[
-			x	381.0
-			y	430.0
+			x	409.5
+			y	414.0
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -304,6 +304,28 @@ graph
 		LabelGraphics
 		[
 			text	"U"
+			fontSize	12
+			fontName	"Dialog"
+			anchor	"c"
+		]
+	]
+	node
+	[
+		id	14
+		label	"P"
+		graphics
+		[
+			x	75.0
+			y	430.0
+			w	64.0
+			h	64.0
+			type	"rectangle"
+			fill	"#99CCFF"
+			outline	"#000000"
+		]
+		LabelGraphics
+		[
+			text	"P"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -768,6 +790,24 @@ graph
 	[
 		source	2
 		target	13
+		graphics
+		[
+			fill	"#000000"
+		]
+	]
+	edge
+	[
+		source	14
+		target	1
+		graphics
+		[
+			fill	"#000000"
+		]
+	]
+	edge
+	[
+		source	14
+		target	10
 		graphics
 		[
 			fill	"#000000"

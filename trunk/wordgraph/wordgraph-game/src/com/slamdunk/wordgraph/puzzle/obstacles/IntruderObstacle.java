@@ -1,39 +1,40 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.slamdunk.wordgraph.Assets;
+import java.util.List;
+
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphEdge;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
- * Isole une lettre
+ * Ne sert à rien à part noter qu'une lettre ne sert à aucun mot
  */
-public class IsleObstacle implements Obstacle{
+public class IntruderObstacle implements Obstacle{
+	private IntruderObstacleManager manager;
 	private String letter;
 	private boolean isActive;
 	private GraphNode node;
 	
-	public IsleObstacle(String letter) {
+	public IntruderObstacle(String letter) {
 		this.letter = letter;
 		isActive = true;
 	}
 
+	public void setManager(IntruderObstacleManager manager) {
+		this.manager = manager;
+	}
+
+
 	@Override
 	public void applyEffect(Graph graph) {
-		// Cache tous les liens vers et depuis cette lettre
-		if (node != null) {
-			for (GraphEdge edge : node.getEdges()) {
-				edge.setVisible(false);
-			}
-		}
+		// Rien de spécial à faire
 	}
 
 	@Override
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	
+
 	@Override
 	public boolean isActive() {
 		return isActive;
@@ -41,7 +42,7 @@ public class IsleObstacle implements Obstacle{
 	
 	@Override
 	public ObstaclesTypes getType() {
-		return ObstaclesTypes.ISLE;
+		return ObstaclesTypes.INTRUDER;
 	}
 	
 	public String getLetter() {
@@ -50,15 +51,11 @@ public class IsleObstacle implements Obstacle{
 
 	@Override
 	public void init(Graph graph) {
-		// Récupère la lettre isolée
+		// Récupère la lettre intruse
 		node = graph.getNode(letter);
-		isActive = node != null;
-		if (isActive) {
-			// Place une image d'eau sur la lettre isolée
-			Image water = new Image(Assets.defaultPuzzleSkin.getDrawable("obstacle-isle"));
-			node.addActor(water);
-			water.setZIndex(0);
-			water.setPosition((node.getWidth() - water.getWidth()) / 2, (node.getHeight() - water.getHeight()) / 2);
+		if (node == null) {
+			// Aucun node n'existe avec cette lettre, on désactive l'obstacle
+			isActive = false;
 		}
 	}
 }

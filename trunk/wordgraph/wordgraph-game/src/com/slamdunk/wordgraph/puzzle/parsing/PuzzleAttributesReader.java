@@ -14,6 +14,8 @@ import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
 
@@ -195,11 +197,22 @@ public class PuzzleAttributesReader {
 		String obstacleFog = propertiesFile.getProperty("obstacles.fog", "");
 		if (!obstacleFog.isEmpty()) {
 			FogObstacleManager fogObstacleManager = new FogObstacleManager();
-			String[] isolatedLetters = obstacleFog.split(",");
-			for (String letter : isolatedLetters) {
+			String[] maskedLetters = obstacleFog.split(",");
+			for (String letter : maskedLetters) {
 				fogObstacleManager.add(letter, new FogObstacle(letter));
 			}
 			puzzleAttributes.setFogObstacleManager(fogObstacleManager);
+		}
+		
+		// Lettres intruses
+		String obstacleIntruder = propertiesFile.getProperty("obstacles.intruder", "");
+		if (!obstacleIntruder.isEmpty()) {
+			IntruderObstacleManager intruderObstacleManager = new IntruderObstacleManager();
+			String[] intrudingLetters = obstacleIntruder.split(",");
+			for (String letter : intrudingLetters) {
+				intruderObstacleManager.add(letter, new IntruderObstacle(letter));
+			}
+			puzzleAttributes.setIntruderObstacleManager(intruderObstacleManager);
 		}
 	}
 }
