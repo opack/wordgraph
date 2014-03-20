@@ -300,4 +300,19 @@ public class GraphEdge extends Group {
 			child.translate(- min.x, - min.y);
 		}
 	}
+
+	/**
+	 * Retourne l'autre extrémité du lien
+	 * @param letter La lettre qui se trouve à une extrémité
+	 * @return
+	 */
+	public String getOtherEnd(String letter) {
+		if (sourceLetter.equals(letter)) {
+			return targetLetter;
+		}
+		if (targetLetter.equals(letter)) {
+			return sourceLetter;
+		}
+		return null;
+	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
 
 public class PuzzleAttributes {
@@ -16,6 +17,7 @@ public class PuzzleAttributes {
 	private Skin skin;
 	private IsleObstacleManager isleObstacleManager;
 	private FogObstacleManager fogObstacleManager;
+	private IntruderObstacleManager intruderObstacleManager;
 	
 	public PuzzleAttributes() {
 		riddles = new ArrayList<Riddle>();
@@ -119,5 +121,13 @@ public class PuzzleAttributes {
 
 	public void setFogObstacleManager(FogObstacleManager fogObstacleManager) {
 		this.fogObstacleManager = fogObstacleManager;
+	}
+
+	public IntruderObstacleManager getIntruderObstacleManager() {
+		return intruderObstacleManager;
+	}
+
+	public void setIntruderObstacleManager(IntruderObstacleManager intruderObstacleManager) {
+		this.intruderObstacleManager = intruderObstacleManager;
 	}
 }

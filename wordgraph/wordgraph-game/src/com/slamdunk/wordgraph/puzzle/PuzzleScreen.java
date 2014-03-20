@@ -36,6 +36,7 @@ import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphEdge;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
 
@@ -50,6 +51,7 @@ public class PuzzleScreen implements Screen {
 	private Graph graph;
 	private IsleObstacleManager isleObstacleManager;
 	private FogObstacleManager fogObstacleManager;
+	private IntruderObstacleManager intruderObstacleManager;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
@@ -70,6 +72,8 @@ public class PuzzleScreen implements Screen {
 	private LinkedList<String> pendingLetters;
 	private LinkedList<GraphEdge> selectedLinks;
 	
+	private List<PuzzleListener> listeners;
+	
 	private FPSLogger fpsLogger = new FPSLogger();
 	
 	public PuzzleScreen(WordGraphGame game) {
@@ -79,6 +83,29 @@ public class PuzzleScreen implements Screen {
 		selectedLinks = new LinkedList<GraphEdge>();
 		
 		stage = new Stage();
+	}
+	
+	private void addListener(PuzzleListener listener) {
+		if (listeners == null) {
+			listeners = new ArrayList<PuzzleListener>();
+		}
+		listeners.add(listener);
+	}
+	
+	private void notifyGraphLoaded(Graph graph) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.graphLoaded(graph);
+			}
+		}
+	}
+	
+	private void notifyWordValidated(String word) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.wordValidated(word);
+			}
+		}
 	}
 	
 	public void setPuzzleToPlay(String pack, String puzzle) {
@@ -269,24 +296,17 @@ public class PuzzleScreen implements Screen {
 		}
 		graph.hideIsolatedNodes();
 		
-		// Application des obstacles
-		initObstacles();
-		applyObstacles();
+		// Notification des listeners
+		notifyGraphLoaded(graph);
 	}
 	
-	/**
-	 * Initialise les obstacles sur le graphe.
-	 */
-	private void initObstacles() {
-		isleObstacleManager.init(graph);
-		fogObstacleManager.init(graph);
-	}
-
 	/**
 	 * Applique les obstacles sur le graphe.
 	 */
 	private void applyObstacles() {
-		isleObstacleManager.applyEffect(graph);
+		isleObstacleManager.applyEffect();
+		fogObstacleManager.applyEffect();
+		intruderObstacleManager.applyEffect();
 	}
 
 	/**
@@ -300,14 +320,25 @@ public class PuzzleScreen implements Screen {
 		// Chargement des attributs du puzzle
 		PuzzleAttributesReader puzzleAttributesReader = new PuzzleAttributesReader();
 		puzzleAttributes = puzzleAttributesReader.read("puzzles/" + puzzlePack + "/" + puzzleName + ".properties");
+		
+		// Récupération des gestionnaires d'obstacles
 		isleObstacleManager = puzzleAttributes.getIsleObstacleManager();
 		if (isleObstacleManager == null) {
 			isleObstacleManager = new IsleObstacleManager();
 		}
+		addListener(isleObstacleManager);
 		fogObstacleManager = puzzleAttributes.getFogObstacleManager();
 		if (fogObstacleManager == null) {
 			fogObstacleManager = new FogObstacleManager();
 		}
+		addListener(fogObstacleManager);
+		intruderObstacleManager = puzzleAttributes.getIntruderObstacleManager();
+		if (intruderObstacleManager == null) {
+			intruderObstacleManager = new IntruderObstacleManager();
+		}
+		addListener(intruderObstacleManager);
+		
+		// Récupération de la skin du puzzle
 		Skin puzzleSkin = puzzleAttributes.getSkin();
 		if (puzzleSkin == null) {
 			puzzleSkin = Assets.defaultPuzzleSkin;
@@ -435,14 +466,14 @@ public class PuzzleScreen implements Screen {
 			}
 			puzzlePreferences.setEdgeUsed(usedLinks, true);
 			
-			// Suppression des lettres isolées
+			// Cache les lettres isolées
 			graph.hideIsolatedNodes();
 			
 			// Désactivation des lettres mises en évidence
 			graph.highlightAllNodes(false);
 			
-			// Désactivation des obstacles brouillard
-			fogObstacleManager.clearFog(suggestion);
+			// Notifie les listeners qu'un mot a été validé
+			notifyWordValidated(suggestion);
 			
 			// Ajout des points
 			scoreBoard.addRightSuggestionSeries();
@@ -450,6 +481,9 @@ public class PuzzleScreen implements Screen {
 		} else {
 			scoreBoard.badSuggestion();
 		}
+		
+		// Application des obstacles sur le graphe
+		applyObstacles();
 		
 		// Réinitialisation de la suggestion
 		cancelWord();
@@ -484,7 +518,6 @@ public class PuzzleScreen implements Screen {
 		validateButton.setDisabled(true);
 		backspaceButton.setDisabled(true);
 		
-		System.out.println("PuzzleScreen.animateLetterFly() " + button.getName());
 		final TextButton copy = new TextButton(text, button.getStyle());
 		copy.setName("copy" + button.getName());//DBG
 		copy.setBounds(
@@ -510,8 +543,6 @@ public class PuzzleScreen implements Screen {
 						// Suppression de la lettre copiée
 						copy.setVisible(false);
 						copy.remove();
-						
-						System.out.println("PuzzleScreen.animateLetterFly() " + copy.getName());
 						
 						// Ajoute la prochaine lettre en attente d'ajout
 						if (!pendingLetters.isEmpty()) {
