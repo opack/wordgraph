@@ -1,22 +1,22 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 
 public class ObstacleManager<O extends Obstacle> {
-	private List<O> obstacles;
+	private Map<String, O> obstacles;
 	
 	public ObstacleManager(){
-		obstacles = new ArrayList<O>();
+		obstacles = new HashMap<String, O>();
 	}
 	
-	public void add(O obstacle) {
-		obstacles.add(obstacle);
+	public void add(String target, O obstacle) {
+		obstacles.put(target, obstacle);
 	}
 	
-	public List<O> getObstacles() {
+	public Map<String, O> getObstacles() {
 		return obstacles;
 	}
 
@@ -25,7 +25,7 @@ public class ObstacleManager<O extends Obstacle> {
 	 * @param graph
 	 */
 	public void init(Graph graph) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : obstacles.values()) {
         	if (obstacle.isActive()) {
         		obstacle.init(graph);
         	}
@@ -37,7 +37,7 @@ public class ObstacleManager<O extends Obstacle> {
 	 * @param graph
 	 */
 	public void applyEffect(Graph graph) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : obstacles.values()) {
         	if (obstacle.isActive()) {
         		obstacle.applyEffect(graph);
         	}

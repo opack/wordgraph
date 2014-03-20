@@ -12,6 +12,8 @@ import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
+import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
 
@@ -178,14 +180,26 @@ public class PuzzleAttributesReader {
 	 * @param puzzleAttributes
 	 */
 	private void loadObstacles(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+		// Lettres isolées
 		String obstacleIsle = propertiesFile.getProperty("obstacles.isle", "");
 		if (!obstacleIsle.isEmpty()) {
 			IsleObstacleManager isleObstacleManager = new IsleObstacleManager();
 			String[] isolatedLetters = obstacleIsle.split(",");
 			for (String letter : isolatedLetters) {
-				isleObstacleManager.add(new IsleObstacle(letter));
+				isleObstacleManager.add(letter, new IsleObstacle(letter));
 			}
 			puzzleAttributes.setIsleObstacleManager(isleObstacleManager);
+		}
+		
+		// Lettres cachées
+		String obstacleFog = propertiesFile.getProperty("obstacles.fog", "");
+		if (!obstacleFog.isEmpty()) {
+			FogObstacleManager fogObstacleManager = new FogObstacleManager();
+			String[] isolatedLetters = obstacleFog.split(",");
+			for (String letter : isolatedLetters) {
+				fogObstacleManager.add(letter, new FogObstacle(letter));
+			}
+			puzzleAttributes.setFogObstacleManager(fogObstacleManager);
 		}
 	}
 }

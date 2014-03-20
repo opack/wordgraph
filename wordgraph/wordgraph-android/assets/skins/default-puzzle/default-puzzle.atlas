@@ -5,7 +5,7 @@ filter: Nearest,Nearest
 repeat: none
 button
   rotate: false
-  xy: 929, 10
+  xy: 438, 187
   size: 64, 64
   split: 7, 8, 7, 12
   orig: 64, 64
@@ -13,7 +13,7 @@ button
   index: -1
 edge
   rotate: false
-  xy: 1011, 116
+  xy: 362, 125
   size: 10, 10
   split: 3, 3, 3, 3
   orig: 10, 10
@@ -21,65 +21,72 @@ edge
   index: -1
 edge-highlighted
   rotate: false
-  xy: 36, 34
+  xy: 2, 9
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
   index: -1
 edge-normal
   rotate: false
-  xy: 446, 20
+  xy: 296, 63
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
   index: -1
 edge2
   rotate: false
-  xy: 601, 34
+  xy: 254, 189
   size: 30, 10
   orig: 30, 10
   offset: 0, 0
   index: -1
 joker-bishop
   rotate: false
-  xy: 601, 46
+  xy: 132, 106
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-knight
   rotate: false
-  xy: 683, 46
+  xy: 356, 171
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-queen
   rotate: false
-  xy: 765, 46
+  xy: 214, 106
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-rook
   rotate: false
-  xy: 847, 46
+  xy: 132, 24
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+obstacle-fog
+  rotate: false
+  xy: 438, 122
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
 obstacle-isle
   rotate: false
-  xy: 506, 33
-  size: 93, 93
-  split: 21, 21, 20, 22
+  xy: 296, 106
+  size: 64, 63
+  split: 32, 31, 29, 33
   pad: 15, 15, 15, 15
-  orig: 93, 93
+  orig: 64, 63
   offset: 0, 0
   index: -1
 popup-window
   rotate: false
-  xy: 2, 9
+  xy: 296, 72
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -88,49 +95,49 @@ popup-window
   index: -1
 puzzle-back-down
   rotate: false
-  xy: 2, 43
+  xy: 2, 168
   size: 128, 83
   orig: 128, 83
   offset: 0, 0
   index: -1
 puzzle-back-up
   rotate: false
-  xy: 132, 43
+  xy: 2, 83
   size: 128, 83
   orig: 128, 83
   offset: 0, 0
   index: -1
 puzzle-backspace
   rotate: false
-  xy: 929, 76
+  xy: 214, 54
   size: 80, 50
   orig: 80, 50
   offset: 0, 0
   index: -1
 puzzle-cancel
   rotate: false
-  xy: 364, 11
+  xy: 214, 2
   size: 80, 50
   orig: 80, 50
   offset: 0, 0
   index: -1
 puzzle-joker-down
   rotate: false
-  xy: 262, 63
+  xy: 132, 188
   size: 120, 63
   orig: 120, 63
   offset: 0, 0
   index: -1
 puzzle-joker-up
   rotate: false
-  xy: 384, 63
+  xy: 2, 18
   size: 120, 63
   orig: 120, 63
   offset: 0, 0
   index: -1
 puzzle-suggestion
   rotate: false
-  xy: 446, 29
+  xy: 362, 137
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -139,14 +146,14 @@ puzzle-suggestion
   index: -1
 puzzle-validate
   rotate: false
-  xy: 262, 11
+  xy: 254, 201
   size: 100, 50
   orig: 100, 50
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 446, 2
+  xy: 330, 88
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

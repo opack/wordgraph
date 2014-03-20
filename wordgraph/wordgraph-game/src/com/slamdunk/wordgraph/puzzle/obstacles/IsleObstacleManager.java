@@ -13,14 +13,6 @@ public class IsleObstacleManager extends ObstacleManager<IsleObstacle> {
 	 * @return
 	 */
 	public boolean isIsolated(String selected) {
-		for (Obstacle obstacle : getObstacles()) {
-			if (obstacle.getType() == ObstaclesTypes.ISLE) {
-				IsleObstacle isle = (IsleObstacle)obstacle;
-				if (isle.getLetter().equals(selected)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return getObstacles().containsKey(selected);
 	}
 }
