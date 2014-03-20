@@ -1,13 +1,14 @@
 package com.slamdunk.utils;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.messagebox.MessageBox;
 import com.slamdunk.wordgraph.messagebox.MessageBox.MessageBoxStyle;
@@ -15,14 +16,14 @@ import com.slamdunk.wordgraph.messagebox.MessageBoxBuilder;
 
 public class MessageBoxUtils {
 	private static boolean isDisplayingBox;
-	private static final ChangeListener toggleDisplayBoxBoolean;
+	private static final ClickListener toggleDisplayBoxBoolean;
 	private static MessageBoxStyle messageBoxStyle;
 	private static MessageBoxStyle confirmBoxStyle;
 	
 	static {
-		toggleDisplayBoxBoolean = new ChangeListener() {
+		toggleDisplayBoxBoolean = new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
 				isDisplayingBox = false;
 			}
 		};

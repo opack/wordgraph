@@ -12,21 +12,21 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.slamdunk.utils.MessageBoxUtils;
+import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
@@ -35,6 +35,7 @@ import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphEdge;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
 
@@ -48,6 +49,7 @@ public class PuzzleScreen implements Screen {
 	private PuzzleAttributes puzzleAttributes;
 	private Graph graph;
 	private IsleObstacleManager isleObstacleManager;
+	private FogObstacleManager fogObstacleManager;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
@@ -205,32 +207,27 @@ public class PuzzleScreen implements Screen {
 		}
 		
 		// Affectation des listeners
-		creator.getActor("back").addListener(new ChangeListener() {
+		creator.getActor("back").addListener(new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
 				onBack();
 			}
         });
-		creator.getActor("joker").addListener(new ChangeListener() {
+		creator.getActor("joker").addListener(new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
 				onJoker();
 			}
         });
-		validateButton.addListener(new ChangeListener() {
-			// Il vaut mieux utiliser un ChangeListener qu'un ClickListener car
-			// le ClickListener exécute toujours son code lorsque le widget est
-			// cliqué, peu importe qu'il soit disabled ou non. En revanche le
-			// ChangeListener ne sera notifié qu'en cas de modification du
-			// widget, ce qui ne peut pas arriver s'il est disabled.
+		validateButton.addListener(new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
 				validateWord();
 			}
         });
-		backspaceButton.addListener(new ChangeListener() {
+		backspaceButton.addListener(new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
 				backspace();
 			}
         });
@@ -282,6 +279,7 @@ public class PuzzleScreen implements Screen {
 	 */
 	private void initObstacles() {
 		isleObstacleManager.init(graph);
+		fogObstacleManager.init(graph);
 	}
 
 	/**
@@ -306,6 +304,10 @@ public class PuzzleScreen implements Screen {
 		if (isleObstacleManager == null) {
 			isleObstacleManager = new IsleObstacleManager();
 		}
+		fogObstacleManager = puzzleAttributes.getFogObstacleManager();
+		if (fogObstacleManager == null) {
+			fogObstacleManager = new FogObstacleManager();
+		}
 		Skin puzzleSkin = puzzleAttributes.getSkin();
 		if (puzzleSkin == null) {
 			puzzleSkin = Assets.defaultPuzzleSkin;
@@ -329,7 +331,7 @@ public class PuzzleScreen implements Screen {
 		// Récupère la lettre sélectionnée et la dernière lettre actuelle
 		String currentWord = currentSuggestion.getText().toString();
 		String last = currentWord.isEmpty() ? "" : currentWord.substring(currentWord.length() - 1);
-		String selected = button.getText().toString();
+		String selected = button.getName().toString();
 		
 		// Récupère le lien entre les lettres
 		if (!last.isEmpty()) {
@@ -354,48 +356,8 @@ public class PuzzleScreen implements Screen {
 		// Ajoute la lettre au mot courant
 		currentSuggestion.setText(currentWord + selected);
 		
-		// Lance une jolie animation qui "envoie" la lettre vers le libellé de suggestion
-		pendingLetters.add(selected);
-		// Pendant l'animation, on ne peut pas faire de validation ni de backspace
-		validateButton.setDisabled(true);
-		backspaceButton.setDisabled(true);
-		final TextButton copy = new TextButton(button.getText().toString(), button.getStyle());
-		copy.setBounds(
-			button.getX() + graph.getX(),
-			button.getY() + graph.getY(),
-			button.getWidth(),
-			button.getHeight());
-		copy.setColor(1,1,1,0.5f);
-		stage.addActor(copy);
-		copy.addAction(Actions.sequence(
-				Actions.moveTo(
-					suggestionLabel.getX() + currentSuggestion.getTextBounds().width,
-					suggestionLabel.getY() + suggestionLabel.getHeight() / 2 - copy.getHeight() / 2,
-					0.6f,
-					Interpolation.circleOut),
-				new Action() {
-					@Override
-					public boolean act(float delta) {
-						if (!copy.hasParent()) {
-							// On ne gère l'action que si le bouton est toujours dans le graphe
-							return true;
-						}
-						// Suppression de la lettre copiée
-						copy.setVisible(false);
-						copy.remove();
-						
-						// Ajoute la prochaine lettre en attente d'ajout
-						if (!pendingLetters.isEmpty()) {
-							suggestionLabel.setText(suggestionLabel.getText() + pendingLetters.pop());
-							// Permet de valider ou d'annuler la saisie
-							validateButton.setDisabled(false);
-							backspaceButton.setDisabled(false);
-						}
-						return true;
-					}
-				}
-			)
-		);
+		// Lance une jolie animation qui "envoie" la lettre affichée vers le libellé de suggestion
+		animateLetterFly(button);
 		
 		// Fait un peu disparaître et désactive les lettres qui ne sont pas connectées.
 		fadeOutUnreachableLetters(selected);
@@ -409,7 +371,7 @@ public class PuzzleScreen implements Screen {
 	private void fadeOutUnreachableLetters(String sourceLetter) {
 		boolean isSelectedLetterIsolated = isleObstacleManager.isIsolated(sourceLetter);
 		for (GraphNode node : graph.getNodes()) {
-			String nodeLetter = node.getText().toString();
+			String nodeLetter = node.getName().toString();
 			boolean isReachable = 
 					// Ce noeud peut être atteint s'il y a un lien non utilisé
 					(!sourceLetter.equals(nodeLetter)
@@ -479,6 +441,9 @@ public class PuzzleScreen implements Screen {
 			// Désactivation des lettres mises en évidence
 			graph.highlightAllNodes(false);
 			
+			// Désactivation des obstacles brouillard
+			fogObstacleManager.clearFog(suggestion);
+			
 			// Ajout des points
 			scoreBoard.addRightSuggestionSeries();
 			scoreBoard.updateScore(riddle);			
@@ -502,6 +467,65 @@ public class PuzzleScreen implements Screen {
 			// Cache la ligne de suggestion et remplace le graphe par l'image de fin de puzzle
 			displayFinishImage();
 		}
+	}
+	
+	/**
+	 * Anime "l'envoi" de la lettre indiquée vers le label de suggestion
+	 * @param suggestion
+	 * @param destination
+	 */
+	private void animateLetterFly(TextButton button) {
+		// On travaille bien avec la lettre "affichée" et non "réelle", car en cas d'obstacle
+		// brouillard la lettre affichée sera "?".
+		String text = button.getText().toString();
+		pendingLetters.add(text);
+		
+		// Pendant l'animation, on ne peut pas faire de validation ni de backspace
+		validateButton.setDisabled(true);
+		backspaceButton.setDisabled(true);
+		
+		System.out.println("PuzzleScreen.animateLetterFly() " + button.getName());
+		final TextButton copy = new TextButton(text, button.getStyle());
+		copy.setName("copy" + button.getName());//DBG
+		copy.setBounds(
+			button.getX() + graph.getX(),
+			button.getY() + graph.getY(),
+			button.getWidth(),
+			button.getHeight());
+		copy.setColor(1,1,1,0.5f);
+		stage.addActor(copy);
+		copy.addAction(Actions.sequence(
+				Actions.moveTo(
+					suggestionLabel.getX() + currentSuggestion.getTextBounds().width,
+					suggestionLabel.getY() + suggestionLabel.getHeight() / 2 - copy.getHeight() / 2,
+					0.6f,
+					Interpolation.circleOut),
+				new Action() {
+					@Override
+					public boolean act(float delta) {
+						if (!copy.hasParent()) {
+							// On ne gère l'action que si le bouton est toujours dans le graphe
+							return true;
+						}
+						// Suppression de la lettre copiée
+						copy.setVisible(false);
+						copy.remove();
+						
+						System.out.println("PuzzleScreen.animateLetterFly() " + copy.getName());
+						
+						// Ajoute la prochaine lettre en attente d'ajout
+						if (!pendingLetters.isEmpty()) {
+							suggestionLabel.setText(suggestionLabel.getText() + pendingLetters.pop());
+							
+							// Permet de valider ou d'annuler la saisie
+							validateButton.setDisabled(false);
+							backspaceButton.setDisabled(false);
+						}
+						return true;
+					}
+				}
+			)
+		);
 	}
 	
 	/**
@@ -594,9 +618,9 @@ public class PuzzleScreen implements Screen {
 			MessageBoxUtils.showConfirm(
 				"Quitter le puzzle ?",
 				stage,
-				new ChangeListener() {
+				new ButtonClickListener() {
 					@Override
-					public void changed(ChangeEvent event, Actor actor) {
+					public void clicked(Button button) {
 						// Enregistre le temps actuel
 						puzzlePreferences.setElapsedTime(chrono.getTime());
 						
@@ -604,9 +628,9 @@ public class PuzzleScreen implements Screen {
 						backToPackScreen();
 					}
 				},
-				new ChangeListener() {
+				new ButtonClickListener() {
 					@Override
-					public void changed(ChangeEvent event, Actor actor) {
+					public void clicked(Button button) {
 						// Redémarre le compteur et raffiche le graphe
 						chrono.start();
 						graph.setVisible(true);
@@ -639,6 +663,7 @@ public class PuzzleScreen implements Screen {
 	 */
 	private void backspace() {
 		String curText = suggestionLabel.getText().toString();
+		String curSuggestion = currentSuggestion.getText().toString();
 		// S'il reste une lettre en train d'arriver ou qu'il n'y a pas de suggestion,
 		// on ne peut pas faire de backspace		
 		if (!pendingLetters.isEmpty() || curText.isEmpty()) {
@@ -648,7 +673,8 @@ public class PuzzleScreen implements Screen {
 		// Supprime la dernière lettre sélectionnée
 		String newText = curText.substring(0, curText.length() - 1);
 		suggestionLabel.setText(newText);
-		currentSuggestion.setText(newText);
+		String newSuggestion = curSuggestion.substring(0, curText.length() - 1);
+		currentSuggestion.setText(newSuggestion);
 		
 		// Activation des boutons
 		boolean isTextEmpty = newText.isEmpty();
@@ -662,15 +688,17 @@ public class PuzzleScreen implements Screen {
 		}
 		
 		// Désélection de la lettre si elle n'est plus dans le mot
-		String removedLetter = curText.substring(curText.length() - 1);
-		if (newText.indexOf(removedLetter) == -1) {
+		// On travaille avec la suggestion réelle et non celle qui est affichée,
+		// en cas de lettre dans l'ombre.
+		String removedLetter = curSuggestion.substring(curText.length() - 1);
+		if (newSuggestion.indexOf(removedLetter) == -1) {
 			GraphNode node = graph.getNode(removedLetter);
 			setSelectedStyle(node, false);
 		}
 		
 		// Mise en évidence des lettres accessibles
-		if (!newText.isEmpty()) {
-			String lastLetter = newText.substring(newText.length() - 1);
+		if (!newSuggestion.isEmpty()) {
+			String lastLetter = newSuggestion.substring(newSuggestion.length() - 1);
 			fadeOutUnreachableLetters(lastLetter);
 		} else {
 			// Il n'y a plus de lettres dans la suggestion : toutes les lettres sont donc accessibles

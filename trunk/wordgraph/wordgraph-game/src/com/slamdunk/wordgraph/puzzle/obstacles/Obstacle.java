@@ -30,6 +30,12 @@ public interface Obstacle {
 	boolean isActive();
 	
 	/**
+	 * Définit si l'obstacle est actif ou non
+	 * @param isActive
+	 */
+	void setActive(boolean isActive);
+	
+	/**
 	 * Retourne le type de l'obstacle
 	 * @return
 	 */

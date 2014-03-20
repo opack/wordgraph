@@ -3,17 +3,15 @@ package com.slamdunk.wordgraph.pack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.WordGraphGame;
@@ -92,9 +90,9 @@ public class PackScreen implements Screen {
 		creator.load("layouts/pack.ui.svg");
 		
 		// Affectation des listeners
-		creator.getActor("back").addListener(new ChangeListener() {
+		creator.getActor("back").addListener(new ButtonClickListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void clicked(Button button) {
         		onBack();
 			}
         });
