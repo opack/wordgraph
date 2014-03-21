@@ -112,4 +112,40 @@ public class ObstacleManager implements PuzzleListener {
         	}
         }
 	}
+
+	@Override
+	public void letterSelected(String letter) {
+		for (Obstacle obstacle : obstacles) {
+        	if (obstacle.isActive()) {
+        		obstacle.letterSelected(letter);
+        	}
+        }
+	}
+	
+	@Override
+	public void timeElapsed(float delta) {
+		for (Obstacle obstacle : obstacles) {
+        	if (obstacle.isActive()) {
+        		obstacle.timeElapsed(delta);
+        	}
+        }
+	}
+
+	@Override
+	public void wordRejected(String word) {
+		for (Obstacle obstacle : obstacles) {
+        	if (obstacle.isActive()) {
+        		obstacle.wordRejected(word);
+        	}
+        }
+	}
+
+	@Override
+	public void letterUnselected(String letter) {
+		for (Obstacle obstacle : obstacles) {
+        	if (obstacle.isActive()) {
+        		obstacle.letterUnselected(letter);
+        	}
+        }
+	}
 }

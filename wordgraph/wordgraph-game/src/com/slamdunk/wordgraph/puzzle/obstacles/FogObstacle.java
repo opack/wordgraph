@@ -1,7 +1,6 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
@@ -32,18 +31,6 @@ public class FogObstacle extends NodeObstacle{
 				setImage(null);
 			}
 		}
-	}
-
-	@Override
-	public void linkUsed(GraphLink link) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void nodeHidden(GraphNode node) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

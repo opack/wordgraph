@@ -33,4 +33,31 @@ public interface PuzzleListener {
 	 * @param word
 	 */
 	void wordValidated(String word);
+	
+	/**
+	 * Méthode appelée lorsqu'un mot est rejeté
+	 * @param word
+	 */
+	void wordRejected(String word);
+	
+	/**
+	 * Méthode appelée lorsqu'une lettre est sélectionnée, c'est-à-dire que
+	 * le joueur a touché cette lettre et qu'elle est allée dans la suggestion,
+	 * même si le mot ne sera ensuite pas validé
+	 * @param letter
+	 */
+	void letterSelected(String letter);
+	
+	/**
+	 * Méthode appelée lorsqu'une lettre est désélectionnée, c'est-à-dire que
+	 * le joueur a utilisé backspace pour la retirer de la suggestion
+	 * @param letter
+	 */
+	void letterUnselected(String letter);
+
+	/**
+	 * Méthode appelée lorsque du temps s'est écoulé
+	 * @param delta
+	 */
+	void timeElapsed(float delta);
 }

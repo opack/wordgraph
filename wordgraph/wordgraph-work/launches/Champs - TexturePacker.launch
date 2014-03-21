@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
-<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.ui.externaltools.launchGroup"/>
-</listAttribute>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${system_property:java.home}\bin\java.exe"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-cp &quot;C:/Progz/dev/LibGDX/gdx.jar;C:/Progz/dev/LibGDX/extensions/gdx-tools.jar&quot; com.badlogic.gdx.tools.imagepacker.TexturePacker2 default-puzzle-skin/images ${workspace_loc:/wordgraph-android/assets/skins/default-puzzle} default-puzzle.atlas"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/wordgraph-work}"/>
-</launchConfiguration>

@@ -41,7 +41,7 @@ joker-rook
   index: -1
 link
   rotate: false
-  xy: 396, 159
+  xy: 362, 60
   size: 10, 10
   split: 3, 3, 3, 3
   orig: 10, 10
@@ -84,9 +84,16 @@ obstacle-isle
   orig: 64, 63
   offset: 0, 0
   index: -1
+obstacle-morph
+  rotate: false
+  xy: 362, 106
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
 popup-window
   rotate: false
-  xy: 362, 137
+  xy: 296, 7
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -137,7 +144,7 @@ puzzle-joker-up
   index: -1
 puzzle-suggestion
   rotate: false
-  xy: 296, 7
+  xy: 362, 72
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -153,7 +160,7 @@ puzzle-validate
   index: -1
 white
   rotate: false
-  xy: 362, 119
+  xy: 330, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

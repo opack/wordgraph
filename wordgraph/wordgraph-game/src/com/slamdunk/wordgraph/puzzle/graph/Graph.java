@@ -228,7 +228,7 @@ public class Graph extends Group {
 	private void createGraphLinks(GraphObject graph, Vector2 offset, Map<Integer, GraphNode> nodesById) {
 		List<GraphObject> listLinks = graph.getListObject("edge");
 		if (listLinks == null) {
-			// Peut-être n'y a-t-il qu'une seule link ;)
+			// Peut-être n'y a-t-il qu'un seul link ;)
 			GraphObject link = graph.getSingleObject("edge");
 			listLinks = new ArrayList<GraphObject>();
 			listLinks.add(link);
@@ -265,7 +265,7 @@ public class Graph extends Group {
 			// Si la ligne comporte des points, la dessine
 			if (link.length() > 1) {
 				// Ajustement des extrémités sur les ancres
-				GraphObject anchor = graphLink.getSingleObject("linkAnchor");
+				GraphObject anchor = graphLink.getSingleObject("edgeAnchor");
 				if (anchor != null) {
 					// Décale les extrémités sur les ancres
 					Vector2 source = link.getPoint(0);

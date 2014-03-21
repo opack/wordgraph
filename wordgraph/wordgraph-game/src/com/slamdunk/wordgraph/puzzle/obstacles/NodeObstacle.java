@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 public abstract class NodeObstacle extends Obstacle {
@@ -45,31 +44,4 @@ public abstract class NodeObstacle extends Obstacle {
 		image.setZIndex(0);
 		image.setPosition((node.getWidth() - image.getWidth()) / 2, (node.getHeight() - image.getHeight()) / 2);
 	}
-
-
-
-	@Override
-	public void linkUsed(GraphLink link) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void nodeHidden(GraphNode node) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void wordValidated(String word) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void applyEffect(Graph graph) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

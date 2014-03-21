@@ -134,4 +134,13 @@ public class PuzzlePreferencesHelper {
 		prefs.putBoolean("isObstacleActive." + type + "." + target, isActive);
 		prefs.flush();
 	}
+	
+	public int getMorphCurrentLetterIndex(String type, String target) {
+		return prefs.getInteger("morphCurrentLetterIndex." + type + "." + target, 0);
+	}
+
+	public void setMorphCurrentLetterIndex(String type, String target, int index) {
+		prefs.putInteger("morphCurrentLetterIndex." + type + "." + target, index);
+		prefs.flush();
+	}
 }

@@ -68,6 +68,7 @@ public class PuzzleScreen implements Screen {
 	private Label currentSuggestion;
 	private LinkedList<String> pendingLetters;
 	private LinkedList<GraphLink> selectedLinks;
+	private LinkedList<GraphNode> selectedNodes;
 	
 	private List<PuzzleListener> listeners;
 	
@@ -78,6 +79,7 @@ public class PuzzleScreen implements Screen {
 		solutionLabels = new HashMap<String, Label>();
 		pendingLetters = new LinkedList<String>();
 		selectedLinks = new LinkedList<GraphLink>();
+		selectedNodes = new LinkedList<GraphNode>();
 		
 		stage = new Stage();
 	}
@@ -113,10 +115,42 @@ public class PuzzleScreen implements Screen {
 		}
 	}
 	
+	private void notifyLetterSelected(String letter) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.letterSelected(letter);
+			}
+		}
+	}
+	
+	private void notifyLetterUnselected(String letter) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.letterUnselected(letter);
+			}
+		}
+	}
+	
 	private void notifyWordValidated(String word) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
 				listener.wordValidated(word);
+			}
+		}
+	}
+	
+	private void notifyWordRejected(String word) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.wordRejected(word);
+			}
+		}
+	}
+	
+	private void notifyTimeElapsed(float delta) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.timeElapsed(delta);
 			}
 		}
 	}
@@ -376,7 +410,9 @@ public class PuzzleScreen implements Screen {
 			}
 		}
 		// Sélectionne le bouton de cette lettre
+		selectedNodes.add(button);
 		setSelectedStyle(button, true);
+		notifyLetterSelected(selected);
 		
 		// Ajoute la lettre au mot courant
 		currentSuggestion.setText(currentWord + selected);
@@ -399,8 +435,8 @@ public class PuzzleScreen implements Screen {
 			String nodeLetter = node.getName().toString();
 			boolean isReachable = 
 					// Ce noeud peut être atteint s'il y a un lien non utilisé
-					(!sourceLetter.equals(nodeLetter)
-					&& graph.getLink(nodeLetter, sourceLetter, false) != null)
+					(/*dbg!sourceLetter.equals(nodeLetter)
+					&& */graph.getLink(nodeLetter, sourceLetter, false) != null)
 					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
 					// afin de désactiver l'aide des liens
 					|| isSelectedLetterIsolated
@@ -475,6 +511,9 @@ public class PuzzleScreen implements Screen {
 			scoreBoard.updateScore(riddle);			
 		} else {
 			scoreBoard.badSuggestion();
+			
+			// Notifie les listeners qu'un mot a été refusé
+			notifyWordRejected(suggestion);
 		}
 		
 		// Application des obstacles sur le graphe
@@ -713,6 +752,8 @@ public class PuzzleScreen implements Screen {
 		suggestionLabel.setText(newText);
 		String newSuggestion = curSuggestion.substring(0, curText.length() - 1);
 		currentSuggestion.setText(newSuggestion);
+		String removedLetter = curSuggestion.substring(curText.length() - 1);
+		notifyLetterUnselected(removedLetter);
 		
 		// Activation des boutons
 		boolean isTextEmpty = newText.isEmpty();
@@ -724,14 +765,15 @@ public class PuzzleScreen implements Screen {
 			GraphLink lastLink = selectedLinks.removeLast();
 			lastLink.setHighlighted(false);
 		}
+
+		if (!selectedNodes.isEmpty()) {
+			// Suppression du dernier node sélectionné
+			GraphNode lastNode = selectedNodes.removeLast();
 		
-		// Désélection de la lettre si elle n'est plus dans le mot
-		// On travaille avec la suggestion réelle et non celle qui est affichée,
-		// en cas de lettre dans l'ombre.
-		String removedLetter = curSuggestion.substring(curText.length() - 1);
-		if (newSuggestion.indexOf(removedLetter) == -1) {
-			GraphNode node = graph.getNode(removedLetter);
-			setSelectedStyle(node, false);
+			// Désélection de ce node si la lettre n'est plus dans le mot
+			if (newSuggestion.indexOf(removedLetter) == -1) {
+				setSelectedStyle(lastNode, false);
+			}
 		}
 		
 		// Mise en évidence des lettres accessibles
@@ -782,6 +824,9 @@ public class PuzzleScreen implements Screen {
         
         // Mise à jour du compteur de temps
         chrono.update(delta);
+        
+        // Mise à jour du temps pour les obstacles intéressés
+        notifyTimeElapsed(delta);
         
         // Dessin des autres composants du stage (label, boutons, noeuds...)
         Gdx.gl.glClearColor(245 / 255f, 237 / 255f, 217 / 255f, 1);
