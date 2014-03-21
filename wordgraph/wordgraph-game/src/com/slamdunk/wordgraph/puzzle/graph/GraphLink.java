@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-public class GraphEdge extends Group {
+public class GraphLink extends Group {
 	private static final int THICKNESS_HIGHLIGHTED = 5;
 //	private static final Color COLOR_HIGHLIGHTED = new Color(255 / 255f, 204 / 255f, 0 / 255f, 1 / 255f);
 	private static final int THICKNESS_NORMAL = 3;
@@ -42,7 +42,7 @@ public class GraphEdge extends Group {
 	private Drawable normalDrawable;
 	private Drawable highlightedDrawable;
 	
-	public GraphEdge(String id, String sourceLetter, String targetLetter) {
+	public GraphLink(String id, String sourceLetter, String targetLetter) {
 		// Les liens ne peuvent pas être touchés
 		setTouchable(Touchable.disabled);
 		
@@ -294,7 +294,7 @@ public class GraphEdge extends Group {
 			image.rotate(angleDeg);
 			addActor(image);
 		}
-		// Réajuste la taille et la position de l'objet GraphEdge et des images contenues
+		// Réajuste la taille et la position de l'objet GraphLink et des images contenues
 		setBounds(min.x, min.y, max.x - min.x, max.y - min.y);
 		for (Actor child : getChildren()) {
 			child.translate(- min.x, - min.y);

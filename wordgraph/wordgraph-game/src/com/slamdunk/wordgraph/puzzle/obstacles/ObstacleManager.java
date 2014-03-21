@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
+import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 public class ObstacleManager<O extends Obstacle> implements PuzzleListener {
 	private Graph graph;
@@ -62,7 +64,17 @@ public class ObstacleManager<O extends Obstacle> implements PuzzleListener {
 	}
 
 	@Override
+	public void linkUsed(GraphLink link) {
+		// Par défaut on ne fait rien
+	}
+	
+	@Override
 	public void wordValidated(String word) {
+		// Par défaut on ne fait rien
+	}
+
+	@Override
+	public void nodeHidden(GraphNode node) {
 		// Par défaut on ne fait rien
 	}
 }

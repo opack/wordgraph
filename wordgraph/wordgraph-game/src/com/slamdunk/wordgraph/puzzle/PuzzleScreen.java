@@ -33,7 +33,7 @@ import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphEdge;
+import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
@@ -70,7 +70,7 @@ public class PuzzleScreen implements Screen {
 	// nous faut un TextBounds pour déterminer la taille du mot suggéré
 	private Label currentSuggestion;
 	private LinkedList<String> pendingLetters;
-	private LinkedList<GraphEdge> selectedLinks;
+	private LinkedList<GraphLink> selectedLinks;
 	
 	private List<PuzzleListener> listeners;
 	
@@ -80,7 +80,7 @@ public class PuzzleScreen implements Screen {
 		this.game = game;
 		solutionLabels = new HashMap<String, Label>();
 		pendingLetters = new LinkedList<String>();
-		selectedLinks = new LinkedList<GraphEdge>();
+		selectedLinks = new LinkedList<GraphLink>();
 		
 		stage = new Stage();
 	}
@@ -96,6 +96,22 @@ public class PuzzleScreen implements Screen {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
 				listener.graphLoaded(graph);
+			}
+		}
+	}
+	
+	private void notifyLinkUsed(GraphLink link) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.linkUsed(link);
+			}
+		}
+	}
+	
+	private void notifyNodeHidden(GraphNode node) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.nodeHidden(node);
 			}
 		}
 	}
@@ -289,12 +305,12 @@ public class PuzzleScreen implements Screen {
 		
 		// Cache les liens et noeuds déjà cachés précédemment
 		boolean linkUsed;
-		for (GraphEdge edge : graph.getEdges()) {
-			linkUsed = puzzlePreferences.getEdgeUsed(edge.getName());
-			edge.setUsed(linkUsed);
-			edge.setVisible(!linkUsed);	
+		for (GraphLink link : graph.getLinks()) {
+			linkUsed = puzzlePreferences.getLinkUsed(link.getName());
+			link.setUsed(linkUsed);
+			link.setVisible(!linkUsed);	
 		}
-		graph.hideIsolatedNodes();
+		hideIsolatedNodes();
 		
 		// Notification des listeners
 		notifyGraphLoaded(graph);
@@ -366,11 +382,11 @@ public class PuzzleScreen implements Screen {
 		
 		// Récupère le lien entre les lettres
 		if (!last.isEmpty()) {
-			GraphEdge edge = graph.getEdge(last, selected, false);
+			GraphLink link = graph.getLink(last, selected, false);
 			// Met en évidence le lien
-			if (edge != null) {
-				edge.setHighlighted(true);
-				selectedLinks.add(edge);
+			if (link != null) {
+				link.setHighlighted(true);
+				selectedLinks.add(link);
 			} else if (!isleObstacleManager.isIsolated(last)
 					&& !isleObstacleManager.isIsolated(selected)) {
 				// Si aucun lien n'existe entre les 2 lettres et qu'aucune des deux
@@ -406,7 +422,7 @@ public class PuzzleScreen implements Screen {
 			boolean isReachable = 
 					// Ce noeud peut être atteint s'il y a un lien non utilisé
 					(!sourceLetter.equals(nodeLetter)
-					&& graph.getEdge(nodeLetter, sourceLetter, false) != null)
+					&& graph.getLink(nodeLetter, sourceLetter, false) != null)
 					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
 					// afin de désactiver l'aide des liens
 					|| isSelectedLetterIsolated
@@ -457,17 +473,18 @@ public class PuzzleScreen implements Screen {
 			
 			// Suppression des liens utilisés
 			List<String> usedLinks = new ArrayList<String>();
-			for (GraphEdge edge : graph.getEdges()) {
-				if (edge.isHighlighted()) {
-					edge.setUsed(true);
-					edge.setVisible(false);
-					usedLinks.add(edge.getName());
+			for (GraphLink link : graph.getLinks()) {
+				if (link.isHighlighted()) {
+					link.setUsed(true);
+					link.setVisible(false);
+					usedLinks.add(link.getName());
+					notifyLinkUsed(link);
 				}
 			}
-			puzzlePreferences.setEdgeUsed(usedLinks, true);
+			puzzlePreferences.setLinkUsed(usedLinks, true);
 			
 			// Cache les lettres isolées
-			graph.hideIsolatedNodes();
+			hideIsolatedNodes();
 			
 			// Désactivation des lettres mises en évidence
 			graph.highlightAllNodes(false);
@@ -596,6 +613,18 @@ public class PuzzleScreen implements Screen {
 	}
 	
 	/**
+	 * Cache les noeuds qui n'ont plus aucun lien avec d'autres noeuds
+	 */
+	private void hideIsolatedNodes() {
+		for (GraphNode node : graph.getNodes()) {
+			if (!node.isReachable()) {
+				node.setVisible(false);
+				notifyNodeHidden(node);
+			}
+		}
+	}
+	
+	/**
 	 * Affiche l'image indiquant que le puzzle est terminé, et cache les
 	 * composants permettant de saisir une suggestion
 	 */
@@ -714,7 +743,7 @@ public class PuzzleScreen implements Screen {
 		
 		// Désélection des liens qui ne sont plus sélectionnés
 		if (!selectedLinks.isEmpty()) {
-			GraphEdge lastLink = selectedLinks.removeLast();
+			GraphLink lastLink = selectedLinks.removeLast();
 			lastLink.setHighlighted(false);
 		}
 		
@@ -749,7 +778,7 @@ public class PuzzleScreen implements Screen {
 		selectedLinks.clear();
 		
 		// Raz des liens sélectionnés
-		graph.highlightAllEdges(false);
+		graph.highlightAllLinks(false);
 		
 		// Raz des lettres sélectionnées
 		// DBGgraph.selectAllNodes(false);
