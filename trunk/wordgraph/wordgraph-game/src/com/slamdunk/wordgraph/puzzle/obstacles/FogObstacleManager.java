@@ -16,7 +16,7 @@ public class FogObstacleManager extends ObstacleManager<FogObstacle> {
 			FogObstacle obstacle = obstacles.get(letter);
 			if (obstacle != null) {
 				obstacle.setActive(false);
-				obstacle.applyEffect(null);
+				obstacle.applyEffect(getGraph());
 			}
 		}
 	}

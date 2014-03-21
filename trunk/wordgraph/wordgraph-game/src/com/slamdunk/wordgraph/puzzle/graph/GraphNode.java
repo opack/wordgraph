@@ -9,23 +9,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  * Un noeud du graphe, donc une lettre
  */
 public class GraphNode extends TextButton {
-	private List<GraphEdge> edges;
+	private List<GraphLink> links;
 
 	public GraphNode(String text, TextButtonStyle style) {
 		super(text, style);
-		edges = new ArrayList<GraphEdge>();
+		links = new ArrayList<GraphLink>();
 	}
 
 	/**
 	 * Ajoute un lien connecté à ce noeud.
-	 * @param edge
+	 * @param link
 	 */
-	public void addEdge(GraphEdge edge) {
-		edges.add(edge);
+	public void addLink(GraphLink link) {
+		links.add(link);
 	}
 	
-	public List<GraphEdge> getEdges() {
-		return edges;
+	public List<GraphLink> getLinks() {
+		return links;
 	}
 
 	/**
@@ -34,8 +34,8 @@ public class GraphNode extends TextButton {
 	 * @return
 	 */
 	public boolean isReachable() {
-		for (GraphEdge edge : edges) {
-			if (!edge.isUsed()) {
+		for (GraphLink link : links) {
+			if (!link.isUsed()) {
 				return true;
 			}
 		}

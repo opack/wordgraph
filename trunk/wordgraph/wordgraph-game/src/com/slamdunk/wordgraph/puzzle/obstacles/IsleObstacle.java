@@ -3,7 +3,7 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphEdge;
+import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
@@ -23,8 +23,8 @@ public class IsleObstacle implements Obstacle{
 	public void applyEffect(Graph graph) {
 		// Cache tous les liens vers et depuis cette lettre
 		if (node != null) {
-			for (GraphEdge edge : node.getEdges()) {
-				edge.setVisible(false);
+			for (GraphLink link : node.getLinks()) {
+				link.setVisible(false);
 			}
 		}
 	}

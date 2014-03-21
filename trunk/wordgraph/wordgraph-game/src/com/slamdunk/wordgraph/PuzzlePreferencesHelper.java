@@ -54,9 +54,9 @@ public class PuzzlePreferencesHelper {
 		return puzzlePack + "_" + puzzleName;
 	}
 
-	public void setEdgeUsed(List<String> names, boolean used) {
+	public void setLinkUsed(List<String> names, boolean used) {
 		for (String name : names) {
-			prefs.putBoolean("edge." + name + ".used", used);
+			prefs.putBoolean("link." + name + ".used", used);
 		}
 		prefs.flush();
 	}
@@ -68,8 +68,8 @@ public class PuzzlePreferencesHelper {
 	 * @param name
 	 * @return
 	 */
-	public boolean getEdgeUsed(String name) {
-		return prefs.getBoolean("edge." + name + ".used", false);
+	public boolean getLinkUsed(String name) {
+		return prefs.getBoolean("link." + name + ".used", false);
 	}
 
 	/**

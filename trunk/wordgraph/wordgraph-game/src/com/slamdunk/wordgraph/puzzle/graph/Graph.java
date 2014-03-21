@@ -23,14 +23,14 @@ import com.slamdunk.wordgraph.puzzle.parsing.GraphObject;
 public class Graph extends Group {
 	private ShapeRenderer shapeRenderer;
 	private List<GraphNode> nodes;
-	private List<GraphEdge> edges;
+	private List<GraphLink> links;
 	private boolean centerGraph;
 	private TextButtonDecorator buttonDecorator;
 	
 	public Graph() {
 		shapeRenderer = new ShapeRenderer();
 		nodes = new ArrayList<GraphNode>();
-		edges = new ArrayList<GraphEdge>();
+		links = new ArrayList<GraphLink>();
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public class Graph extends Group {
 		
 		// Nettoie le graphe, au cas où
 		nodes.clear();
-		edges.clear();
+		links.clear();
 		clearChildren();
 		
 		// Ouverture et parsing du fichier puzzle
@@ -60,11 +60,11 @@ public class Graph extends Group {
 		Map<Integer, GraphNode> nodesById = createGraphNodes(graph, offset);
 		
 		// Création des liens
-        createGraphEdges(graph, offset, nodesById);
+        createGraphLinks(graph, offset, nodesById);
         
         // On s'assure que tous les liens seront dans le fond
-        for (GraphEdge edge : edges) {
-        	edge.setZIndex(0);
+        for (GraphLink link : links) {
+        	link.setZIndex(0);
         }
         
         // Centre le graph dans le conteneur
@@ -130,15 +130,15 @@ public class Graph extends Group {
 			}
 		}
 		
-		List<GraphObject> listEdges = graph.getListObject("edge");
-		if (listEdges == null) {
-			// Peut-être n'y a-t-il qu'une seule edge ;)
-			GraphObject edge = graph.getSingleObject("edge");
-			listEdges = new ArrayList<GraphObject>();
-			listEdges.add(edge);
+		List<GraphObject> listLinks = graph.getListObject("edge");
+		if (listLinks == null) {
+			// Peut-être n'y a-t-il qu'une seule link ;)
+			GraphObject link = graph.getSingleObject("edge");
+			listLinks = new ArrayList<GraphObject>();
+			listLinks.add(link);
 		}
-		for (GraphObject graphEdge : listEdges) {
-			GraphObject graphics = graphEdge.getSingleObject("graphics");
+		for (GraphObject graphLink : listLinks) {
+			GraphObject graphics = graphLink.getSingleObject("graphics");
 			GraphObject line = graphics.getSingleObject("Line");
 			if (line == null) {
 				// S'il n'y a pas de ligne définie, alors c'est que le lien est
@@ -225,27 +225,27 @@ public class Graph extends Group {
 	 * Crée les liens du graphe
 	 * @param root
 	 */
-	private void createGraphEdges(GraphObject graph, Vector2 offset, Map<Integer, GraphNode> nodesById) {
-		List<GraphObject> listEdges = graph.getListObject("edge");
-		if (listEdges == null) {
-			// Peut-être n'y a-t-il qu'une seule edge ;)
-			GraphObject edge = graph.getSingleObject("edge");
-			listEdges = new ArrayList<GraphObject>();
-			listEdges.add(edge);
+	private void createGraphLinks(GraphObject graph, Vector2 offset, Map<Integer, GraphNode> nodesById) {
+		List<GraphObject> listLinks = graph.getListObject("edge");
+		if (listLinks == null) {
+			// Peut-être n'y a-t-il qu'une seule link ;)
+			GraphObject link = graph.getSingleObject("edge");
+			listLinks = new ArrayList<GraphObject>();
+			listLinks.add(link);
 		}
-		for (GraphObject graphEdge : listEdges) {
+		for (GraphObject graphLink : listLinks) {
 			// Récupération des deux noeuds
-			GraphNode sourceNode = nodesById.get(graphEdge.getInt("source"));
-			GraphNode targetNode = nodesById.get(graphEdge.getInt("target"));
+			GraphNode sourceNode = nodesById.get(graphLink.getInt("source"));
+			GraphNode targetNode = nodesById.get(graphLink.getInt("target"));
 			
 			// Création du lien entre les noeuds
-			GraphEdge edge = new GraphEdge(graphEdge.getString("label"), sourceNode.getText().toString(), targetNode.getText().toString());
-			edge.setDrawables(Assets.defaultPuzzleSkin.getDrawable("edge-normal"), Assets.defaultPuzzleSkin.getDrawable("edge-highlighted"));//DBG
-			sourceNode.addEdge(edge);
-			targetNode.addEdge(edge);
+			GraphLink link = new GraphLink(graphLink.getString("label"), sourceNode.getText().toString(), targetNode.getText().toString());
+			link.setDrawables(Assets.defaultPuzzleSkin.getDrawable("link-normal"), Assets.defaultPuzzleSkin.getDrawable("link-highlighted"));//DBG
+			sourceNode.addLink(link);
+			targetNode.addLink(link);
 					
 			// Récupération des points de la ligne
-			GraphObject graphics = graphEdge.getSingleObject("graphics");
+			GraphObject graphics = graphLink.getSingleObject("graphics");
 			GraphObject line = graphics.getSingleObject("Line");
 			List<GraphObject> points = null;
 			if (line != null) {
@@ -253,34 +253,34 @@ public class Graph extends Group {
 			}
 			if (points == null || points.isEmpty()) {
 				// S'il n'y a aucun point, on relie les 2 centres
-				edge.addPoint(getCenterOf(sourceNode));
-				edge.addPoint(getCenterOf(targetNode));
+				link.addPoint(getCenterOf(sourceNode));
+				link.addPoint(getCenterOf(targetNode));
 			} else {
 				final float graphHeight = getHeight();
 				for (GraphObject point : points) {
-					edge.addPoint(point.getFloat("x") - offset.x, graphHeight - point.getFloat("y") - offset.y);
+					link.addPoint(point.getFloat("x") - offset.x, graphHeight - point.getFloat("y") - offset.y);
 				}
 			}
 			
 			// Si la ligne comporte des points, la dessine
-			if (edge.length() > 1) {
+			if (link.length() > 1) {
 				// Ajustement des extrémités sur les ancres
-				GraphObject anchor = graphEdge.getSingleObject("edgeAnchor");
+				GraphObject anchor = graphLink.getSingleObject("linkAnchor");
 				if (anchor != null) {
 					// Décale les extrémités sur les ancres
-					Vector2 source = edge.getPoint(0);
+					Vector2 source = link.getPoint(0);
 					source.x += anchor.getFloat("xSource", 0) * (sourceNode.getWidth() / 2);
 					source.y -= anchor.getFloat("ySource", 0) * (sourceNode.getHeight() / 2);
-					Vector2 target = edge.getPoint(edge.length() - 1);
+					Vector2 target = link.getPoint(link.length() - 1);
 					target.x += anchor.getFloat("xTarget", 0) * (targetNode.getWidth() / 2);
 					target.y -= anchor.getFloat("yTarget", 0) * (targetNode.getHeight() / 2);
 				}
 				
 				// Crée les images dessinant ce lien 
-				edge.computeImages();
+				link.computeImages();
 				
-				addActor(edge);
-				edges.add(edge);
+				addActor(link);
+				links.add(link);
 			}
 		}
 	}
@@ -296,13 +296,13 @@ public class Graph extends Group {
 	
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		// Met en pause le batch pour dessiner les edges en premier
+		// Met en pause le batch pour dessiner les links en premier
 		batch.end();
 		
 		// Dessine les liens
 		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
 		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-        drawEdges();
+        drawLinks();
         
         // Reprend le batch et dessine les noeuds
         batch.begin();
@@ -312,11 +312,11 @@ public class Graph extends Group {
 	/**
 	 * Dessine les lignes.
 	 */
-	public void drawEdges() {
+	public void drawLinks() {
 		// Dessin des lignes
 		//DBGGdx.gl.glEnable(GL10.GL_LINE_SMOOTH);
-        for (GraphEdge edge : edges) {
-        	edge.draw(shapeRenderer);
+        for (GraphLink link : links) {
+        	link.draw(shapeRenderer);
         }
 	}
 	
@@ -324,17 +324,17 @@ public class Graph extends Group {
 		return nodes;
 	}
 
-	public List<GraphEdge> getEdges() {
-		return edges;
+	public List<GraphLink> getLinks() {
+		return links;
 	}
 
 	/**
 	 * Définit la propriété highlighted de tous les liens
 	 * @param b
 	 */
-	public void highlightAllEdges(boolean isHighlighted) {
-		for (GraphEdge edge : edges) {
-			edge.setHighlighted(isHighlighted);
+	public void highlightAllLinks(boolean isHighlighted) {
+		for (GraphLink link : links) {
+			link.setHighlighted(isHighlighted);
 		}
 	}
 	
@@ -367,15 +367,15 @@ public class Graph extends Group {
 	/**
 	 * Retourne le premier lien entre 2 lettres (éventuellement non sélectionné).
 	 * Cette méthode ne regarde pas si le lien est visible ou sélectionné
-	 * @see #getEdge(String, String, boolean)
+	 * @see #getLink(String, String, boolean)
 	 * @param lettre1
 	 * @param lettre2
 	 * @return
 	 */
-	public GraphEdge getEdge(String letter1, String letter2) {
-		for (GraphEdge edge : edges) {
-			if (edge.isBetween(letter1, letter2)) {
-				return edge;
+	public GraphLink getLink(String letter1, String letter2) {
+		for (GraphLink link : links) {
+			if (link.isBetween(letter1, letter2)) {
+				return link;
 			}
 		}
 		return null;
@@ -388,10 +388,10 @@ public class Graph extends Group {
 	 * @param hightlighted
 	 * @return
 	 */
-	public GraphEdge getEdge(String letter1, String letter2, boolean hightlighted) {
-		for (GraphEdge edge : edges) {
-			if (!edge.isUsed() && edge.isBetween(letter1, letter2) && edge.isHighlighted() == hightlighted) {
-				return edge;
+	public GraphLink getLink(String letter1, String letter2, boolean hightlighted) {
+		for (GraphLink link : links) {
+			if (!link.isUsed() && link.isBetween(letter1, letter2) && link.isHighlighted() == hightlighted) {
+				return link;
 			}
 		}
 		return null;
@@ -402,7 +402,7 @@ public class Graph extends Group {
 		float offsetX = x - getX();
 		float offsetY = y - getY();
 		super.setBounds(x, y, width, height);
-		translateEdges(offsetX, offsetY);
+		translateLinks(offsetX, offsetY);
 	}
 	
 	@Override
@@ -410,27 +410,27 @@ public class Graph extends Group {
 		float offsetX = x - getX();
 		float offsetY = y - getY();
 		super.setPosition(x, y);
-		translateEdges(offsetX, offsetY);
+		translateLinks(offsetX, offsetY);
 	}
 	
 	@Override
 	public void setX(float x) {
 		float offsetX = x - getX();
 		super.setX(x);
-		translateEdges(offsetX, 0);
+		translateLinks(offsetX, 0);
 	}
 	
 	@Override
 	public void setY(float y) {
 		float offsetY = y - getY();
 		super.setY(y);
-		translateEdges(0, offsetY);
+		translateLinks(0, offsetY);
 	}
 	
 	@Override
 	public void translate(float x, float y) {
 		super.translate(x, y);
-		translateEdges(x, y);
+		translateLinks(x, y);
 	}
 	
 //	@Override
@@ -440,12 +440,12 @@ public class Graph extends Group {
 //		float offsetX = (width - getWidth()) / 2;
 //		float offsetY = (height - getHeight()) / 2;
 //		super.setSize(width, height);
-//		offsetNodesAndEdges(offsetX, offsetY);
+//		offsetNodesAndLinks(offsetX, offsetY);
 //	}
 
-	private void translateEdges(float offsetX, float offsetY) {
-		for (GraphEdge edge : edges) {
-			edge.translate(offsetX, offsetY);
+	private void translateLinks(float offsetX, float offsetY) {
+		for (GraphLink link : links) {
+			link.translate(offsetX, offsetY);
 		}
 	}
 	
@@ -460,11 +460,11 @@ public class Graph extends Group {
 //			}
 //			node.setBounds(node.getX() * factor, node.getY() * factor, node.getWidth() * factor, node.getHeight() * factor);
 //		}
-//		for (GraphEdge edge : edges) {
-//			for (Actor link : edge.getChildren()) {
+//		for (GraphLink link : links) {
+//			for (Actor link : link.getChildren()) {
 //				link.setBounds(link.getX() * factor, link.getY() * factor, link.getWidth() * factor, link.getHeight() * factor);
 //			}
-//			edge.setBounds(edge.getX() * factor, edge.getY() * factor, edge.getWidth() * factor, edge.getHeight() * factor);
+//			link.setBounds(link.getX() * factor, link.getY() * factor, link.getWidth() * factor, link.getHeight() * factor);
 //		}
 //		setSize(getWidth() * factor, getHeight() * factor);
 	}
@@ -526,26 +526,15 @@ public class Graph extends Group {
 	 * @param offsetX
 	 * @param offsetY
 	 */
-	public void offsetNodesAndEdges(float offsetX, float offsetY) {
+	public void offsetNodesAndLinks(float offsetX, float offsetY) {
 		for (GraphNode node : nodes) {
 			node.translate(offsetX, offsetY);
 		}
-		for (GraphEdge edge : edges) {
-			edge.translate(offsetX, offsetY);
+		for (GraphLink link : links) {
+			link.translate(offsetX, offsetY);
 		}
 	}
 	
-	/**
-	 * Cache les noeuds qui n'ont plus aucun lien avec d'autres noeuds
-	 */
-	public void hideIsolatedNodes() {
-		for (GraphNode node : nodes) {
-			if (!node.isReachable()) {
-				node.setVisible(false);
-			}
-		}
-	}
-
 	/**
 	 * Retourne le noeud contenant la lettre indiquée
 	 * @return
