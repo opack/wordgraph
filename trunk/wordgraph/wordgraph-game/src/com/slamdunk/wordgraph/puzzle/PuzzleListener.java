@@ -1,5 +1,6 @@
 package com.slamdunk.wordgraph.puzzle;
 
+import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
@@ -10,9 +11,10 @@ import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 public interface PuzzleListener {
 	/**
 	 * Méthode appelée une fois que le graphe a été chargé
-	 * @param word
+	 * @param graph Le graphe qui vient d'être chargé
+	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
 	 */
-	void graphLoaded(Graph graph);
+	void graphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences);
 	
 	/**
 	 * Méthode appelée une fois qu'un lien est marqué comme utilisé

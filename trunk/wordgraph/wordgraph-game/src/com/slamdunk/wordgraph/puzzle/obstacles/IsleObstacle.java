@@ -1,7 +1,7 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.slamdunk.wordgraph.Assets;
+import java.util.List;
+
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
@@ -9,56 +9,62 @@ import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 /**
  * Isole une lettre
  */
-public class IsleObstacle implements Obstacle{
-	private String letter;
-	private boolean isActive;
-	private GraphNode node;
+public class IsleObstacle extends NodeObstacle{
 	
-	public IsleObstacle(String letter) {
-		this.letter = letter;
-		isActive = true;
+	public IsleObstacle(String target) {
+		super(ObstaclesTypes.ISLE, target);
 	}
 
 	@Override
 	public void applyEffect(Graph graph) {
+		if (!isActive()) {
+			return;
+		}
+		// Place une image d'eau sur la lettre isolée
+		if (getImage() == null) {
+			createImage("obstacle-isle");
+		}
 		// Cache tous les liens vers et depuis cette lettre
-		if (node != null) {
-			for (GraphLink link : node.getLinks()) {
-				link.setVisible(false);
+		for (GraphLink link : getNode().getLinks()) {
+			link.setVisible(false);
+		}
+	}
+	
+	@Override
+	public void linkUsed(GraphLink link) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void nodeHidden(GraphNode node) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void wordValidated(String word) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * Indique si le manager contient un obstacle ISLE qui isole la lettre
+	 * indiquée. Cela signifie qu'il existe un obstacle actif qui a cette
+	 * lettre pour cible.
+	 * @param obstacleManager
+	 * @param last
+	 * @return
+	 */
+	public static boolean isIsolated(ObstacleManager obstacleManager, String letter) {
+		List<Obstacle> isles = obstacleManager.getObstacles(ObstaclesTypes.ISLE);
+		if (isles != null && letter != null) {
+			for (Obstacle isle : isles) {
+				if (isle.isActive() && isle.getTarget().equals(letter)) {
+					return true;
+				}
 			}
 		}
-	}
-
-	@Override
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	
-	@Override
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	@Override
-	public ObstaclesTypes getType() {
-		return ObstaclesTypes.ISLE;
-	}
-	
-	public String getLetter() {
-		return letter;
-	}
-
-	@Override
-	public void init(Graph graph) {
-		// Récupère la lettre isolée
-		node = graph.getNode(letter);
-		isActive = node != null;
-		if (isActive) {
-			// Place une image d'eau sur la lettre isolée
-			Image water = new Image(Assets.defaultPuzzleSkin.getDrawable("obstacle-isle"));
-			node.addActor(water);
-			water.setZIndex(0);
-			water.setPosition((node.getWidth() - water.getWidth()) / 2, (node.getHeight() - water.getHeight()) / 2);
-		}
+		return false;
 	}
 }

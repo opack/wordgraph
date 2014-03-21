@@ -125,4 +125,13 @@ public class PuzzlePreferencesHelper {
 		prefs.putBoolean("hasMadeWrongSuggestions", hasMadeWrongSuggestions);
 		prefs.flush();
 	}
+
+	public boolean isObstacleActive(String type, String target) {
+		return prefs.getBoolean("isObstacleActive." + type + "." + target, true);
+	}
+
+	public void setObstacleActive(String type, String target, boolean isActive) {
+		prefs.putBoolean("isObstacleActive." + type + "." + target, isActive);
+		prefs.flush();
+	}
 }

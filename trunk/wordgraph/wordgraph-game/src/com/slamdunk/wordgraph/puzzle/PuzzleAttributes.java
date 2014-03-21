@@ -5,9 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
-import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
-import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
-import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 
 public class PuzzleAttributes {
 	private PuzzleInfos infos;
@@ -15,9 +13,7 @@ public class PuzzleAttributes {
 	private List<String> lines;
 	private String skinName;
 	private Skin skin;
-	private IsleObstacleManager isleObstacleManager;
-	private FogObstacleManager fogObstacleManager;
-	private IntruderObstacleManager intruderObstacleManager;
+	private ObstacleManager obstacleManager;
 	
 	public PuzzleAttributes() {
 		riddles = new ArrayList<Riddle>();
@@ -107,27 +103,11 @@ public class PuzzleAttributes {
 		return lines.get(lineNum);
 	}
 
-	public IsleObstacleManager getIsleObstacleManager() {
-		return isleObstacleManager;
+	public ObstacleManager getObstacleManager() {
+		return obstacleManager;
 	}
 	
-	public void setIsleObstacleManager(IsleObstacleManager isleObstacleManager) {
-		this.isleObstacleManager = isleObstacleManager;
-	}
-
-	public FogObstacleManager getFogObstacleManager() {
-		return fogObstacleManager;
-	}
-
-	public void setFogObstacleManager(FogObstacleManager fogObstacleManager) {
-		this.fogObstacleManager = fogObstacleManager;
-	}
-
-	public IntruderObstacleManager getIntruderObstacleManager() {
-		return intruderObstacleManager;
-	}
-
-	public void setIntruderObstacleManager(IntruderObstacleManager intruderObstacleManager) {
-		this.intruderObstacleManager = intruderObstacleManager;
+	public void setObstacleManager(ObstacleManager obstacleManager) {
+		this.obstacleManager = obstacleManager;
 	}
 }

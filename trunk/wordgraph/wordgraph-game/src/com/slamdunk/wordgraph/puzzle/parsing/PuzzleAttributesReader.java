@@ -13,11 +13,9 @@ import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
-import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
-import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
-import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 
 public class PuzzleAttributesReader {
 
@@ -182,37 +180,35 @@ public class PuzzleAttributesReader {
 	 * @param puzzleAttributes
 	 */
 	private void loadObstacles(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+		// Création du gestionnaire d'obstacles
+		ObstacleManager manager = new ObstacleManager();
+		puzzleAttributes.setObstacleManager(manager);
+		
 		// Lettres isolées
 		String obstacleIsle = propertiesFile.getProperty("obstacles.isle", "");
 		if (!obstacleIsle.isEmpty()) {
-			IsleObstacleManager isleObstacleManager = new IsleObstacleManager();
 			String[] isolatedLetters = obstacleIsle.split(",");
 			for (String letter : isolatedLetters) {
-				isleObstacleManager.add(letter, new IsleObstacle(letter));
+				manager.add(new IsleObstacle(letter));
 			}
-			puzzleAttributes.setIsleObstacleManager(isleObstacleManager);
 		}
 		
 		// Lettres cachées
 		String obstacleFog = propertiesFile.getProperty("obstacles.fog", "");
 		if (!obstacleFog.isEmpty()) {
-			FogObstacleManager fogObstacleManager = new FogObstacleManager();
 			String[] maskedLetters = obstacleFog.split(",");
 			for (String letter : maskedLetters) {
-				fogObstacleManager.add(letter, new FogObstacle(letter));
+				manager.add(new FogObstacle(letter));
 			}
-			puzzleAttributes.setFogObstacleManager(fogObstacleManager);
 		}
 		
 		// Lettres intruses
 		String obstacleIntruder = propertiesFile.getProperty("obstacles.intruder", "");
 		if (!obstacleIntruder.isEmpty()) {
-			IntruderObstacleManager intruderObstacleManager = new IntruderObstacleManager();
 			String[] intrudingLetters = obstacleIntruder.split(",");
 			for (String letter : intrudingLetters) {
-				intruderObstacleManager.add(letter, new IntruderObstacle(letter));
+				manager.add(new IntruderObstacle(letter));
 			}
-			puzzleAttributes.setIntruderObstacleManager(intruderObstacleManager);
 		}
 	}
 }
