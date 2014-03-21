@@ -1,67 +1,59 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
  * Masque une lettre
  */
-public class FogObstacle implements Obstacle{
-	private String letter;
-	private boolean isActive;
-	private GraphNode node;
-	private Image image;
-	
-	public FogObstacle(String letter) {
-		this.letter = letter;
-		isActive = true;
+public class FogObstacle extends NodeObstacle{
+	public FogObstacle(String target) {
+		super(ObstaclesTypes.FOG, target);
 	}
 
 	@Override
 	public void applyEffect(Graph graph) {
-		// Rien de spécial à faire si l'obstacle est toujours actif.
-		// Sinon on supprime l'image de brouillard s'il n'est plus actif
-		if (!isActive) {
-			image.remove();
-			node.setText(letter);
+		// Si l'obstacle est actif, on masque la lettre
+		if (isActive()) {
+			// Supprime le texte du bouton
+			GraphNode node = getNode();
+			node.setText("?");
+			
+			// Place une image de brouillard sur la lettre isolée
+			if (getImage() == null) {
+				createImage("obstacle-fog");
+			}
+		} else {
+			// Sinon on supprime l'image de brouillard
+			if (getImage() != null) {
+				getImage().remove();
+				getNode().setText(getTarget());
+				setImage(null);
+			}
 		}
 	}
 
 	@Override
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void linkUsed(GraphLink link) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	@Override
-	public ObstaclesTypes getType() {
-		return ObstaclesTypes.FOG;
-	}
-	
-	public String getLetter() {
-		return letter;
+	public void nodeHidden(GraphNode node) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void init(Graph graph) {
-		// Récupère la lettre masquée
-		node = graph.getNode(letter);
-		isActive = node != null;
-		if (isActive) {
-			// Supprime le texte du bouton
-			node.setText("?");
-			
-			// Place une image de brouillard sur la lettre isolée
-			image = new Image(Assets.defaultPuzzleSkin.getDrawable("obstacle-fog"));
-			node.addActor(image);
-			image.setZIndex(0);
-			image.setPosition((node.getWidth() - image.getWidth()) / 2, (node.getHeight() - image.getHeight()) / 2);
+	public void wordValidated(String word) {
+		// Si la lettre de cet obstacle est contenue dans le mot validé,
+		// alors le brouillard est dissipé
+		if (word.indexOf(getTarget()) != -1) {
+			setActive(false);
+			writePreferenceObstacleActive(false);
+			applyEffect(getManager().getGraph());
 		}
 	}
 }

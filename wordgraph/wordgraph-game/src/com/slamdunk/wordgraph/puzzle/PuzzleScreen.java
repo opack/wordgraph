@@ -35,9 +35,8 @@ import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
-import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacleManager;
-import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacleManager;
-import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
 
 public class PuzzleScreen implements Screen {
@@ -49,9 +48,7 @@ public class PuzzleScreen implements Screen {
 	private PuzzlePreferencesHelper puzzlePreferences;
 	private PuzzleAttributes puzzleAttributes;
 	private Graph graph;
-	private IsleObstacleManager isleObstacleManager;
-	private FogObstacleManager fogObstacleManager;
-	private IntruderObstacleManager intruderObstacleManager;
+	private ObstacleManager obstacleManager;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
@@ -92,10 +89,10 @@ public class PuzzleScreen implements Screen {
 		listeners.add(listener);
 	}
 	
-	private void notifyGraphLoaded(Graph graph) {
+	private void notifyGraphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
-				listener.graphLoaded(graph);
+				listener.graphLoaded(graph, puzzlePreferences);
 			}
 		}
 	}
@@ -313,16 +310,7 @@ public class PuzzleScreen implements Screen {
 		hideIsolatedNodes();
 		
 		// Notification des listeners
-		notifyGraphLoaded(graph);
-	}
-	
-	/**
-	 * Applique les obstacles sur le graphe.
-	 */
-	private void applyObstacles() {
-		isleObstacleManager.applyEffect();
-		fogObstacleManager.applyEffect();
-		intruderObstacleManager.applyEffect();
+		notifyGraphLoaded(graph, puzzlePreferences);
 	}
 
 	/**
@@ -338,21 +326,11 @@ public class PuzzleScreen implements Screen {
 		puzzleAttributes = puzzleAttributesReader.read("puzzles/" + puzzlePack + "/" + puzzleName + ".properties");
 		
 		// Récupération des gestionnaires d'obstacles
-		isleObstacleManager = puzzleAttributes.getIsleObstacleManager();
-		if (isleObstacleManager == null) {
-			isleObstacleManager = new IsleObstacleManager();
+		obstacleManager = puzzleAttributes.getObstacleManager();
+		if (obstacleManager == null) {
+			obstacleManager = new ObstacleManager();
 		}
-		addListener(isleObstacleManager);
-		fogObstacleManager = puzzleAttributes.getFogObstacleManager();
-		if (fogObstacleManager == null) {
-			fogObstacleManager = new FogObstacleManager();
-		}
-		addListener(fogObstacleManager);
-		intruderObstacleManager = puzzleAttributes.getIntruderObstacleManager();
-		if (intruderObstacleManager == null) {
-			intruderObstacleManager = new IntruderObstacleManager();
-		}
-		addListener(intruderObstacleManager);
+		addListener(obstacleManager);
 		
 		// Récupération de la skin du puzzle
 		Skin puzzleSkin = puzzleAttributes.getSkin();
@@ -387,8 +365,8 @@ public class PuzzleScreen implements Screen {
 			if (link != null) {
 				link.setHighlighted(true);
 				selectedLinks.add(link);
-			} else if (!isleObstacleManager.isIsolated(last)
-					&& !isleObstacleManager.isIsolated(selected)) {
+			} else if (!IsleObstacle.isIsolated(obstacleManager, last)
+					&& !IsleObstacle.isIsolated(obstacleManager, selected)) {
 				// Si aucun lien n'existe entre les 2 lettres et qu'aucune des deux
 				// n'est isolée, on interdit la sélection. Si au moins une des deux
 				// est isolée, alors le joueur n'a pas cette aide.
@@ -416,7 +394,7 @@ public class PuzzleScreen implements Screen {
 	 * si les autres lettres sont atteignables
 	 */
 	private void fadeOutUnreachableLetters(String sourceLetter) {
-		boolean isSelectedLetterIsolated = isleObstacleManager.isIsolated(sourceLetter);
+		boolean isSelectedLetterIsolated = IsleObstacle.isIsolated(obstacleManager, sourceLetter);
 		for (GraphNode node : graph.getNodes()) {
 			String nodeLetter = node.getName().toString();
 			boolean isReachable = 
@@ -426,7 +404,7 @@ public class PuzzleScreen implements Screen {
 					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
 					// afin de désactiver l'aide des liens
 					|| isSelectedLetterIsolated
-					|| isleObstacleManager.isIsolated(nodeLetter);
+					|| IsleObstacle.isIsolated(obstacleManager, nodeLetter);
 			node.setDisabled(!isReachable);
 		}
 	}
@@ -500,7 +478,7 @@ public class PuzzleScreen implements Screen {
 		}
 		
 		// Application des obstacles sur le graphe
-		applyObstacles();
+		obstacleManager.applyEffect();
 		
 		// Réinitialisation de la suggestion
 		cancelWord();
