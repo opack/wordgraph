@@ -13,14 +13,14 @@ import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 public class ObstacleManager implements PuzzleListener {
 	private Graph graph;
-	private Map<String, List<Obstacle>> obstaclesByTarget;
 	private Map<ObstaclesTypes, List<Obstacle>> obstaclesByType;
 	private List<Obstacle> obstacles;
+	private List<Obstacle> tmpObstacles;
 	
 	public ObstacleManager(){
 		obstacles = new ArrayList<Obstacle>();
+		tmpObstacles = new ArrayList<Obstacle>();
 		obstaclesByType = new HashMap<ObstaclesTypes, List<Obstacle>>();
-		obstaclesByTarget = new HashMap<String, List<Obstacle>>();
 	}
 	
 	public void add(Obstacle obstacle) {
@@ -34,14 +34,15 @@ public class ObstacleManager implements PuzzleListener {
 			obstaclesByType.put(type, listForType);
 		}
 		listForType.add(obstacle);
+	}
+	
+	public void remove(Obstacle obstacle) {
+		obstacles.remove(obstacle);
 		
-		String target = obstacle.getTarget();
-		List<Obstacle> listForTarget = obstaclesByTarget.get(target);
-		if (listForTarget == null) {
-			listForTarget = new ArrayList<Obstacle>();
-			obstaclesByTarget.put(target, listForTarget);
+		List<Obstacle> listForType = obstaclesByType.get(obstacle.getType());
+		if (listForType != null) {
+			listForType.remove(obstacle);
 		}
-		listForTarget.add(obstacle);
 	}
 	
 	public List<Obstacle> getObstacles() {
@@ -51,23 +52,32 @@ public class ObstacleManager implements PuzzleListener {
 	public List<Obstacle> getObstacles(ObstaclesTypes type) {
 		return obstaclesByType.get(type);
 	}
-	
-	public List<Obstacle> getObstacles(String target) {
-		return obstaclesByTarget.get(target);
-	}
 
 	/**
 	 * Applique l'effet des obstacles
 	 * @param graph
 	 */
 	public void applyEffect() {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.applyEffect(graph);
         	}
         }
 	}
 	
+	/**
+	 * Retourne une liste contenant les obstacles de ce manager.
+	 * Cette méthode est utile pour les notifiers car elle permet aux
+	 * obstacles d'ajouter d'autres obstacles pendant le parcours de
+	 * la liste initiale et d'éviter ainsi les ConcurrentModification
+	 * @return
+	 */
+	private List<Obstacle> getTempObstaclesList() {
+		tmpObstacles.clear();
+		tmpObstacles.addAll(obstacles);
+		return tmpObstacles;
+	}
+
 	public Graph getGraph() {
 		return graph;
 	}
@@ -79,7 +89,7 @@ public class ObstacleManager implements PuzzleListener {
 	@Override
 	public void graphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
 		setGraph(graph);
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.graphLoaded(graph, puzzlePreferences);
         	}
@@ -88,7 +98,7 @@ public class ObstacleManager implements PuzzleListener {
 
 	@Override
 	public void linkUsed(GraphLink link) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.linkUsed(link);
         	}
@@ -97,7 +107,7 @@ public class ObstacleManager implements PuzzleListener {
 	
 	@Override
 	public void wordValidated(String word) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.wordValidated(word);
         	}
@@ -106,7 +116,7 @@ public class ObstacleManager implements PuzzleListener {
 
 	@Override
 	public void nodeHidden(GraphNode node) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.nodeHidden(node);
         	}
@@ -115,7 +125,7 @@ public class ObstacleManager implements PuzzleListener {
 
 	@Override
 	public void letterSelected(String letter) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.letterSelected(letter);
         	}
@@ -124,7 +134,7 @@ public class ObstacleManager implements PuzzleListener {
 	
 	@Override
 	public void timeElapsed(float delta) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.timeElapsed(delta);
         	}
@@ -133,7 +143,7 @@ public class ObstacleManager implements PuzzleListener {
 
 	@Override
 	public void wordRejected(String word) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.wordRejected(word);
         	}
@@ -142,7 +152,7 @@ public class ObstacleManager implements PuzzleListener {
 
 	@Override
 	public void letterUnselected(String letter) {
-		for (Obstacle obstacle : obstacles) {
+		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.letterUnselected(letter);
         	}

@@ -143,4 +143,13 @@ public class PuzzlePreferencesHelper {
 		prefs.putInteger("morphCurrentLetterIndex." + type + "." + target, index);
 		prefs.flush();
 	}
+
+	public int getBombCountDown(String target) {
+		return prefs.getInteger("bombCountDown." + target, -1);
+	}
+	
+	public void setBombCountDown(String target, int countDown) {
+		prefs.putInteger("bombCountDown." + target, countDown);
+		prefs.flush();
+	}
 }

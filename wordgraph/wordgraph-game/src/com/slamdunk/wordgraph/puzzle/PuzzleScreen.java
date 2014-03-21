@@ -364,6 +364,9 @@ public class PuzzleScreen implements Screen {
 		if (obstacleManager == null) {
 			obstacleManager = new ObstacleManager();
 		}
+		if (listeners != null) {
+			listeners.clear();
+		}
 		addListener(obstacleManager);
 		
 		// Récupération de la skin du puzzle
