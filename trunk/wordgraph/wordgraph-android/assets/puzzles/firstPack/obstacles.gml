@@ -268,28 +268,6 @@ graph
 	node
 	[
 		id	12
-		label	"H"
-		graphics
-		[
-			x	409.5
-			y	414.0
-			w	64.0
-			h	64.0
-			type	"rectangle"
-			fill	"#99CCFF"
-			outline	"#000000"
-		]
-		LabelGraphics
-		[
-			text	"H"
-			fontSize	12
-			fontName	"Dialog"
-			anchor	"c"
-		]
-	]
-	node
-	[
-		id	13
 		label	"U"
 		graphics
 		[
@@ -311,7 +289,7 @@ graph
 	]
 	node
 	[
-		id	14
+		id	13
 		label	"P"
 		graphics
 		[
@@ -326,6 +304,28 @@ graph
 		LabelGraphics
 		[
 			text	"P"
+			fontSize	12
+			fontName	"Dialog"
+			anchor	"c"
+		]
+	]
+	node
+	[
+		id	14
+		label	"H"
+		graphics
+		[
+			x	409.5
+			y	414.0
+			w	64.0
+			h	64.0
+			type	"rectangle"
+			fill	"#99CCFF"
+			outline	"#000000"
+		]
+		LabelGraphics
+		[
+			text	"H"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -610,7 +610,7 @@ graph
 	edge
 	[
 		source	2
-		target	12
+		target	14
 		graphics
 		[
 			fill	"#000000"
@@ -618,7 +618,7 @@ graph
 	]
 	edge
 	[
-		source	12
+		source	14
 		target	6
 		graphics
 		[
@@ -789,7 +789,7 @@ graph
 	edge
 	[
 		source	2
-		target	13
+		target	12
 		graphics
 		[
 			fill	"#000000"
@@ -797,7 +797,7 @@ graph
 	]
 	edge
 	[
-		source	14
+		source	13
 		target	1
 		graphics
 		[
@@ -806,7 +806,7 @@ graph
 	]
 	edge
 	[
-		source	14
+		source	13
 		target	10
 		graphics
 		[

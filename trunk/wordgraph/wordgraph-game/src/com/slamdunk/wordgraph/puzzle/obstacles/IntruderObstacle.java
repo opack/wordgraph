@@ -23,18 +23,6 @@ public class IntruderObstacle extends NodeObstacle{
 	}
 
 	@Override
-	public void linkUsed(GraphLink link) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void nodeHidden(GraphNode node) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void wordValidated(String word) {
 		// Désactive l'obstacle si les lettres connectées à cette lettre intruse
 		// ne sont connectées à aucune autre lettre

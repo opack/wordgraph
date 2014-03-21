@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
  * Isole une lettre
@@ -28,24 +27,6 @@ public class IsleObstacle extends NodeObstacle{
 		for (GraphLink link : getNode().getLinks()) {
 			link.setVisible(false);
 		}
-	}
-	
-	@Override
-	public void linkUsed(GraphLink link) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void nodeHidden(GraphNode node) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void wordValidated(String word) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**

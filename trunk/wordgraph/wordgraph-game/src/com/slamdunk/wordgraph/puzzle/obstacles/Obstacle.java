@@ -3,6 +3,8 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
+import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 /**
  * Représente un obstacle qui peut gêner le joueur.
@@ -81,7 +83,42 @@ public abstract class Obstacle implements PuzzleListener {
 		// Regarde dans les préférences si cet obstacle est actif
 		setActive(readPreferenceObstacleActive());
 	}
+	
+	@Override
+	public void linkUsed(GraphLink link) {
+		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void nodeHidden(GraphNode node) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void wordValidated(String word) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void wordRejected(String word) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void letterSelected(String letter) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void letterUnselected(String letter) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void timeElapsed(float delta) {
+		// TODO Auto-generated method stub
+	}
+	
 	public PuzzlePreferencesHelper getPuzzlePreferences() {
 		return puzzlePreferences;
 	}
@@ -97,6 +134,20 @@ public abstract class Obstacle implements PuzzleListener {
 	protected void writePreferenceObstacleActive(boolean isActive) {
 		if (puzzlePreferences != null) {
 			puzzlePreferences.setObstacleActive(getType().toString(), getTarget(), isActive);
+		}
+	}
+	
+	protected int readPreferenceMorphCurrentLetterIndex() {
+		if (puzzlePreferences != null) {
+			return puzzlePreferences.getMorphCurrentLetterIndex(getType().toString(), getTarget());
+		}
+		// Par défaut, l'obstacle affichera la première lettre
+		return 0;
+	}
+	
+	protected void writePreferenceMorphCurrentLetterIndex(int index) {
+		if (puzzlePreferences != null) {
+			puzzlePreferences.setMorphCurrentLetterIndex(getType().toString(), getTarget(), index);
 		}
 	}
 }

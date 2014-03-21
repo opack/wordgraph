@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${system_property:java.home}\bin\java.exe"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-cp &quot;C:/Progz/dev/LibGDX/gdx.jar;C:/Progz/dev/LibGDX/gdx-natives.jar;C:/Progz/dev/LibGDX/gdx-backend-lwjgl.jar;C:/Progz/dev/LibGDX/gdx-backend-lwjgl-natives.jar;C:/Progz/dev/LibGDX/extensions/gdx-tools/gdx-tools.jar&quot; com.badlogic.gdx.tools.hiero.Hiero"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-cp &quot;${LIBGDX}/gdx.jar;${LIBGDX}/gdx-natives.jar;${LIBGDX}/LibGDX/gdx-backend-lwjgl.jar;${LIBGDX}/0.9.9/gdx-backend-lwjgl-natives.jar;${LIBGDX}/extensions/gdx-tools/gdx-tools.jar&quot; com.badlogic.gdx.tools.hiero.Hiero"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/wordgraph-work}"/>
 </launchConfiguration>

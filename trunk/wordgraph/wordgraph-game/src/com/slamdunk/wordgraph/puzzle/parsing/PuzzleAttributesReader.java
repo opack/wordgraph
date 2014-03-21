@@ -15,6 +15,7 @@ import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.MorphObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 
 public class PuzzleAttributesReader {
@@ -208,6 +209,15 @@ public class PuzzleAttributesReader {
 			String[] intrudingLetters = obstacleIntruder.split(",");
 			for (String letter : intrudingLetters) {
 				manager.add(new IntruderObstacle(letter));
+			}
+		}
+		
+		// Lettres changeantes
+		String obstacleMorph = propertiesFile.getProperty("obstacles.morph", "");
+		if (!obstacleMorph.isEmpty()) {
+			String[] morphingParameters = obstacleMorph.split(",");
+			for (String parameters : morphingParameters) {
+				manager.add(MorphObstacle.createFromProperties(parameters));
 			}
 		}
 	}

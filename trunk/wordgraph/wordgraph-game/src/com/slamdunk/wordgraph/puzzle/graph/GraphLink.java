@@ -206,9 +206,17 @@ public class GraphLink extends Group {
 	public String getSourceLetter() {
 		return sourceLetter;
 	}
+	
+	public void setSourceLetter(String sourceLetter) {
+		this.sourceLetter = sourceLetter;
+	}
 
 	public String getTargetLetter() {
 		return targetLetter;
+	}
+	
+	public void setTargetLetter(String targetLetter) {
+		this.targetLetter = targetLetter;
 	}
 
 	public boolean isUsed() {
