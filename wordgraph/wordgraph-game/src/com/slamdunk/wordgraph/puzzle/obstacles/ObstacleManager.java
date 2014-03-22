@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
+import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
@@ -13,6 +15,9 @@ import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
 public class ObstacleManager implements PuzzleListener {
 	private Graph graph;
+	private PuzzleAttributes puzzleAttributes;
+	private Stage stage;
+	
 	private Map<ObstaclesTypes, List<Obstacle>> obstaclesByType;
 	private List<Obstacle> obstacles;
 	private List<Obstacle> tmpObstacles;
@@ -86,12 +91,31 @@ public class ObstacleManager implements PuzzleListener {
 		this.graph = graph;
 	}
 
+	public PuzzleAttributes getPuzzleAttributes() {
+		return puzzleAttributes;
+	}
+
+	public void setPuzzleAttributes(PuzzleAttributes puzzleAttributes) {
+		this.puzzleAttributes = puzzleAttributes;
+	}
+	
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
 	@Override
-	public void graphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		setGraph(graph);
+		setPuzzleAttributes(puzzleAttributes);
+		setStage(stage);
+		
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
-        		obstacle.graphLoaded(graph, puzzlePreferences);
+        		obstacle.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
         	}
         }
 	}

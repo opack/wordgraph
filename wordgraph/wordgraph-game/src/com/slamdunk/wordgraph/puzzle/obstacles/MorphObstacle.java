@@ -1,6 +1,8 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
+import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
@@ -97,9 +99,8 @@ public class MorphObstacle extends NodeObstacle{
 	}
 	
 	@Override
-	public void graphLoaded(Graph graph,
-			PuzzlePreferencesHelper puzzlePreferences) {
-		super.graphLoaded(graph, puzzlePreferences);
+	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		
 		// Initialise la valeur du noeud avec la dernière valeur en cours
 		// la dernière fois que le puzzle a été joué
