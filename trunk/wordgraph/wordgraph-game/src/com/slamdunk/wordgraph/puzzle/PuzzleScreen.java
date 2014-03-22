@@ -91,10 +91,10 @@ public class PuzzleScreen implements Screen {
 		listeners.add(listener);
 	}
 	
-	private void notifyGraphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
+	private void notifyPuzzleLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
-				listener.graphLoaded(graph, puzzlePreferences);
+				listener.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 			}
 		}
 	}
@@ -342,9 +342,6 @@ public class PuzzleScreen implements Screen {
 			link.setVisible(!linkUsed);	
 		}
 		hideIsolatedNodes();
-		
-		// Notification des listeners
-		notifyGraphLoaded(graph, puzzlePreferences);
 	}
 
 	/**
@@ -858,6 +855,7 @@ public class PuzzleScreen implements Screen {
 		if (reloadPuzzle) {
 	        loadPuzzle();
 	        createUI();
+			notifyPuzzleLoaded(graph, puzzlePreferences);
 		}
 		// Dans tous les cas, l'écran actuel doit récupérer les input
 		Gdx.input.setInputProcessor(stage);

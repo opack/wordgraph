@@ -13,6 +13,7 @@ import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.BombObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
@@ -228,6 +229,15 @@ public class PuzzleAttributesReader {
 			String[] bombingParameters = obstacleBomb.split(",");
 			for (String parameters : bombingParameters) {
 				manager.add(BombObstacle.createFromProperties(parameters));
+			}
+		}
+		
+		// Catégorie affichée
+		String obstacleCategory = propertiesFile.getProperty("obstacles.category", "");
+		if (!obstacleCategory.isEmpty()) {
+			String[] categoryParameters = obstacleCategory.split(",");
+			for (String parameters : categoryParameters) {
+				manager.add(CategoryObstacle.createFromProperties(parameters));
 			}
 		}
 	}

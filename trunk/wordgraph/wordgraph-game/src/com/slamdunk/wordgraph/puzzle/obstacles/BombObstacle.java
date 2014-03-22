@@ -1,9 +1,11 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
+import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
 
@@ -21,8 +23,8 @@ public class BombObstacle extends NodeObstacle{
 	}
 	
 	@Override
-	public void graphLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
-		super.graphLoaded(graph, puzzlePreferences);
+	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		// Initialise le compte
 		int prefsCountDown = puzzlePreferences.getBombCountDown(getTarget());
 		if (prefsCountDown != -1) {
@@ -71,7 +73,7 @@ public class BombObstacle extends NodeObstacle{
 			setActive(false);
 			// Création d'un obstacle Isle
 			IsleObstacle isle = new IsleObstacle(getTarget());
-			isle.graphLoaded(manager.getGraph(), getPuzzlePreferences());
+			isle.puzzleLoaded(manager.getGraph(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
 			// Note 
 		}
