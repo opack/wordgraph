@@ -1,6 +1,7 @@
-- Remplacer les Edge par des objets Scene2d, pour pouvoir être manipulé en tant que tel (ex : dans un Scroller). Le lien se dessinera dans les limites de l'objet, ce qui fait qu'on pourra créer d'autres types de liens, par exemple courbés.
+- Dans le layout des puzzles, prévoir une image avant chaque indice, qui pourra être customisée pour chaque puzzle.
+- Supprimer l'écran des jokers les mettre les mettre dans le même panneau que les bonus
+	-> prévoir une séparation dans ce panneau avec un sous-titre pour les bonus et les jokers
 - Pour les effets visuels et les obstacles, créer un objet AnimatedSprite qui est un objet Scene2d
-- Centrer le graph
 - Gestion des résolutions :
 	- Faire plusieurs assets pour plusieurs tailles
 	- Dans Assets.loadSkins, charger la skin correspondant à la taille de l'écran http://javamilf.blogspot.fr/2013/07/libgdx-android-no-stretching-at-any.html
