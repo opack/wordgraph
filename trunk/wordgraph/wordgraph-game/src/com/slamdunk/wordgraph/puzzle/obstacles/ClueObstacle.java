@@ -47,14 +47,26 @@ public abstract class ClueObstacle extends Obstacle {
 		}
 		// Activation de l'obstacle s'il y a bien un noeud et que l'obstacle n'est pas
 		// marqué comme inactif dans les préférences
-		setActive(riddle != null && readPreferenceObstacleActive());
+		setActive(riddle != null && isActive());
 		// Application de l'effet de l'obstacle
 		applyEffect(graph);
 	}
 	
-	public void createImage(String regionName) {
+	/**
+	 * 
+	 * @param regionName
+	 * @param overLabel Indique si l'image doit être placée devant ou derrière
+	 * le label
+	 */
+	public Image createImage(String regionName, boolean overLabel) {
 		image = new Image(Assets.defaultPuzzleSkin.getDrawable(regionName));
-		image.setZIndex(0);
-		image.setPosition((label.getWidth() - image.getWidth()) / 2, (label.getHeight() - image.getHeight()) / 2);
+		image.setPosition(label.getX(), label.getY() + (label.getHeight() - image.getHeight()) / 2);
+		getManager().getStage().addActor(image);
+		if (overLabel) {
+			image.setZIndex(label.getZIndex() + 1);
+		} else {
+			image.setZIndex(label.getZIndex() - 1);
+		}
+		return image;
 	}
 }

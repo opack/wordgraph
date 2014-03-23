@@ -15,6 +15,7 @@ import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.BombObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.HiddenObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.MorphObstacle;
@@ -238,6 +239,15 @@ public class PuzzleAttributesReader {
 			String[] categoryParameters = obstacleCategory.split(",");
 			for (String parameters : categoryParameters) {
 				manager.add(CategoryObstacle.createFromProperties(parameters));
+			}
+		}
+		
+		// Indice masqué
+		String obstacleHidden = propertiesFile.getProperty("obstacles.hidden", "");
+		if (!obstacleHidden.isEmpty()) {
+			String[] hiddenClues = obstacleHidden.split(",");
+			for (String clueIndex : hiddenClues) {
+				manager.add(new HiddenObstacle(clueIndex));
 			}
 		}
 	}

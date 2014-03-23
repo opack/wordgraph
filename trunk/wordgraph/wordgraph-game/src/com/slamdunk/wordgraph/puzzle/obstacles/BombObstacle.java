@@ -71,11 +71,13 @@ public class BombObstacle extends NodeObstacle{
 			ObstacleManager manager = getManager();
 			// Suppression de l'obstacle Bomb
 			setActive(false);
+			// On ne désactive pas l'obstacle car il sera transformé en île
+			// lors du prochain affichage
+			//writePreferenceObstacleActive(false);
 			// Création d'un obstacle Isle
 			IsleObstacle isle = new IsleObstacle(getTarget());
 			isle.puzzleLoaded(manager.getGraph(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
-			// Note 
 		}
 	}
 
