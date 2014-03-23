@@ -1,12 +1,16 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.puzzle.graph.Graph;
 
 /**
  * Remplace un indice par une catégorie
  */
 public class CategoryObstacle extends ClueObstacle{
+	private LabelStyle originalStyle;
 	private String category;
 	
 	public CategoryObstacle(String target, String category) {
@@ -19,9 +23,25 @@ public class CategoryObstacle extends ClueObstacle{
 		Label label = getLabel();
 		if (label != null) {
 			if (isActive()) {
-				label.setText("Catégorie : " + category);
+//				if (getImage() == null) {
+//					createImage("obstacle-category", false);
+//				}
+				if (originalStyle == null) {
+					originalStyle = label.getStyle();
+				}
+				LabelStyle newStyle = new LabelStyle(originalStyle);
+				newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-category");
+				
+				label.setStyle(newStyle);
+				label.setText(category);
+				label.setAlignment(Align.center);
 			} else {
+//				if (getImage() != null) {
+//					getImage().remove();
+//				}
+				label.setStyle(originalStyle);
 				label.setText(getRiddle().getClue());
+				label.setAlignment(Align.left);
 			}
 		}
 	}
@@ -32,6 +52,7 @@ public class CategoryObstacle extends ClueObstacle{
 		if (word.equals(getRiddle().getSolution())) {
 			setActive(false);
 			applyEffect(null);
+			writePreferenceObstacleActive(false);
 		}
 	}
 	

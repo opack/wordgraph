@@ -23,7 +23,7 @@ public abstract class NodeObstacle extends Obstacle {
 		node = graph.getNode(getTarget());
 		// Activation de l'obstacle s'il y a bien un noeud et que l'obstacle n'est pas
 		// marqué comme inactif dans les préférences
-		setActive(node != null && readPreferenceObstacleActive());
+		setActive(node != null && isActive());
 		if (isActive()) {
 			node.addObstacle(this);
 		}

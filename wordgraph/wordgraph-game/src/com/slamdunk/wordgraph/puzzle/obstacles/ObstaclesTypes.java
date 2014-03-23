@@ -6,5 +6,6 @@ public enum ObstaclesTypes {
 	INTRUDER,
 	MORPH,
 	BOMB,
-	CATEGORY
+	CATEGORY,
+	HIDDEN
 }

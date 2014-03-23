@@ -236,6 +236,7 @@ public class PuzzleScreen implements Screen {
 					
 					// Crée le Label et le place dans la table
 					Label solutionLabel = new Label(riddle.getClue(), solutionModel.getStyle());
+					solutionLabel.setName("riddle" + riddleId);
 					table.add(solutionLabel);
 					if (puzzlePreferences.getSolutionFound(riddleId)) {
 						solutionLabel.setText(riddle.getSolution());
@@ -254,6 +255,8 @@ public class PuzzleScreen implements Screen {
 					Label blablaLabel = new Label(blabla, textModel.getStyle());
 					table.add(blablaLabel);
 				}
+				
+				table.layout();
 				
 				idx++;
 			}
