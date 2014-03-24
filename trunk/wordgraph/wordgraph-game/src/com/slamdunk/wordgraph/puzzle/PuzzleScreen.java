@@ -1,10 +1,8 @@
 package com.slamdunk.wordgraph.puzzle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -55,7 +53,6 @@ public class PuzzleScreen implements Screen {
 
 	private PuzzleButtonDecorator puzzleButtonDecorator;
 	private Stage stage;
-	private Map<String, Label> solutionLabels;
 	private Label suggestionLabel;
 	private TextButton validateButton;
 	private TextButton backspaceButton;
@@ -76,7 +73,6 @@ public class PuzzleScreen implements Screen {
 	
 	public PuzzleScreen(WordGraphGame game) {
 		this.game = game;
-		solutionLabels = new HashMap<String, Label>();
 		pendingLetters = new LinkedList<String>();
 		selectedLinks = new LinkedList<GraphLink>();
 		selectedNodes = new LinkedList<GraphNode>();
@@ -195,17 +191,20 @@ public class PuzzleScreen implements Screen {
 		List<Riddle> riddles = puzzleAttributes.getRiddles();
 		if (puzzleAttributes.getInfos().getType() == PuzzleTypes.WORDS) {
 			// On a un tableau d'indices
-			solutionLabels.clear();
 			for (Riddle riddle : riddles) {
-				Label clue = (Label)creator.getActor("riddle" + riddle.getId());
+				int riddleId = riddle.getId();
+				Label clue = (Label)creator.getActor("riddle" + riddleId);
 				clue.setText(riddle.getClue());
-				Label solution = (Label)creator.getActor("solution" + riddle.getId());
-				solutionLabels.put(riddle.getSolution(), solution);
+				Label solution = (Label)creator.getActor("solution" + riddleId);
+				Button bullet = (Button)creator.getActor("bullet" + riddleId);
+				bullet.setVisible(true);
+				bullet.setDisabled(true);
 				
 				// Si la solution a été trouvée précédemment, on met à jour l'interface
-				if (puzzlePreferences.getSolutionFound(riddle.getId())) {
+				if (puzzlePreferences.getSolutionFound(riddleId)) {
 					solution.setText(riddle.getSolution());
 					riddle.setFound(true);
+					bullet.setChecked(true);
 				}
 			}
 		} else {
@@ -242,8 +241,6 @@ public class PuzzleScreen implements Screen {
 						solutionLabel.setText(riddle.getSolution());
 						riddle.setFound(true);
 					}
-					// Conserve le label pour y mettre la solution plus tard
-					solutionLabels.put(riddle.getSolution(), solutionLabel);
 					
 					// Continue la recherche à partir de la fin de ce placeholder
 					prevPlaceholderEnd = start + 3;
@@ -477,15 +474,17 @@ public class PuzzleScreen implements Screen {
 		
 		// Si le mot est valide, c'est cool !
 		if (riddle != null && !riddle.isFound()) {
+			int riddleId = riddle.getId();
 			// L'enigme est trouvée !
-			puzzlePreferences.setSolutionFound(riddle.getId(), true);
+			puzzlePreferences.setSolutionFound(riddleId, true);
 			riddle.setFound(true);
 			
 			// Mise à jour des libellés de solution
-			final Label label = solutionLabels.get(suggestion);
+			final Label label = (Label)stage.getRoot().findActor("solution" + riddleId);
+			final Button bullet = (Button)stage.getRoot().findActor("bullet" + riddleId);
 			if (label != null) {
 				// Envoie la suggestion vers le label de solution
-				animateSuggestionFly(suggestion, label);
+				animateSuggestionFly(suggestion, bullet, label);
 			}
 			
 			// Suppression des liens utilisés
@@ -601,7 +600,7 @@ public class PuzzleScreen implements Screen {
 	 * @param suggestion
 	 * @param destination
 	 */
-	private void animateSuggestionFly(final String suggestion, final Label destination) {
+	private void animateSuggestionFly(final String suggestion, final Button bullet, final Label destination) {
 		LabelStyle style = new LabelStyle(suggestionLabel.getStyle());
 		style.background = null;
 		final Label copy = new Label(suggestion, style);
@@ -625,6 +624,11 @@ public class PuzzleScreen implements Screen {
 						
 						// Ajoute la solution
 						destination.setText(suggestion);
+						
+						// Modifie la puce
+						if (bullet != null) {
+							bullet.setChecked(true);
+						}
 						return true;
 					}
 				}

@@ -292,6 +292,12 @@
 			"font":"default-font",
 			"fontColor":"black"
 		},
+		"puzzle-bullet":{
+			"up":"puzzle-bullet-normal",
+			"checked":"puzzle-bullet-checked",
+			"font":"default-font",
+			"fontColor":"black"
+		},
 		"puzzle-letter":{
 			"up":"button-brown-up",
 			"font":"default-font",
