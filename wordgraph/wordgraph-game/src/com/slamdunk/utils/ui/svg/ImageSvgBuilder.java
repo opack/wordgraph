@@ -1,9 +1,11 @@
 package com.slamdunk.utils.ui.svg;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class ImageSvgBuilder extends UISvgBuilder {
 	
@@ -26,9 +28,9 @@ public class ImageSvgBuilder extends UISvgBuilder {
 	private void parseImage(Skin skin, Image image) {
 		if (hasAttribute("ui.image")) {
 			String atlasRegionName = actorDescription.getAttribute("ui.image");
-			if (skin.has(atlasRegionName, Drawable.class)) {
-				Drawable drawable = skin.getDrawable(atlasRegionName);
-				image.setDrawable(drawable);
+			TextureRegion region = skin.getAtlas().findRegion(atlasRegionName);
+			if (region != null) {
+				image.setDrawable(new TextureRegionDrawable(region));
 			}
 		}
 	}
