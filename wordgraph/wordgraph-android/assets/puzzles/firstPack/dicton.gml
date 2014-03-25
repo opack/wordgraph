@@ -31,8 +31,8 @@ graph
 		[
 			x	171.0
 			y	419.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -53,8 +53,8 @@ graph
 		[
 			x	203.0
 			y	97.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -75,8 +75,8 @@ graph
 		[
 			x	386.0
 			y	348.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -97,8 +97,8 @@ graph
 		[
 			x	58.0
 			y	307.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -119,8 +119,8 @@ graph
 		[
 			x	122.0
 			y	207.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -141,8 +141,8 @@ graph
 		[
 			x	313.0
 			y	97.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -163,8 +163,8 @@ graph
 		[
 			x	307.0
 			y	207.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -185,8 +185,8 @@ graph
 		[
 			x	58.0
 			y	97.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -207,8 +207,8 @@ graph
 		[
 			x	203.0
 			y	277.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -229,8 +229,8 @@ graph
 		[
 			x	280.0
 			y	367.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -251,8 +251,8 @@ graph
 		[
 			x	416.0
 			y	427.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -273,8 +273,8 @@ graph
 		[
 			x	411.0
 			y	261.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -295,8 +295,8 @@ graph
 		[
 			x	416.0
 			y	138.0
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -338,10 +338,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	-0.13163269692052282
-			ySource	-0.08418370151893895
-			xTarget	-0.13163269692052282
-			yTarget	-0.08418370151893884
+			xSource	-0.14040821004855766
+			ySource	-0.08979594828686821
+			xTarget	-0.14040821004855766
+			yTarget	-0.08979594828686809
 		]
 		LabelGraphics
 		[
@@ -366,10 +366,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.1508259444185147
-			ySource	-0.04081172613677442
-			xTarget	0.1508259444185147
-			yTarget	-0.040811726136774584
+			xSource	0.16088100737974903
+			ySource	-0.043532507879226044
+			xTarget	0.16088100737974903
+			yTarget	-0.043532507879226225
 		]
 		LabelGraphics
 		[
@@ -421,8 +421,8 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	-0.16186911737317144
-			xTarget	-0.16186911737317144
+			xSource	-0.1726603918647162
+			xTarget	-0.1726603918647162
 		]
 		LabelGraphics
 		[
@@ -510,8 +510,8 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.18547111068263522
-			xTarget	0.18547111068263522
+			xSource	0.1978358513948109
+			xTarget	0.1978358513948109
 		]
 		LabelGraphics
 		[
