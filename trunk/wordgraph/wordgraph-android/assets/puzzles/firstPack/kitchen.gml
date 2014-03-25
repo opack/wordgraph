@@ -31,8 +31,8 @@ graph
 		[
 			x	95.76699205448358
 			y	190.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -53,8 +53,8 @@ graph
 		[
 			x	43.76699205448358
 			y	340.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -75,8 +75,8 @@ graph
 		[
 			x	175.76699205448358
 			y	356.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -97,8 +97,8 @@ graph
 		[
 			x	230.76699205448358
 			y	232.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -119,8 +119,8 @@ graph
 		[
 			x	434.7669920544836
 			y	355.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -141,8 +141,8 @@ graph
 		[
 			x	344.7669920544836
 			y	279.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -163,8 +163,8 @@ graph
 		[
 			x	324.7669920544836
 			y	190.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -185,8 +185,8 @@ graph
 		[
 			x	414.7669920544836
 			y	126.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -207,8 +207,8 @@ graph
 		[
 			x	86.76699205448358
 			y	455.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -229,8 +229,8 @@ graph
 		[
 			x	305.7669920544836
 			y	50.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -251,8 +251,8 @@ graph
 		[
 			x	189.76699205448358
 			y	115.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -273,8 +273,8 @@ graph
 		[
 			x	434.7669920544836
 			y	224.80831512485813
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -295,8 +295,8 @@ graph
 		[
 			x	274.7669920544836
 			y	379.80831512485815
-			w	64.0
-			h	64.0
+			w	60.0
+			h	60.0
 			type	"rectangle"
 			fill	"#99CCFF"
 			outline	"#000000"
@@ -338,8 +338,8 @@ graph
 		]
 		edgeAnchor
 		[
-			ySource	0.15739365661547977
-			yTarget	0.15739365661547977
+			ySource	0.16788656705651175
+			yTarget	0.16788656705651175
 		]
 		LabelGraphics
 		[
@@ -349,8 +349,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.01171875
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -364,10 +364,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.018801776174880658
-			ySource	-0.15511465344276698
-			xTarget	0.018801776174880658
-			yTarget	-0.15511465344276693
+			xSource	0.0200552279198727
+			ySource	-0.16545563033895144
+			xTarget	0.0200552279198727
+			yTarget	-0.1654556303389514
 		]
 		LabelGraphics
 		[
@@ -377,8 +377,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.01171875
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -392,10 +392,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.11619805390214388
-			ySource	0.10446087674031113
-			xTarget	0.11619805390214388
-			yTarget	0.10446087674031101
+			xSource	0.12394459082895347
+			ySource	0.1114249351896652
+			xTarget	0.12394459082895347
+			yTarget	0.11142493518966508
 		]
 		LabelGraphics
 		[
@@ -405,8 +405,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.673828125
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -420,9 +420,9 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	-0.21010732693131207
-			ySource	4.440892098500626E-16
-			xTarget	-0.21010732693131207
+			xSource	-0.2241144820600662
+			ySource	4.736951571734001E-16
+			xTarget	-0.2241144820600662
 		]
 		LabelGraphics
 		[
@@ -432,8 +432,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.673828125
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -447,10 +447,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	-0.14283051381382705
-			ySource	-0.06335224403032666
-			xTarget	-0.1428305138138275
-			yTarget	-0.06335224403032669
+			xSource	-0.15235254806808218
+			ySource	-0.06757572696568177
+			xTarget	-0.15235254806808265
+			yTarget	-0.0675757269656818
 		]
 		LabelGraphics
 		[
@@ -460,8 +460,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.01171875
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -481,8 +481,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	27.34375
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -541,10 +541,10 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	-0.1474582087532763
-			ySource	0.051673389392173696
-			xTarget	-0.1474582087532763
-			yTarget	0.051673389392173696
+			xSource	-0.15728875600349473
+			ySource	0.05511828201831861
+			xTarget	-0.15728875600349473
+			yTarget	0.05511828201831861
 		]
 		LabelGraphics
 		[
@@ -554,8 +554,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	25.3515625
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -569,8 +569,8 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.16556597768557646
-			xTarget	0.16556597768557646
+			xSource	0.17660370953128154
+			xTarget	0.17660370953128154
 		]
 		LabelGraphics
 		[
@@ -580,21 +580,17 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	25.3515625
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
 	[
 		source	4
 		target	13
-		label	""
 		graphics
 		[
 			fill	"#000000"
-		]
-		LabelGraphics
-		[
 		]
 	]
 	edge
@@ -617,8 +613,8 @@ graph
 		]
 		edgeAnchor
 		[
-			xSource	0.17093029947243998
-			xTarget	0.17093029947244043
+			xSource	0.18232565277060264
+			xTarget	0.1823256527706031
 		]
 		LabelGraphics
 		[
@@ -628,8 +624,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	22.01171875
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -643,8 +639,8 @@ graph
 		]
 		edgeAnchor
 		[
-			ySource	-0.3272742129985611
-			yTarget	-0.32727421299856196
+			ySource	-0.3490924938651318
+			yTarget	-0.34909249386513275
 		]
 		LabelGraphics
 		[
@@ -654,8 +650,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	27.34375
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 	edge
@@ -669,8 +665,8 @@ graph
 		]
 		edgeAnchor
 		[
-			ySource	0.3272742129985602
-			yTarget	0.3272742129985611
+			ySource	0.34909249386513086
+			yTarget	0.3490924938651318
 		]
 		LabelGraphics
 		[
@@ -680,8 +676,8 @@ graph
 			configuration	"AutoFlippingLabel"
 			contentWidth	27.34375
 			contentHeight	18.701171875
-			model	"null"
-			position	"null"
+			model	"six_pos"
+			position	"tail"
 		]
 	]
 ]

@@ -1,8 +1,4 @@
-- Layout puzzles :
-	- Réduire l'espace perdu :
-		- Diminuer la taille du bouton "Joker" et du titre
-		- Augmenter la taille des indices à 26px	
-	- Prévoir une image avant chaque indice, qui pourra être customisée pour chaque puzzle.
+- Mieux gérer le fullscreen et l'aspect ratio : http://stackoverflow.com/questions/9899301/fullscreen-resolution-on-android-for-libgdx-games
 - Supprimer l'écran des jokers les mettre les mettre dans le même panneau que les bonus
 	-> prévoir une séparation dans ce panneau avec un sous-titre pour les bonus et les jokers
 - Pour les effets visuels et les obstacles, créer un objet AnimatedSprite qui est un objet Scene2d
