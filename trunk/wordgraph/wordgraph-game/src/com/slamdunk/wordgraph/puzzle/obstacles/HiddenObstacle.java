@@ -23,12 +23,8 @@ public class HiddenObstacle extends ClueObstacle{
 			if (originalStyle == null) {
 				originalStyle = label.getStyle();
 			}
-			LabelStyle newStyle = new LabelStyle(originalStyle);
-			newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-hidden");
-			
+			LabelStyle newStyle = Assets.defaultPuzzleSkin.get("puzzle-riddle-blur", LabelStyle.class);
 			label.setStyle(newStyle);
-			label.setText("???");
-			label.setAlignment(Align.center);
 		} else {
 			label.setStyle(originalStyle);
 			label.setText(getRiddle().getClue());

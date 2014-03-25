@@ -31,7 +31,6 @@ public class CategoryObstacle extends ClueObstacle{
 				}
 				LabelStyle newStyle = new LabelStyle(originalStyle);
 				newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-category");
-				
 				label.setStyle(newStyle);
 				label.setText(category);
 				label.setAlignment(Align.center);

@@ -26,11 +26,11 @@ graph
 	node
 	[
 		id	1
-		label	"B"
+		label	"R"
 		graphics
 		[
-			x	441.3213864248265
-			y	262.5182561076244
+			x	95.76699205448358
+			y	190.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -39,7 +39,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"B"
+			text	"R"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -48,11 +48,11 @@ graph
 	node
 	[
 		id	2
-		label	"A"
+		label	"S"
 		graphics
 		[
-			x	240.0
-			y	461.8396425324516
+			x	43.76699205448358
+			y	340.80831512485815
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -61,7 +61,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"A"
+			text	"S"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -70,11 +70,11 @@ graph
 	node
 	[
 		id	3
-		label	"N"
+		label	"I"
 		graphics
 		[
-			x	128.67861357517245
-			y	46.36174389237766
+			x	175.76699205448358
+			y	356.80831512485815
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -83,7 +83,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"N"
+			text	"I"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -92,11 +92,11 @@ graph
 	node
 	[
 		id	4
-		label	"C"
+		label	"E"
 		graphics
 		[
-			x	124.92174389237664
-			y	447.44
+			x	230.76699205448358
+			y	232.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -105,7 +105,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"C"
+			text	"E"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -114,11 +114,11 @@ graph
 	node
 	[
 		id	5
-		label	"O"
+		label	"T"
 		graphics
 		[
-			x	345.3213864248265
-			y	57.44
+			x	434.7669920544836
+			y	355.80831512485815
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -127,7 +127,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"O"
+			text	"T"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -139,8 +139,8 @@ graph
 		label	"U"
 		graphics
 		[
-			x	51.32138642482653
-			y	367.8396425324515
+			x	344.7669920544836
+			y	279.80831512485815
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -158,11 +158,11 @@ graph
 	node
 	[
 		id	7
-		label	"T"
+		label	"O"
 		graphics
 		[
-			x	40.67861357517245
-			y	262.5182561076248
+			x	324.7669920544836
+			y	190.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -171,7 +171,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"T"
+			text	"O"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -180,11 +180,11 @@ graph
 	node
 	[
 		id	8
-		label	"E"
+		label	"C"
 		graphics
 		[
-			x	62.67861357517245
-			y	147.4400000000015
+			x	414.7669920544836
+			y	126.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -193,7 +193,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"E"
+			text	"C"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -202,11 +202,11 @@ graph
 	node
 	[
 		id	9
-		label	"I"
+		label	"N"
 		graphics
 		[
-			x	411.3213864248265
-			y	367.8396425324515
+			x	86.76699205448358
+			y	455.80831512485815
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -215,7 +215,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"I"
+			text	"N"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -224,11 +224,11 @@ graph
 	node
 	[
 		id	10
-		label	"S"
+		label	"B"
 		graphics
 		[
-			x	347.3213864248265
-			y	447.44
+			x	305.7669920544836
+			y	50.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -237,7 +237,7 @@ graph
 		]
 		LabelGraphics
 		[
-			text	"S"
+			text	"B"
 			fontSize	12
 			fontName	"Dialog"
 			anchor	"c"
@@ -246,33 +246,11 @@ graph
 	node
 	[
 		id	11
-		label	"R"
-		graphics
-		[
-			x	439.3213864248265
-			y	147.44
-			w	64.0
-			h	64.0
-			type	"rectangle"
-			fill	"#99CCFF"
-			outline	"#000000"
-		]
-		LabelGraphics
-		[
-			text	"R"
-			fontSize	12
-			fontName	"Dialog"
-			anchor	"c"
-		]
-	]
-	node
-	[
-		id	12
 		label	"L"
 		graphics
 		[
-			x	240.0
-			y	40.36174389237766
+			x	189.76699205448358
+			y	115.80831512485813
 			w	64.0
 			h	64.0
 			type	"rectangle"
@@ -287,9 +265,53 @@ graph
 			anchor	"c"
 		]
 	]
+	node
+	[
+		id	12
+		label	"P"
+		graphics
+		[
+			x	434.7669920544836
+			y	224.80831512485813
+			w	64.0
+			h	64.0
+			type	"rectangle"
+			fill	"#99CCFF"
+			outline	"#000000"
+		]
+		LabelGraphics
+		[
+			text	"P"
+			fontSize	12
+			fontName	"Dialog"
+			anchor	"c"
+		]
+	]
+	node
+	[
+		id	13
+		label	"V"
+		graphics
+		[
+			x	274.7669920544836
+			y	379.80831512485815
+			w	64.0
+			h	64.0
+			type	"rectangle"
+			fill	"#99CCFF"
+			outline	"#000000"
+		]
+		LabelGraphics
+		[
+			text	"V"
+			fontSize	12
+			fontName	"Dialog"
+			anchor	"c"
+		]
+	]
 	edge
 	[
-		source	4
+		source	8
 		target	6
 		graphics
 		[
@@ -299,133 +321,173 @@ graph
 	edge
 	[
 		source	6
-		target	9
-		graphics
-		[
-			fill	"#000000"
-		]
-	]
-	edge
-	[
-		source	9
-		target	10
-		graphics
-		[
-			fill	"#000000"
-		]
-		edgeAnchor
-		[
-			xSource	0.45451917422417054
-			ySource	0.3348236708608887
-			xTarget	0.3905191742241705
-			yTarget	0.29531249999999787
-		]
-	]
-	edge
-	[
-		source	10
-		target	9
-		graphics
-		[
-			fill	"#000000"
-		]
-		edgeAnchor
-		[
-			xSource	-0.44148082577583025
-			ySource	-0.37668750000000273
-			xTarget	-0.6014808257758304
-			yTarget	-0.08117632913911166
-		]
-	]
-	edge
-	[
-		source	9
 		target	3
 		graphics
 		[
 			fill	"#000000"
 		]
+	]
+	edge
+	[
+		source	3
+		target	2
+		label	"SI2"
+		graphics
+		[
+			fill	"#000000"
+		]
 		edgeAnchor
 		[
-			xSource	-0.292973325775824
-			ySource	-0.1254888291391083
-			yTarget	0.4419417382415922
+			ySource	0.15739365661547977
+			yTarget	0.15739365661547977
+		]
+		LabelGraphics
+		[
+			text	"SI2"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.01171875
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
+		]
+	]
+	edge
+	[
+		source	2
+		target	3
+		label	"SI1"
+		graphics
+		[
+			fill	"#000000"
+		]
+		edgeAnchor
+		[
+			xSource	0.018801776174880658
+			ySource	-0.15511465344276698
+			xTarget	0.018801776174880658
+			yTarget	-0.15511465344276693
+		]
+		LabelGraphics
+		[
+			text	"SI1"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.01171875
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
 		source	3
 		target	9
+		label	"NI2"
 		graphics
 		[
 			fill	"#000000"
 		]
 		edgeAnchor
 		[
-			xSource	0.22529332577586558
-			ySource	-0.06280449663680221
-			xTarget	0.271206674224171
-			yTarget	-0.16873882913910876
+			xSource	0.11619805390214388
+			ySource	0.10446087674031113
+			xTarget	0.11619805390214388
+			yTarget	0.10446087674031101
+		]
+		LabelGraphics
+		[
+			text	"NI2"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.673828125
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
 		source	9
-		target	8
+		target	3
+		label	"NI1"
 		graphics
 		[
 			fill	"#000000"
 		]
 		edgeAnchor
 		[
-			xSource	-0.49777332577582456
-			ySource	-0.08708882913910898
+			xSource	-0.21010732693131207
+			ySource	4.440892098500626E-16
+			xTarget	-0.21010732693131207
+		]
+		LabelGraphics
+		[
+			text	"NI1"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.673828125
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
-		source	8
-		target	11
+		source	3
+		target	4
+		label	"IE1"
 		graphics
 		[
 			fill	"#000000"
 		]
 		edgeAnchor
 		[
-			xSource	-8.881784197001252E-16
-			ySource	-0.15625
-			xTarget	-8.881784197001252E-16
-			yTarget	-0.15625
+			xSource	-0.14283051381382705
+			ySource	-0.06335224403032666
+			xTarget	-0.1428305138138275
+			yTarget	-0.06335224403032669
+		]
+		LabelGraphics
+		[
+			text	"IE1"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.01171875
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
-		source	1
-		target	5
+		source	4
+		target	1
+		label	"RE2"
 		graphics
 		[
 			fill	"#000000"
 		]
-		edgeAnchor
+		LabelGraphics
 		[
-			xSource	-0.666293325775829
-			ySource	0.497554496636738
-			xTarget	-0.624999999999968
-			yTarget	0.46875
+			text	"RE2"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	27.34375
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
-		source	5
-		target	6
-		graphics
-		[
-			fill	"#000000"
-		]
-	]
-	edge
-	[
-		source	6
+		source	10
 		target	7
 		graphics
 		[
@@ -434,8 +496,8 @@ graph
 	]
 	edge
 	[
-		source	4
-		target	2
+		source	7
+		target	6
 		graphics
 		[
 			fill	"#000000"
@@ -443,116 +505,8 @@ graph
 	]
 	edge
 	[
-		source	2
-		target	10
-		graphics
-		[
-			fill	"#000000"
-		]
-	]
-	edge
-	[
-		source	10
-		target	10
-		graphics
-		[
-			fill	"#000000"
-			Line
-			[
-				point
-				[
-					x	347.3213864248265
-					y	447.44
-				]
-				point
-				[
-					x	363.3213864248265
-					y	485.63999999999993
-				]
-				point
-				[
-					x	369.3213864248265
-					y	491.63999999999993
-				]
-				point
-				[
-					x	405.52138642482646
-					y	491.63999999999993
-				]
-				point
-				[
-					x	411.52138642482646
-					y	485.63999999999993
-				]
-				point
-				[
-					x	411.52138642482646
-					y	453.44
-				]
-				point
-				[
-					x	405.52138642482646
-					y	447.44
-				]
-				point
-				[
-					x	347.3213864248265
-					y	447.44
-				]
-			]
-		]
-		edgeAnchor
-		[
-			xSource	0.5
-			ySource	0.46218174400000045
-			xTarget	0.5502691742241694
-		]
-	]
-	edge
-	[
-		source	10
-		target	8
-		graphics
-		[
-			fill	"#000000"
-		]
-	]
-	edge
-	[
-		source	8
-		target	11
-		graphics
-		[
-			fill	"#000000"
-		]
-		edgeAnchor
-		[
-			xSource	0.045355825775857284
-			ySource	0.41706249999995215
-			xTarget	2.691742241687223E-4
-			yTarget	0.4170624999999992
-		]
-	]
-	edge
-	[
-		source	11
+		source	6
 		target	5
-		graphics
-		[
-			fill	"#000000"
-		]
-		edgeAnchor
-		[
-			xSource	-0.11048543456039717
-			ySource	0.1104854345603985
-			xTarget	-0.11048543456039761
-			yTarget	0.11048543456039894
-		]
-	]
-	edge
-	[
-		source	5
-		target	12
 		graphics
 		[
 			fill	"#000000"
@@ -561,90 +515,173 @@ graph
 	edge
 	[
 		source	12
-		target	8
+		target	7
+		graphics
+		[
+			fill	"#000000"
+		]
+	]
+	edge
+	[
+		source	7
+		target	4
+		graphics
+		[
+			fill	"#000000"
+		]
+	]
+	edge
+	[
+		source	4
+		target	11
+		label	"LE1"
 		graphics
 		[
 			fill	"#000000"
 		]
 		edgeAnchor
 		[
-			xSource	0.10406249999999773
-			ySource	0.33825800336319745
+			xSource	-0.1474582087532763
+			ySource	0.051673389392173696
+			xTarget	-0.1474582087532763
+			yTarget	0.051673389392173696
+		]
+		LabelGraphics
+		[
+			text	"LE1"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	25.3515625
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
 		source	11
-		target	5
+		target	4
+		label	"LE2"
 		graphics
 		[
 			fill	"#000000"
 		]
 		edgeAnchor
 		[
-			xSource	0.458706674224171
-			ySource	-0.40625
-			xTarget	0.583706674224171
-			yTarget	-0.25
+			xSource	0.16556597768557646
+			xTarget	0.16556597768557646
+		]
+		LabelGraphics
+		[
+			text	"LE2"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	25.3515625
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 	edge
 	[
-		source	5
-		target	1
+		source	4
+		target	13
+		label	""
 		graphics
 		[
 			fill	"#000000"
 		]
-		edgeAnchor
+		LabelGraphics
 		[
-			xSource	-0.062499999999968026
-			ySource	0.3125
-			xTarget	-0.353793325775829
-			yTarget	0.09130449663673801
 		]
 	]
 	edge
 	[
-		source	1
-		target	9
-		graphics
-		[
-			fill	"#000000"
-		]
-	]
-	edge
-	[
-		source	9
+		source	13
 		target	3
 		graphics
 		[
 			fill	"#000000"
 		]
-		edgeAnchor
-		[
-			xSource	0.521206674224171
-			ySource	-0.5749888291391088
-			xTarget	0.693213325775865
-			yTarget	-0.2681044966368018
-		]
 	]
 	edge
 	[
 		source	3
-		target	8
+		target	4
+		label	"IE2"
 		graphics
 		[
 			fill	"#000000"
 		]
+		edgeAnchor
+		[
+			xSource	0.17093029947243998
+			xTarget	0.17093029947244043
+		]
+		LabelGraphics
+		[
+			text	"IE2"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	22.01171875
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
+		]
 	]
 	edge
 	[
-		source	8
-		target	7
+		source	4
+		target	1
+		label	"RE1"
 		graphics
 		[
 			fill	"#000000"
+		]
+		edgeAnchor
+		[
+			ySource	-0.3272742129985611
+			yTarget	-0.32727421299856196
+		]
+		LabelGraphics
+		[
+			text	"RE1"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	27.34375
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
+		]
+	]
+	edge
+	[
+		source	4
+		target	1
+		label	"RE3"
+		graphics
+		[
+			fill	"#000000"
+		]
+		edgeAnchor
+		[
+			ySource	0.3272742129985602
+			yTarget	0.3272742129985611
+		]
+		LabelGraphics
+		[
+			text	"RE3"
+			fontSize	12
+			fontName	"Dialog"
+			configuration	"AutoFlippingLabel"
+			contentWidth	27.34375
+			contentHeight	18.701171875
+			model	"null"
+			position	"null"
 		]
 	]
 ]

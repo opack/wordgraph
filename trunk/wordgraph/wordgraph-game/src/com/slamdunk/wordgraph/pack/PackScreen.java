@@ -106,7 +106,6 @@ public class PackScreen implements Screen {
 		
 		// Image de fond
 		Image background = (Image)creator.getActor("background");
-		background.setZIndex(0);
 		background.setVisible(background.getDrawable() != null);
 		
 		// Ajoute un bouton pour chaque pack
@@ -127,6 +126,9 @@ public class PackScreen implements Screen {
 		
 		// Ajout des composants au stage
 		creator.populate(stage);
+		
+		// On place le background tout au fond
+		background.setZIndex(0);
 	}
 	
 	/**

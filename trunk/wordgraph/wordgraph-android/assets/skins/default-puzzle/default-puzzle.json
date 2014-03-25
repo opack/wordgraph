@@ -9,6 +9,9 @@
 		"riddle-font":{
 			"file":"arial_18.fnt"
 		},
+		"riddle-font-blur":{
+			"file":"arial_18_blur.fnt"
+		},
 		"solution-font":{
 			"file":"arial_bold_18.fnt"
 		},
@@ -385,6 +388,11 @@
 		"puzzle-riddle":{
 			"font":"riddle-font",
 			"fontColor":"black"
+		},
+		"puzzle-riddle-blur":{
+			"font":"riddle-font-blur",
+			"fontColor":"black",
+			"background":"obstacle-hidden"
 		},
 		"puzzle-score":{
 			"font":"score-font",
