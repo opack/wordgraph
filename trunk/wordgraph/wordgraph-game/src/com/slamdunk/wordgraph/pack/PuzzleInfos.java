@@ -11,6 +11,7 @@ public class PuzzleInfos {
 	private String description;
 	private int difficulty;
 	private PuzzleTypes type;
+	private boolean grid;
 	private boolean available;
 	
 	private float goldTime;
@@ -86,5 +87,13 @@ public class PuzzleInfos {
 
 	public void setType(PuzzleTypes type) {
 		this.type = type;
+	}
+
+	public boolean isGrid() {
+		return grid;
+	}
+
+	public void setGrid(boolean grid) {
+		this.grid = grid;
 	}
 }

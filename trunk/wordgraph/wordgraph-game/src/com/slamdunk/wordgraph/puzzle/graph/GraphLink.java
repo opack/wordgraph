@@ -3,7 +3,6 @@ package com.slamdunk.wordgraph.puzzle.graph;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -29,12 +28,6 @@ public class GraphLink extends Group {
 	 */
 	private boolean highlighted;
 	/**
-	 * Indique si le lien est visible. Il peut être invisible
-	 * s'il a déjà été utilisé dans un mot (@see #used) ou
-	 * si un obstacle le masque.
-	 */
-	//private boolean visible;
-	/**
 	 * Indique si le lien a déjà été utilisé dans un mot.
 	 */
 	private boolean used;
@@ -53,8 +46,6 @@ public class GraphLink extends Group {
 		} else {
 			setName(id);
 		}
-		
-		//visible = true;
 	}
 	
 	public void setDrawables(Drawable normalDrawable, Drawable highlightedDrawable) {
@@ -81,33 +72,6 @@ public class GraphLink extends Group {
 			points = new ArrayList<Vector2>();
 		}
 		points.add(point);
-	}
-	
-	public void draw(ShapeRenderer shapeRenderer) {
-//		if (points == null
-//		|| points.size() < 2
-//		|| !visible) {
-//			return;
-//		}
-////DBG		if (!highlighted) {
-////			return;
-////		}
-//		shapeRenderer.begin(ShapeType.Line);
-//		if (highlighted) {
-//			Gdx.gl10.glLineWidth(THICKNESS_HIGHLIGHTED);
-//			shapeRenderer.setColor(COLOR_HIGHLIGHTED);
-//		} else {
-//			Gdx.gl10.glLineWidth(THICKNESS_NORMAL);
-//			shapeRenderer.setColor(COLOR_NORMAL);
-//		}
-//		Vector2 point1 = points.get(0);
-//		Vector2 point2 = null;
-//		for (int index = 1; index < points.size(); index ++) {
-//			point2 = points.get(index);
-//			shapeRenderer.line(point1.x, point1.y, point2.x, point2.y);
-//			point1 = point2;
-//		}
-//		shapeRenderer.end();
 	}
 
 	/**

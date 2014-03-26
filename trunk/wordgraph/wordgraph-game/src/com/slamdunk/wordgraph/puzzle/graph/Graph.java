@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,14 +20,12 @@ import com.slamdunk.wordgraph.puzzle.parsing.GraphObject;
  * Graphe complet, contenant les noeuds et les liens
  */
 public class Graph extends Group {
-	private ShapeRenderer shapeRenderer;
 	private List<GraphNode> nodes;
 	private List<GraphLink> links;
 	private boolean centerGraph;
 	private TextButtonDecorator buttonDecorator;
 	
 	public Graph() {
-		shapeRenderer = new ShapeRenderer();
 		nodes = new ArrayList<GraphNode>();
 		links = new ArrayList<GraphLink>();
 	}
@@ -299,25 +296,9 @@ public class Graph extends Group {
 		// Met en pause le batch pour dessiner les links en premier
 		batch.end();
 		
-		// Dessine les liens
-		shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-		shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-        drawLinks();
-        
         // Reprend le batch et dessine les noeuds
         batch.begin();
 		super.draw(batch, parentAlpha);
-	}
-	
-	/**
-	 * Dessine les lignes.
-	 */
-	public void drawLinks() {
-		// Dessin des lignes
-		//DBGGdx.gl.glEnable(GL10.GL_LINE_SMOOTH);
-        for (GraphLink link : links) {
-        	link.draw(shapeRenderer);
-        }
 	}
 	
 	public List<GraphNode> getNodes() {
@@ -515,10 +496,6 @@ public class Graph extends Group {
 		}
 		// Zoom l'actor
 		actor.setBounds(actor.getX() * factor, actor.getY() * factor, actor.getWidth() * factor, actor.getHeight() * factor);
-	}
-
-	public void dispose() {
-		shapeRenderer.dispose();
 	}
 
 	/**
