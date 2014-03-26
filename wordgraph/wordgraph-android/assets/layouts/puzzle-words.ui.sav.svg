@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="59.951529"
-     inkscape:cy="363.9028"
+     inkscape:zoom="1.4"
+     inkscape:cx="171.11325"
+     inkscape:cy="575.24487"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -332,264 +332,23 @@
        ui.text="Score : %d"
        ui.align="16" />
     <rect
+       style="opacity:0.5;color:#000000;fill:#ffff00;stroke:#000000;stroke-width:1.09109426;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="graph"
+       width="478.90891"
+       height="498.90891"
+       x="0.49978039"
+       y="300.59131"
+       ry="0"
+       ui.class="com.slamdunk.wordgraph.puzzle.graph.Graph" />
+    <rect
        style="opacity:0.5;color:#000000;fill:#800080;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="finished"
        width="398.18781"
        height="348.28931"
        x="40.906097"
-       y="379.42676"
+       y="415.85535"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
        ui.visible="false" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter00"
-       width="59"
-       height="59"
-       x="5.5"
-       y="312.64285"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter01"
-       width="59"
-       height="59"
-       x="108.00001"
-       y="312.64285"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter02"
-       width="59"
-       height="59"
-       x="210.5"
-       y="312.64285"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter03"
-       width="59"
-       height="59"
-       x="313"
-       y="312.64285"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter04"
-       width="59"
-       height="59"
-       x="415.5"
-       y="312.64285"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter10"
-       width="59"
-       height="59"
-       x="5.5"
-       y="418.35715"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter11"
-       width="59"
-       height="59"
-       x="108.00001"
-       y="418.35715"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter12"
-       width="59"
-       height="59"
-       x="210.5"
-       y="418.35715"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter13"
-       width="59"
-       height="59"
-       x="313"
-       y="418.35715"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter14"
-       width="59"
-       height="59"
-       x="415.5"
-       y="418.35715"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter20"
-       width="59"
-       height="59"
-       x="5.5"
-       y="524.07141"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter21"
-       width="59"
-       height="59"
-       x="108.00001"
-       y="524.07141"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter23"
-       width="59"
-       height="59"
-       x="210.5"
-       y="524.07141"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter24"
-       width="59"
-       height="59"
-       x="313"
-       y="524.07141"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter25"
-       width="59"
-       height="59"
-       x="415.5"
-       y="524.07141"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter30"
-       width="59"
-       height="59"
-       x="5.5"
-       y="629.78571"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter31"
-       width="59"
-       height="59"
-       x="108.00001"
-       y="629.78571"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter32"
-       width="59"
-       height="59"
-       x="210.5"
-       y="629.78571"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter33"
-       width="59"
-       height="59"
-       x="313"
-       y="629.78571"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter34"
-       width="59"
-       height="59"
-       x="415.5"
-       y="629.78571"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter40"
-       width="59"
-       height="59"
-       x="5.5"
-       y="735.5"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter41"
-       width="59"
-       height="59"
-       x="108.00001"
-       y="735.5"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter42"
-       width="59"
-       height="59"
-       x="210.5"
-       y="735.5"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter43"
-       width="59"
-       height="59"
-       x="313"
-       y="735.5"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="letter44"
-       width="59"
-       height="59"
-       x="415.5"
-       y="735.5"
-       ry="0"
-       ui.style="puzzle-letter"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
   </g>
 </svg>
