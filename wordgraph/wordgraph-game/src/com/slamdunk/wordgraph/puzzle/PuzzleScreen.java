@@ -339,7 +339,12 @@ public class PuzzleScreen implements Screen {
 		for (GraphLink link : graph.getLinks()) {
 			linkUsed = puzzlePreferences.getLinkUsed(link.getName());
 			link.setUsed(linkUsed);
-			link.setVisible(!linkUsed);	
+			if (puzzleAttributes.getInfos().isGrid()) {
+				link.setVisible(false);//DBG Test puzzle en mode grille
+			}
+			else {
+				link.setVisible(!linkUsed);
+			}
 		}
 		hideIsolatedNodes();
 	}
@@ -421,6 +426,12 @@ public class PuzzleScreen implements Screen {
 		animateLetterFly(button);
 		
 		// Fait un peu disparaître et désactive les lettres qui ne sont pas connectées.
+		//DBG Test puzzle en mode grille
+		if (puzzleAttributes.getInfos().isGrid()) {
+			for (GraphLink link : graph.getLinks()) {
+				link.setVisible(false || (link.isHighlighted() && !"grids2".equals(puzzleName)));
+			}
+		}
 		fadeOutUnreachableLetters(selected);
 	}
 	
@@ -433,16 +444,35 @@ public class PuzzleScreen implements Screen {
 		boolean isSelectedLetterIsolated = IsleObstacle.isIsolated(obstacleManager, sourceLetter);
 		for (GraphNode node : graph.getNodes()) {
 			String nodeLetter = node.getName().toString();
+			GraphLink link = graph.getLink(nodeLetter, sourceLetter, false);
 			boolean isReachable = 
 					// Ce noeud peut être atteint s'il y a un lien non utilisé
 					(/*dbg!sourceLetter.equals(nodeLetter)
-					&& */graph.getLink(nodeLetter, sourceLetter, false) != null)
+					&& */link != null)
 					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
 					// afin de désactiver l'aide des liens
 					|| isSelectedLetterIsolated
 					|| IsleObstacle.isIsolated(obstacleManager, nodeLetter);
 			node.setDisabled(!isReachable);
+			//DBG Test puzzle en mode grille
+//			if (puzzleAttributes.getInfos().isGrid()) {
+//				if (link != null) {
+//					link.setVisible(isReachable || (link.isHighlighted() && !"grids2".equals(puzzleName)));
+//					if (link.isVisible()) {
+//						link.setZIndex(9999);
+//					}
+//				}
+//			}
 		}
+		//DBG Test puzzle en mode grille
+//		if (puzzleAttributes.getInfos().isGrid()) {
+//			graph.getNode(sourceLetter).setZIndex(9999);
+//			for (GraphNode node : graph.getNodes()) {
+//				if (!node.isDisabled()) {
+//					node.setZIndex(9999);
+//				}
+//			}
+//		}
 	}
 
 	/**
@@ -555,7 +585,7 @@ public class PuzzleScreen implements Screen {
 		backspaceButton.setDisabled(true);
 		
 		final TextButton copy = new TextButton(text, button.getStyle());
-		copy.setName("copy" + button.getName());//DBG
+		copy.setName("copy" + button.getName());
 		copy.setBounds(
 			button.getX() + graph.getX(),
 			button.getY() + graph.getY(),
@@ -784,6 +814,12 @@ public class PuzzleScreen implements Screen {
 		}
 		
 		// Mise en évidence des lettres accessibles
+		//DBG Test puzzle en mode grille
+		if (puzzleAttributes.getInfos().isGrid()) {
+			for (GraphLink link : graph.getLinks()) {
+				link.setVisible(false || (link.isHighlighted() && !"grids2".equals(puzzleName)));
+			}
+		}
 		if (!newSuggestion.isEmpty()) {
 			String lastLetter = newSuggestion.substring(newSuggestion.length() - 1);
 			fadeOutUnreachableLetters(lastLetter);
@@ -820,7 +856,6 @@ public class PuzzleScreen implements Screen {
 	@Override
 	public void dispose() {
 		stage.dispose();
-		graph.dispose();
 	}
 
 	@Override

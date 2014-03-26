@@ -68,6 +68,7 @@ public class PuzzleAttributesReader {
 		String description = propertiesFile.getProperty("description", "");
 		int difficulty = Integer.parseInt(propertiesFile.getProperty("difficulty", "1"));
 		String type = propertiesFile.getProperty("type", "WORDS");
+		boolean grid = Boolean.parseBoolean(propertiesFile.getProperty("grid", "false"));
 		
 		float goldTime = Float.parseFloat(propertiesFile.getProperty("time.gold", "0"));
 		float silverTime = Float.parseFloat(propertiesFile.getProperty("time.silver", "0"));
@@ -78,6 +79,7 @@ public class PuzzleAttributesReader {
 		infos.setDescription(description);
 		infos.setDifficulty(difficulty);
 		infos.setType(PuzzleTypes.valueOf(type.toUpperCase()));
+		infos.setGrid(grid);
 		
 		infos.setGoldTime(goldTime);
 		infos.setSilverTime(silverTime);
