@@ -2,7 +2,7 @@
 	- Layout :
 		. Prévoir une grille de 5 x 5 lettres
 		- Prévoir un bouton "Mélanger"
-	- Puzzle properties : possibilité de définir dans quelles cases apparaît initialement chaque lettre avec un formalisme simple
+	. Puzzle properties : possibilité de définir dans quelles cases apparaît initialement chaque lettre avec un formalisme simple
 		comme par exemple :
 			puzzle.line0 = AZERT
 			puzzle.line1 = YUIOP

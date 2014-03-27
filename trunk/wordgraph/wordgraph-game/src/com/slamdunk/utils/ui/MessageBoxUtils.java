@@ -1,4 +1,4 @@
-package com.slamdunk.utils;
+package com.slamdunk.utils.ui;
 
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.messagebox.MessageBox;
 import com.slamdunk.wordgraph.messagebox.MessageBox.MessageBoxStyle;
