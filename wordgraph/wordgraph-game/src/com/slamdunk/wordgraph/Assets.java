@@ -238,11 +238,11 @@ public class Assets {
 	
 	private static void loadSounds () {
 		// Effets sonores
-		soundVolume = PropertiesManager.asFloat("config", "sounds.sfx.volume", 1.0f);
+		soundVolume = PropertiesManager.getFloat("config", "sounds.sfx.volume", 1.0f);
 		//stepsSound = loadSound("steps.ogg");
 		
 		// Musiques
-		musicVolume = PropertiesManager.asFloat("config", "sounds.music.volume", 0.5f);
+		musicVolume = PropertiesManager.getFloat("config", "sounds.music.volume", 0.5f);
 		mainMusic = "";
 	}
 

@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.slamdunk.utils.MessageBoxUtils;
 import com.slamdunk.utils.ui.ButtonClickListener;
+import com.slamdunk.utils.ui.MessageBoxUtils;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
 
 public class MainScreen implements Screen {

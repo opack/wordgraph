@@ -1,13 +1,22 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
 /**
- * Représente un lien entre 2 lettres, et son état
+ * Représente un ou plusieurs liens entre 2 lettres, et leur état
  */
 public class Link {
 	private String endpoint1;
 	private String endpoint2;
-	private boolean used;
-	private boolean selected;
+	/**
+	 * Nombre de liens sélectionnés
+	 */
+	private int selected;
+	/**
+	 * Nombre de liens encore disponibles, c'est-à-dire
+	 * qui n'ont pas encore été validés précédemment
+	 * mais qui peuvent être actuellement sélectionnés
+	 */
+	private int size;
+	
 	public String getEndpoint1() {
 		return endpoint1;
 	}
@@ -20,16 +29,24 @@ public class Link {
 	public void setEndpoint2(String endpoint2) {
 		this.endpoint2 = endpoint2;
 	}
-	public boolean isUsed() {
-		return used;
-	}
-	public void setUsed(boolean used) {
-		this.used = used;
-	}
-	public boolean isSelected() {
+	public int getSelected() {
 		return selected;
 	}
-	public void setSelected(boolean selected) {
+	public void setSelected(int selected) {
 		this.selected = selected;
+	}
+	public int getSize() {
+		return size;
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
+	/**
+	 * Retourne vrai s'il reste au moins 1 lien traversable,
+	 * donc que getSize()-getSelected()>0.
+	 * @return
+	 */
+	public boolean isAvailable() {
+		return size - selected > 0;
 	}
 }

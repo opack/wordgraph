@@ -240,10 +240,10 @@ public class JokerScreen implements Screen {
 				selectedJoker = Joker.valueOf(button.getName());
 				// Change les libellés
 				String nameKey = selectedJoker.toString() + ".name." + Options.langCode;
-				String nameText = PropertiesManager.asString("jokers", nameKey, "");
+				String nameText = PropertiesManager.getString("jokers", nameKey, "");
 				nameLabel.setText(nameText);
 				String descriptionKey = selectedJoker.toString() + ".description." + Options.langCode;
-				String descriptionText = PropertiesManager.asString("jokers", descriptionKey, "");
+				String descriptionText = PropertiesManager.getString("jokers", descriptionKey, "");
 				descriptionLabel.setText(descriptionText);
 				// Active si possible le bouton de validation
 				activateValidation();

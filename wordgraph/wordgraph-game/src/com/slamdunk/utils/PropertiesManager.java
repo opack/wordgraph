@@ -4,21 +4,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
+/**
+ * Gestionnaire de fichiers de propriétés, capable de stocker plusieurs
+ * fichiers
+ */
 public class PropertiesManager {
 	
-	private static Map<String, Properties> propertiesMap;
+	private static Map<String, PropertiesEx> propertiesMap;
 	
 	static {
-		propertiesMap = new HashMap<String, Properties>();
+		propertiesMap = new HashMap<String, PropertiesEx>();
 	}
 	
 	public static void init(String propertiesKey) {
-		Properties properties = new Properties();
+		PropertiesEx properties = new PropertiesEx();
 		FileHandle fh = Gdx.files.internal("properties/" + propertiesKey + ".properties");
 		InputStream inStream = fh.read();
 		try {
@@ -35,44 +38,36 @@ public class PropertiesManager {
 		}
 	}
 	
-	public static boolean asBoolean(String propertiesKey, String name, boolean fallback) {
-		Properties properties = propertiesMap.get(propertiesKey);
+	public static boolean getBoolean(String propertiesKey, String name, boolean fallback) {
+		PropertiesEx properties = propertiesMap.get(propertiesKey);
 		if (properties == null) {
 			return fallback;
 		}
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Boolean.parseBoolean(v);
+		return properties.getBooleanProperty(name, fallback);
 	}
 
-	public static float asFloat(String propertiesKey, String name, float fallback) {
-		Properties properties = propertiesMap.get(propertiesKey);
+	public static float getFloat(String propertiesKey, String name, float fallback) {
+		PropertiesEx properties = propertiesMap.get(propertiesKey);
 		if (properties == null) {
 			return fallback;
 		}
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Float.parseFloat(v);
+		return properties.getFloatProperty(name, fallback);
 	}
 
-	public static int asInt(String propertiesKey, String name, int fallback) {
-		Properties properties = propertiesMap.get(propertiesKey);
+	public static int getInteger(String propertiesKey, String name, int fallback) {
+		PropertiesEx properties = propertiesMap.get(propertiesKey);
 		if (properties == null) {
 			return fallback;
 		}
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Integer.parseInt(v);
+		return properties.getIntegerProperty(name, fallback);
 	}
 
-	public static String asString(String propertiesKey, String name, String fallback) {
-		Properties properties = propertiesMap.get(propertiesKey);
+	public static String getString(String propertiesKey, String name, String fallback) {
+		PropertiesEx properties = propertiesMap.get(propertiesKey);
 		if (properties == null) {
 			return fallback;
 		}
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return v;
+		return properties.getStringProperty(name, fallback);
 	}
 
 	private PropertiesManager () {
