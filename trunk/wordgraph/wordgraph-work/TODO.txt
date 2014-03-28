@@ -1,3 +1,6 @@
+- Nettoyage
+	- Nettoyer l'atlas pour ne garder que les images utiles
+	- Nettoyer le code pour supprimer les anciennes classes du graphe
 - Gérer une grille de lettres au lieu d'un vrai graphe
 	- Layout :
 		. Prévoir une grille de 5 x 5 lettres
@@ -9,11 +12,11 @@
 			puzzle.line2 = _QSDF
 			puzzle.line3 = GHJ__
 			puzzle.line4 = KLM_W
-	- PuzzleScren :
-		- Suppression du graphe (Graph, GraphNodes, GraphLink, GMLParser...)
-		- Création dynamique du graphe logique à partir des solutions. Ce graphe permettra de savoir quelle lettre est connectée à quelle lettre,
+	. PuzzleScren :
+		. Suppression du graphe (Graph, GraphNodes, GraphLink, GMLParser...)
+		. Création dynamique du graphe logique à partir des solutions. Ce graphe permettra de savoir quelle lettre est connectée à quelle lettre,
 		quel lien a déjà été utilisé etc...
-		- Dessin dynamique des liens (obligatoire suite à la possiblité de mélanger)			
+		. Dessin dynamique des liens (obligatoire suite à la possiblité de mélanger)			
 - Mieux gérer le fullscreen et l'aspect ratio : http://stackoverflow.com/questions/9899301/fullscreen-resolution-on-android-for-libgdx-games
 - Supprimer l'écran des jokers les mettre les mettre dans le même panneau que les bonus
 	-> prévoir une séparation dans ce panneau avec un sous-titre pour les bonus et les jokers
