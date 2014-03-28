@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -125,7 +124,13 @@ public class PuzzleAttributesReader {
 			addDefault(skin, "puzzle-suggestion", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "text", LabelStyle.class, Assets.defaultPuzzleSkin);
 			// TextureRegions
-			addDefaultRegion(skin, "link-highlighted", Assets.defaultPuzzleSkin);
+			// Pas possible d'utiliser les TextureRegions d'un autre atlas car si on décharge
+			// l'atlas enrichi avec la valeur par défaut, la TextureRegion source sera déchargée
+			// aussi. Du coup, l'atlas source sera incohérent et cela provoque des problèmes
+			// d'affichage. Le plus simple est donc de s'assurer que les skins disposent bien
+			// des TextureRegions nécessaires.
+			// -> link-normal
+			// -> link-highlighted
 		}
 	}
 
@@ -141,13 +146,6 @@ public class PuzzleAttributesReader {
 	private void addDefault(Skin skinToCheck, String styleName, Class styleClass, Skin defaultSkin) {
 		if (!skinToCheck.has(styleName, styleClass)) {
 			skinToCheck.add(styleName, defaultSkin.get(styleName, styleClass));
-		}		
-	}
-	
-	private void addDefaultRegion(Skin skinToCheck, String regionName, Skin defaultSkin) {
-		if (skinToCheck.getAtlas().findRegion(regionName) == null) {
-			TextureRegion defaultRegion = defaultSkin.getAtlas().findRegion(regionName);
-			skinToCheck.getAtlas().addRegion(regionName, defaultRegion);
 		}		
 	}
 

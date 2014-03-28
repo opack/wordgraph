@@ -121,6 +121,7 @@ public class JokerScreen implements Screen {
 		}
 		// Création des composants depuis le layout définit dans le SVG
 		SvgUICreator creator = new SvgUICreator(skin);
+		creator.load("layouts/joker-common.ui.svg");
 		if (puzzleAttributes.getInfos().getType() == PuzzleTypes.WORDS) {
 			creator.load("layouts/joker-words.ui.svg");
 		} else {

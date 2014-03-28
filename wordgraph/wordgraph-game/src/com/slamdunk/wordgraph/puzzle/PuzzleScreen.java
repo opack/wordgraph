@@ -177,7 +177,7 @@ public class PuzzleScreen implements Screen {
 		// Récupération de la skin à appliquer
 		Skin skin = puzzleAttributes.getSkin();
 		if (skin == null) {
-			skin = Assets.uiSkin;
+			skin = Assets.defaultPuzzleSkin;
 		}
 		letterDecorator = new PuzzleButtonDecorator(skin);
 		

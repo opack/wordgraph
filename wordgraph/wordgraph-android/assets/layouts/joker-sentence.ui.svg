@@ -24,16 +24,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="248.99149"
-     inkscape:cy="501.87522"
+     inkscape:zoom="0.70710678"
+     inkscape:cx="251.89793"
+     inkscape:cy="426.79162"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="662"
-     inkscape:window-height="797"
-     inkscape:window-x="430"
-     inkscape:window-y="69"
+     inkscape:window-height="960"
+     inkscape:window-x="600"
+     inkscape:window-y="-2"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -61,110 +61,6 @@
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
        ui.image="puzzle-background" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="back"
-       width="40"
-       height="24.000002"
-       x="5.5"
-       y="18.000002"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
-       ui.style="puzzle-back" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="title"
-       width="319"
-       height="49"
-       x="50.499992"
-       y="5.5000024"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="puzzle-title"
-       ui.text="Joker" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="validate"
-       width="99.000008"
-       height="49"
-       x="190.5"
-       y="737.15802"
-       ry="0"
-       ui.style="puzzle-validate"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="choose-riddle"
-       width="469"
-       height="29"
-       x="5.5000024"
-       y="85.5"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="text"
-       ui.text="Choisissez un indice" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="bishop"
-       width="79"
-       height="79"
-       x="5.5000024"
-       y="540.35754"
-       ry="0"
-       ui.style="joker-bishop"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="rook"
-       width="79"
-       height="79"
-       x="135.5"
-       y="540.35754"
-       ry="0"
-       ui.style="joker-rook"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="knight"
-       width="79"
-       height="79"
-       x="265.5"
-       y="540.35754"
-       ry="0"
-       ui.style="joker-knight"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="queen"
-       width="79"
-       height="79"
-       x="395.5"
-       y="540.35754"
-       ry="0"
-       ui.style="joker-queen"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="choose-joker"
-       width="469"
-       height="29"
-       x="5.5000024"
-       y="502.64325"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="text"
-       ui.text="Choisissez un joker" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="description"
-       width="469"
-       height="69"
-       x="5.5000024"
-       y="659.78601"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="puzzle-riddle"
-       ui.align="3" />
     <rect
        style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="riddle"
@@ -261,16 +157,5 @@
        y="426.27399"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Table" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.65241283;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="name"
-       width="469.3476"
-       height="29.347588"
-       x="5.3262048"
-       y="627.61218"
-       ry="0"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.style="text"
-       ui.align="1" />
   </g>
 </svg>
