@@ -1,3 +1,4 @@
+- Faire un bouton "Mélanger" pour réarranger les lettres
 - Enregistrer le layout actuel du puzzle dans les prefs pour le recharger à l'identique la prochaine fois
 - Au lieu de modifier l'image de la lettre quand elle est sélectionnée dans un mot et mise en valeur
 par un joker, la mettre en valeur différemment pour que le joueur voit bien toujours si ces lettres sont
@@ -8,7 +9,7 @@ connectées à la dernière lettre jouée, et donc sélectionnable.
 	- Nettoyer l'atlas pour ne garder que les images utiles
 	- Nettoyer les listeners du graphe (en particulier les obstacles) et s'assurer
 	que les méthodes sont utiles et correctement utilisées
-- Faire un bouton "Mélanger" pour réarranger les lettres			
+
 - Mieux gérer le fullscreen et l'aspect ratio : http://stackoverflow.com/questions/9899301/fullscreen-resolution-on-android-for-libgdx-games
 - Supprimer l'écran des jokers les mettre les mettre dans le même panneau que les bonus
 	-> prévoir une séparation dans ce panneau avec un sous-titre pour les bonus et les jokers
