@@ -1,7 +1,7 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 
 /**
  * Masque une lettre
@@ -12,12 +12,12 @@ public class FogObstacle extends NodeObstacle{
 	}
 
 	@Override
-	public void applyEffect(Graph graph) {
+	public void applyEffect(PuzzleGraph graph) {
+		TextButton button = getNode().getButton();
 		// Si l'obstacle est actif, on masque la lettre
 		if (isActive()) {
 			// Supprime le texte du bouton
-			GraphNode node = getNode();
-			node.setText("?");
+			button.setText("?");
 			
 			// Place une image de brouillard sur la lettre isolée
 			if (getImage() == null) {
@@ -27,7 +27,7 @@ public class FogObstacle extends NodeObstacle{
 			// Sinon on supprime l'image de brouillard
 			if (getImage() != null) {
 				getImage().remove();
-				getNode().setText(getTarget());
+				button.setText(getTarget());
 				setImage(null);
 			}
 		}
@@ -40,7 +40,7 @@ public class FogObstacle extends NodeObstacle{
 		if (word.indexOf(getTarget()) != -1) {
 			setActive(false);
 			writePreferenceObstacleActive(false);
-			applyEffect(getManager().getGraph());
+			applyEffect(getManager().getPuzzleGraph());
 		}
 	}
 }

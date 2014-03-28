@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.wordgraph.Assets;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 
 /**
  * Remplace un indice par une catégorie
@@ -19,7 +19,7 @@ public class CategoryObstacle extends ClueObstacle{
 	}
 
 	@Override
-	public void applyEffect(Graph graph) {
+	public void applyEffect(PuzzleGraph graph) {
 		Label label = getLabel();
 		if (label != null) {
 			if (isActive()) {

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,9 +31,10 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.LinkDrawer;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
@@ -45,13 +47,12 @@ public class PuzzleScreen implements Screen {
 	
 	private PuzzlePreferencesHelper puzzlePreferences;
 	private PuzzleAttributes puzzleAttributes;
-	private Graph graph;
+	private PuzzleGraph graph;
 	private ObstacleManager obstacleManager;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
 
-	private PuzzleButtonDecorator puzzleButtonDecorator;
 	private Stage stage;
 	private Label suggestionLabel;
 	private TextButton validateButton;
@@ -59,13 +60,15 @@ public class PuzzleScreen implements Screen {
 	private TextButton jokerButton;
 	private Image finishedImage;
 	
+	private PuzzleButtonDecorator letterDecorator;
+	
 	// On utilise Label plutôt qu'un simple String pour pouvoir déterminer
 	// la position vers laquelle envoyer les lettres sélectionner, car il
 	// nous faut un TextBounds pour déterminer la taille du mot suggéré
 	private Label currentSuggestion;
 	private LinkedList<String> pendingLetters;
-	private LinkedList<GraphLink> selectedLinks;
-	private LinkedList<GraphNode> selectedNodes;
+	private LinkedList<PuzzleLink> selectedLinks;
+	private LinkedList<TextButton> selectedLetters;
 	
 	private List<PuzzleListener> listeners;
 	
@@ -74,10 +77,11 @@ public class PuzzleScreen implements Screen {
 	public PuzzleScreen(WordGraphGame game) {
 		this.game = game;
 		pendingLetters = new LinkedList<String>();
-		selectedLinks = new LinkedList<GraphLink>();
-		selectedNodes = new LinkedList<GraphNode>();
+		selectedLinks = new LinkedList<PuzzleLink>();
+		selectedLetters = new LinkedList<TextButton>();
 		
 		stage = new Stage();
+		graph = new PuzzleGraph();
 	}
 	
 	private void addListener(PuzzleListener listener) {
@@ -87,7 +91,7 @@ public class PuzzleScreen implements Screen {
 		listeners.add(listener);
 	}
 	
-	private void notifyPuzzleLoaded(Graph graph, PuzzlePreferencesHelper puzzlePreferences) {
+	private void notifyPuzzleLoaded(PuzzleGraph graph, PuzzlePreferencesHelper puzzlePreferences) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
 				listener.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
@@ -95,7 +99,7 @@ public class PuzzleScreen implements Screen {
 		}
 	}
 	
-	private void notifyLinkUsed(GraphLink link) {
+	private void notifyLinkUsed(PuzzleLink link) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
 				listener.linkUsed(link);
@@ -103,7 +107,7 @@ public class PuzzleScreen implements Screen {
 		}
 	}
 	
-	private void notifyNodeHidden(GraphNode node) {
+	private void notifyNodeHidden(PuzzleNode node) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
 				listener.nodeHidden(node);
@@ -158,13 +162,16 @@ public class PuzzleScreen implements Screen {
 	}
 
 	private void createUI() {
+		// Nettoyage du puzzle actuel
 		pendingLetters.clear();
 		stage.clear();
+		
 		// Récupération de la skin à appliquer
 		Skin skin = puzzleAttributes.getSkin();
 		if (skin == null) {
 			skin = Assets.uiSkin;
 		}
+		letterDecorator = new PuzzleButtonDecorator(skin);
 		
 		// Création des composants depuis le layout définit dans le SVG
 		SvgUICreator creator = new SvgUICreator(skin);
@@ -268,11 +275,6 @@ public class PuzzleScreen implements Screen {
 		validateButton.setDisabled(true);
 		backspaceButton.setDisabled(true);
       
-		// Chargement du graph
-		puzzleButtonDecorator = new PuzzleButtonDecorator(this, skin);
-		graph = (Graph)creator.getActor("graph");
-		loadGraph(graph, puzzleButtonDecorator);
-		
 		// Chargement de l'image de fin de puzzle
 		finishedImage.setScaling(Scaling.none);
 		finishedImage.setDrawable(new TextureRegionDrawable(Assets.puzzleDone));
@@ -280,7 +282,24 @@ public class PuzzleScreen implements Screen {
         	displayFinishImage();
 		}
 		
+		// Initialisation du dessinateur de liens
+		LinkDrawer linkDrawer = (LinkDrawer)creator.getActor("linkdrawer");
+		linkDrawer.setGraph(graph);
+		
 		// Affectation des listeners
+		ButtonClickListener	letterSelectListener = new ButtonClickListener() {
+			@Override
+			public void clicked(Button button) {
+				selectLetter((TextButton)button);
+			}
+		};
+		TextButton letterButton;
+		for (int curLine = 0; curLine < PuzzleGraph.GRID_SIZE; curLine++) {
+			for (int curColumn = 0; curColumn < PuzzleGraph.GRID_SIZE; curColumn++) {
+				letterButton = (TextButton)creator.getActor("letter" + curLine + curColumn);
+				letterButton.addListener(letterSelectListener);
+			}
+		}
 		creator.getActor("back").addListener(new ButtonClickListener() {
 			@Override
 			public void clicked(Button button) {
@@ -317,9 +336,8 @@ public class PuzzleScreen implements Screen {
 		// Ajout des composants au stage
 		creator.populate(stage);
 		
-		// On place le background tout au fond
-		background.setZIndex(0);
-		
+		// Chargement du graph
+		loadGraph(graph);
 		reloadPuzzle = false;
 		
 		// Création du libellé de suggestion courante
@@ -330,22 +348,39 @@ public class PuzzleScreen implements Screen {
 	 * Crée le graphe
 	 * @param graph
 	 */
-	private void loadGraph(Graph graph, PuzzleButtonDecorator decorator) {
-		// Création du graphe
-		graph.load("puzzles/" + puzzlePack + "/"  + puzzleName + ".gml", decorator);
+	private void loadGraph(PuzzleGraph graph) {
+		// Vidage du graph existant
+		graph.clear();
 		
-		// Cache les liens et noeuds déjà cachés précédemment
-		boolean linkUsed;
-		for (GraphLink link : graph.getLinks()) {
-			linkUsed = puzzlePreferences.getLinkUsed(link.getName());
-			link.setUsed(linkUsed);
-			if (puzzleAttributes.getInfos().isGrid()) {
-				link.setVisible(false);//DBG Test puzzle en mode grille
-			}
-			else {
-				link.setVisible(!linkUsed);
+		// Création du graphe
+		List<String> solutions = new ArrayList<String>();
+		for (Riddle riddle : puzzleAttributes.getRiddles()) {
+			solutions.add(riddle.getSolution());
+		}
+		graph.load(solutions);
+		
+		// Arrangement du graphe et affectation des lettres aux boutons
+		final Group stageRoot = stage.getRoot();
+		final TextButton[][] letterButtons = new TextButton[PuzzleGraph.GRID_SIZE][PuzzleGraph.GRID_SIZE];
+		for (int curLine = 0; curLine < PuzzleGraph.GRID_SIZE; curLine++) {
+			for (int curColumn = 0; curColumn < PuzzleGraph.GRID_SIZE; curColumn++) {
+				letterButtons[curLine][curColumn] = (TextButton)stageRoot.findActor("letter" + curLine + curColumn);
 			}
 		}
+		graph.layout(letterButtons);
+		
+		// Récupère la nombre de liens disponibles entre chaque lettre
+		// suite aux éventuelles précédentes parties
+		for (String letter : graph.getLetters()) {
+			for (PuzzleLink link : graph.getLinks(letter)) {
+				int size = puzzlePreferences.getLinkSize(link.getName());
+				if (size > -1) {
+					link.setSize(size);
+				}
+			}
+		}
+		
+		// Cache les noeuds qui n'ont plus de lien disponible
 		hideIsolatedNodes();
 	}
 
@@ -391,7 +426,7 @@ public class PuzzleScreen implements Screen {
 		}
 	}
 	
-	public void selectLetter(GraphNode button) {
+	public void selectLetter(TextButton button) {
 		// Récupère la lettre sélectionnée et la dernière lettre actuelle
 		String currentWord = currentSuggestion.getText().toString();
 		String last = currentWord.isEmpty() ? "" : currentWord.substring(currentWord.length() - 1);
@@ -399,10 +434,10 @@ public class PuzzleScreen implements Screen {
 		
 		// Récupère le lien entre les lettres
 		if (!last.isEmpty()) {
-			GraphLink link = graph.getLink(last, selected, false);
+			PuzzleLink link = graph.getLink(last, selected);
 			// Met en évidence le lien
-			if (link != null) {
-				link.setHighlighted(true);
+			if (link != null && link.isAvailable()) {
+				link.setSelected(link.getSelected() + 1);
 				selectedLinks.add(link);
 			} else if (!IsleObstacle.isIsolated(obstacleManager, last)
 					&& !IsleObstacle.isIsolated(obstacleManager, selected)) {
@@ -410,13 +445,15 @@ public class PuzzleScreen implements Screen {
 				// n'est isolée, on interdit la sélection. Si au moins une des deux
 				// est isolée, alors le joueur n'a pas cette aide.
 				// Désélectionne le bouton si la lettre n'est pas déjà dans le mot
-				setSelectedStyle(button, currentWord.contains(selected));
+				if (!currentWord.contains(selected)) {
+					letterDecorator.setNormalStyle(button);
+				}
 				return;
 			}
 		}
 		// Sélectionne le bouton de cette lettre
-		selectedNodes.add(button);
-		setSelectedStyle(button, true);
+		selectedLetters.add(button);
+		letterDecorator.setSelectedStyle(button);
 		notifyLetterSelected(selected);
 		
 		// Ajoute la lettre au mot courant
@@ -425,13 +462,7 @@ public class PuzzleScreen implements Screen {
 		// Lance une jolie animation qui "envoie" la lettre affichée vers le libellé de suggestion
 		animateLetterFly(button);
 		
-		// Fait un peu disparaître et désactive les lettres qui ne sont pas connectées.
-		//DBG Test puzzle en mode grille
-		if (puzzleAttributes.getInfos().isGrid()) {
-			for (GraphLink link : graph.getLinks()) {
-				link.setVisible(false || (link.isHighlighted() && !"grids2".equals(puzzleName)));
-			}
-		}
+		// Met en retrait et désactive les lettres qui ne sont pas connectées.
 		fadeOutUnreachableLetters(selected);
 	}
 	
@@ -442,49 +473,17 @@ public class PuzzleScreen implements Screen {
 	 */
 	private void fadeOutUnreachableLetters(String sourceLetter) {
 		boolean isSelectedLetterIsolated = IsleObstacle.isIsolated(obstacleManager, sourceLetter);
-		for (GraphNode node : graph.getNodes()) {
-			String nodeLetter = node.getName().toString();
-			GraphLink link = graph.getLink(nodeLetter, sourceLetter, false);
+		for (PuzzleNode node : graph.getNodes()) {
+			String letter = node.getLetter();
+			PuzzleLink link = node.getLink(sourceLetter);
 			boolean isReachable = 
 					// Ce noeud peut être atteint s'il y a un lien non utilisé
-					(/*dbg!sourceLetter.equals(nodeLetter)
-					&& */link != null)
+					(link != null && link.isAvailable())
 					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
 					// afin de désactiver l'aide des liens
 					|| isSelectedLetterIsolated
-					|| IsleObstacle.isIsolated(obstacleManager, nodeLetter);
-			node.setDisabled(!isReachable);
-			//DBG Test puzzle en mode grille
-//			if (puzzleAttributes.getInfos().isGrid()) {
-//				if (link != null) {
-//					link.setVisible(isReachable || (link.isHighlighted() && !"grids2".equals(puzzleName)));
-//					if (link.isVisible()) {
-//						link.setZIndex(9999);
-//					}
-//				}
-//			}
-		}
-		//DBG Test puzzle en mode grille
-//		if (puzzleAttributes.getInfos().isGrid()) {
-//			graph.getNode(sourceLetter).setZIndex(9999);
-//			for (GraphNode node : graph.getNodes()) {
-//				if (!node.isDisabled()) {
-//					node.setZIndex(9999);
-//				}
-//			}
-//		}
-	}
-
-	/**
-	 * Applique le style selected ou normal au bouton indiqué
-	 * @param button
-	 * @param contains
-	 */
-	private void setSelectedStyle(GraphNode button, boolean selected) {
-		if (selected) {
-			button.setStyle(puzzleButtonDecorator.getSelectedStyle());
-		} else {
-			button.setStyle(puzzleButtonDecorator.getDefaultStyle());
+					|| IsleObstacle.isIsolated(obstacleManager, letter);
+			node.getButton().setDisabled(!isReachable);
 		}
 	}
 
@@ -518,22 +517,25 @@ public class PuzzleScreen implements Screen {
 			}
 			
 			// Suppression des liens utilisés
-			List<String> usedLinks = new ArrayList<String>();
-			for (GraphLink link : graph.getLinks()) {
-				if (link.isHighlighted()) {
-					link.setUsed(true);
-					link.setVisible(false);
-					usedLinks.add(link.getName());
-					notifyLinkUsed(link);
+			List<PuzzleLink> usedLinks = new ArrayList<PuzzleLink>();
+			for (String letter : graph.getLetters()) {
+				for (PuzzleLink link : graph.getLinks(letter)) {
+					if (link.isSelected()) {
+						link.setSize(link.getSize() - 1);
+						usedLinks.add(link);
+						notifyLinkUsed(link);
+					}
 				}
 			}
-			puzzlePreferences.setLinkUsed(usedLinks, true);
+			
+			// Mise à jour des préférences avec la nouvelle taille des liens
+			puzzlePreferences.setLinksSize(usedLinks);
 			
 			// Cache les lettres isolées
 			hideIsolatedNodes();
 			
 			// Désactivation des lettres mises en évidence
-			graph.highlightAllNodes(false);
+			letterDecorator.setNormalStyleOnAllNodes(graph);
 			
 			// Notifie les listeners qu'un mot a été validé
 			notifyWordValidated(suggestion);
@@ -587,8 +589,8 @@ public class PuzzleScreen implements Screen {
 		final TextButton copy = new TextButton(text, button.getStyle());
 		copy.setName("copy" + button.getName());
 		copy.setBounds(
-			button.getX() + graph.getX(),
-			button.getY() + graph.getY(),
+			button.getX(),
+			button.getY(),
 			button.getWidth(),
 			button.getHeight());
 		copy.setColor(1,1,1,0.5f);
@@ -670,9 +672,12 @@ public class PuzzleScreen implements Screen {
 	 * Cache les noeuds qui n'ont plus aucun lien avec d'autres noeuds
 	 */
 	private void hideIsolatedNodes() {
-		for (GraphNode node : graph.getNodes()) {
+		for (PuzzleNode node : graph.getNodes()) {
 			if (!node.isReachable()) {
-				node.setVisible(false);
+				TextButton button = node.getButton();
+				if (button != null) {
+					button.setVisible(false);
+				}
 				notifyNodeHidden(node);
 			}
 		}
@@ -683,7 +688,6 @@ public class PuzzleScreen implements Screen {
 	 * composants permettant de saisir une suggestion
 	 */
 	private void displayFinishImage() {
-		graph.setVisible(false);
 		suggestionLabel.setVisible(false);
 		validateButton.setVisible(false);
 		backspaceButton.setVisible(false);
@@ -727,7 +731,7 @@ public class PuzzleScreen implements Screen {
 		} else {
 			// On arrête le compteur et masque le graphe pendant l'affichage de la boîte de dialoug
 			chrono.stop();
-			graph.setVisible(false);
+			showLetters(true);
 			
 			MessageBoxUtils.showConfirm(
 				"Quitter le puzzle ?",
@@ -747,17 +751,26 @@ public class PuzzleScreen implements Screen {
 					public void clicked(Button button) {
 						// Redémarre le compteur et raffiche le graphe
 						chrono.start();
-						graph.setVisible(true);
+						showLetters(true);
 					}
 				});
 		}
 	}
 	
+	private void showLetters(boolean show) {
+		for (PuzzleNode node : graph.getNodes()) {
+			TextButton button = node.getButton();
+			if (button != null) {
+				button.setVisible(show);
+			}
+		}
+	}
+
 	/**
 	 * Méthode appelée quand le joueur clique sur Joker
 	 */
 	private void onJoker() {
-		game.showJokerScreen(puzzleAttributes, graph);
+		game.showJokerScreen(puzzleAttributes, graph, letterDecorator);
 	}
 	
 	/**
@@ -799,34 +812,31 @@ public class PuzzleScreen implements Screen {
 		
 		// Désélection des liens qui ne sont plus sélectionnés
 		if (!selectedLinks.isEmpty()) {
-			GraphLink lastLink = selectedLinks.removeLast();
-			lastLink.setHighlighted(false);
+			PuzzleLink lastLink = selectedLinks.removeLast();
+			lastLink.setSelected(lastLink.getSelected() + 1);
 		}
 
-		if (!selectedNodes.isEmpty()) {
+		if (!selectedLetters.isEmpty()) {
 			// Suppression du dernier node sélectionné
-			GraphNode lastNode = selectedNodes.removeLast();
+			TextButton lastNode = selectedLetters.removeLast();
 		
 			// Désélection de ce node si la lettre n'est plus dans le mot
 			if (newSuggestion.indexOf(removedLetter) == -1) {
-				setSelectedStyle(lastNode, false);
+				letterDecorator.setNormalStyle(lastNode);
 			}
 		}
 		
 		// Mise en évidence des lettres accessibles
-		//DBG Test puzzle en mode grille
-		if (puzzleAttributes.getInfos().isGrid()) {
-			for (GraphLink link : graph.getLinks()) {
-				link.setVisible(false || (link.isHighlighted() && !"grids2".equals(puzzleName)));
-			}
-		}
 		if (!newSuggestion.isEmpty()) {
 			String lastLetter = newSuggestion.substring(newSuggestion.length() - 1);
 			fadeOutUnreachableLetters(lastLetter);
 		} else {
 			// Il n'y a plus de lettres dans la suggestion : toutes les lettres sont donc accessibles
-			for (GraphNode node : graph.getNodes()) {
-				node.setDisabled(false);
+			for (PuzzleNode node : graph.getNodes()) {
+				TextButton button = node.getButton();
+				if (button != null) {
+					button.setDisabled(false);
+				}
 			}
 		}
 	}
@@ -841,16 +851,17 @@ public class PuzzleScreen implements Screen {
 		selectedLinks.clear();
 		
 		// Raz des liens sélectionnés
-		graph.highlightAllLinks(false);
+		for (String letter : graph.getLetters()) {
+			for (PuzzleLink link : graph.getLinks(letter)) {
+				link.setSelected(0);
+			}
+		}
 		
 		// Raz des lettres sélectionnées
 		// DBGgraph.selectAllNodes(false);
 		
 		// Raz des lettres non joignables
-		for (GraphNode node : graph.getNodes()) {
-			node.setDisabled(false);
-			setSelectedStyle(node, false);
-		}
+		letterDecorator.setNormalStyleOnAllNodes(graph);
 	}
 	
 	@Override

@@ -4,9 +4,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 /**
  * Représente un obstacle qui peut gêner le joueur.
@@ -33,7 +33,7 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @param graph
 	 * @see #isActive()
 	 */
-	public abstract void applyEffect(Graph graph);
+	public abstract void applyEffect(PuzzleGraph graph);
 	
 	/**
 	 * Indique si l'obstacle est toujours actif ou non.
@@ -80,19 +80,19 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 	
 	@Override
-	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		this.puzzlePreferences = puzzlePreferences;
 		// Regarde dans les préférences si cet obstacle est actif
 		setActive(readPreferenceObstacleActive());
 	}
 	
 	@Override
-	public void linkUsed(GraphLink link) {
+	public void linkUsed(PuzzleLink link) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void nodeHidden(GraphNode node) {
+	public void nodeHidden(PuzzleNode node) {
 		// TODO Auto-generated method stub
 	}
 

@@ -8,7 +8,7 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 
 public abstract class ClueObstacle extends Obstacle {
 	private Riddle riddle;
@@ -36,7 +36,7 @@ public abstract class ClueObstacle extends Obstacle {
 	}
 	
 	@Override
-	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		// Récupération de l'indice ciblé
 		riddle = puzzleAttributes.getRiddle(Integer.valueOf(getTarget()));
