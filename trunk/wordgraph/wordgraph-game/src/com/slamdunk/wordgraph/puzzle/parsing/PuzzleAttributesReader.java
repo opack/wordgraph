@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -104,6 +105,7 @@ public class PuzzleAttributesReader {
 			// TextButtonStyles
 			addDefault(skin, "puzzle-back", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-backspace", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "puzzle-bullet", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-joker", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter-selected", TextButtonStyle.class, Assets.defaultPuzzleSkin);
@@ -122,7 +124,8 @@ public class PuzzleAttributesReader {
 			addDefault(skin, "puzzle-solution", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-suggestion", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "text", LabelStyle.class, Assets.defaultPuzzleSkin);
-
+			// TextureRegions
+			addDefaultRegion(skin, "link-highlighted", Assets.defaultPuzzleSkin);
 		}
 	}
 
@@ -138,6 +141,13 @@ public class PuzzleAttributesReader {
 	private void addDefault(Skin skinToCheck, String styleName, Class styleClass, Skin defaultSkin) {
 		if (!skinToCheck.has(styleName, styleClass)) {
 			skinToCheck.add(styleName, defaultSkin.get(styleName, styleClass));
+		}		
+	}
+	
+	private void addDefaultRegion(Skin skinToCheck, String regionName, Skin defaultSkin) {
+		if (skinToCheck.getAtlas().findRegion(regionName) == null) {
+			TextureRegion defaultRegion = defaultSkin.getAtlas().findRegion(regionName);
+			skinToCheck.getAtlas().addRegion(regionName, defaultRegion);
 		}		
 	}
 
@@ -211,9 +221,9 @@ public class PuzzleAttributesReader {
 		// Lettres intruses
 		String obstacleIntruder = propertiesFile.getProperty("obstacles.intruder", "");
 		if (!obstacleIntruder.isEmpty()) {
-			String[] intrudingLetters = obstacleIntruder.split(",");
-			for (String letter : intrudingLetters) {
-				manager.add(new IntruderObstacle(letter));
+			String[] intruderParameters = obstacleIntruder.split(",");
+			for (String parameters : intruderParameters) {
+				manager.add(IntruderObstacle.createFromProperties(parameters));
 			}
 		}
 		

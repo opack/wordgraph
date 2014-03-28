@@ -1,11 +1,13 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 /**
@@ -15,17 +17,12 @@ public class MorphObstacle extends NodeObstacle{
 	/**
 	 * Liste des lettres qui seront affectées à la cible
 	 */
-	private String changingLetters;
+	private List<String> changingLetters;
 	
 	/**
 	 * L'index de la lettre actuellement affichée
 	 */
 	private int currentLetterIndex;
-	
-	/**
-	 * La lettre actuellement affichée
-	 */
-	private String currentLetter;
 	
 	/**
 	 * Interval (en secondes) entre 2 changements
@@ -43,7 +40,7 @@ public class MorphObstacle extends NodeObstacle{
 	 */
 	private boolean paused;
 	
-	public MorphObstacle(String target, float interval, String changingLetters) {
+	public MorphObstacle(String target, float interval, List<String> changingLetters) {
 		super(ObstaclesTypes.MORPH, target);
 		this.interval = interval;
 		this.changingLetters = changingLetters;
@@ -82,26 +79,25 @@ public class MorphObstacle extends NodeObstacle{
 	 */
 	private void setNodeLetter(String letter) {
 		PuzzleNode node = getNode();
-		
-		// Change les liens
 		String oldLetter = node.getLetter();
-		for (PuzzleLink link : node.getLinks().values()) {
-			PuzzleNode node1 = link.getNode1();
-			if (node1.getLetter().equals(oldLetter)) {
-				node1.removeLink(oldLetter);
-				node1.setLink(oldLetter, link);
-			}
-			PuzzleNode node2 = link.getNode2();
-			if (node2.getLetter().equals(oldLetter)) {
-				node2.removeLink(oldLetter);
-				node2.setLink(oldLetter, link);
-			}
+		if (letter.equals(oldLetter)) {
+			return;
 		}
 		
-		// Change la valeur de la lettre
+		// Change la valeur de la lettre dans le graphe...
+		node.setLetter(letter);
+		PuzzleGraph graph = getManager().getPuzzleGraph();
+		graph.updateNodeLetter(oldLetter, letter);
+		// ... et sur le bouton
 		TextButton button = node.getButton();
 		button.setText(letter);
 		button.setName(letter);
+		
+		// Change les liens
+		for (String linkedLetter : node.getLinks().keySet()) {
+			PuzzleNode linkedNode = graph.getNode(linkedLetter);
+			linkedNode.updateLink(oldLetter, letter);
+		}
 	}
 	
 	@Override
@@ -118,7 +114,7 @@ public class MorphObstacle extends NodeObstacle{
 	public void letterSelected(String letter) {
 		super.letterSelected(letter);
 		// Si on sélectionne cette lettre, alors on met l'obstacle en pause
-		if (letter.equals(currentLetter)) {
+		if (letter.equals(changingLetters.get(currentLetterIndex))) {
 			paused = true;
 		}
 	}
@@ -127,7 +123,7 @@ public class MorphObstacle extends NodeObstacle{
 	public void letterUnselected(String letter) {
 		super.letterUnselected(letter);
 		// Si on désélectionne cette lettre, alors on remet l'obstacle en marche
-		if (letter.equals(currentLetter)) {
+		if (letter.equals(changingLetters.get(currentLetterIndex))) {
 			paused = false;
 		}
 	}
@@ -166,14 +162,12 @@ public class MorphObstacle extends NodeObstacle{
 	private void morphLetter() {
 		// Récupère la prochaine lettre
 		currentLetterIndex++;
-		if (currentLetterIndex >= changingLetters.length()) {
+		if (currentLetterIndex >= changingLetters.size()) {
 			currentLetterIndex = 0;
 		}
-		currentLetter = String.valueOf(changingLetters.charAt(currentLetterIndex));
-		
 		// Quelle que soit la lettre sélectionnée, on change la valeur
 		// de la lettre morphée
-		setNodeLetter(currentLetter);
+		setNodeLetter(changingLetters.get(currentLetterIndex));
 		
 		// On enregistre la lettre actuellement affichée dans les préférences
 		writePreferenceMorphCurrentLetterIndex(currentLetterIndex);
@@ -202,7 +196,11 @@ public class MorphObstacle extends NodeObstacle{
 		}
 		String target = parameters[0];
 		float interval = Float.valueOf(parameters[1]);
-		String changingLetters = parameters[2];
+		String letters = parameters[2];
+		List<String> changingLetters = new ArrayList<String>();
+		for (int curChar = 0; curChar < letters.length(); curChar++) {
+			changingLetters.add(String.valueOf(letters.charAt(curChar)));
+		}
 		return new MorphObstacle(target, interval, changingLetters);
 	}
 }

@@ -1,6 +1,8 @@
 - Nettoyage
 	- Nettoyer l'atlas pour ne garder que les images utiles
 	- Nettoyer le code pour supprimer les anciennes classes du graphe
+	- Nettoyer les listeners du graphe (en particulier les obstacles) et s'assurer
+	que les méthodes sont utiles et correctement utilisées
 - Gérer une grille de lettres au lieu d'un vrai graphe
 	- Layout :
 		. Prévoir une grille de 5 x 5 lettres

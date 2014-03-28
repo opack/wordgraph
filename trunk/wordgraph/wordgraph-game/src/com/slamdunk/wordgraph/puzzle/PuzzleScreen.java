@@ -99,6 +99,14 @@ public class PuzzleScreen implements Screen {
 		}
 	}
 	
+	private void notifyGraphLoaded(PuzzleGraph graph) {
+		if (listeners != null) {
+			for (PuzzleListener listener : listeners) {
+				listener.graphLoaded(graph);
+			}
+		}
+	}
+	
 	private void notifyLinkUsed(PuzzleLink link) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
@@ -175,6 +183,7 @@ public class PuzzleScreen implements Screen {
 		
 		// Création des composants depuis le layout définit dans le SVG
 		SvgUICreator creator = new SvgUICreator(skin);
+		creator.load("layouts/puzzle-common.ui.svg");
 		if (puzzleAttributes.getInfos().getType() == PuzzleTypes.WORDS) {
 			creator.load("layouts/puzzle-words.ui.svg");
 		} else {
@@ -358,6 +367,7 @@ public class PuzzleScreen implements Screen {
 			solutions.add(riddle.getSolution());
 		}
 		graph.load(solutions);
+		notifyGraphLoaded(graph);
 		
 		// Arrangement du graphe et affectation des lettres aux boutons
 		final Group stageRoot = stage.getRoot();
@@ -813,7 +823,7 @@ public class PuzzleScreen implements Screen {
 		// Désélection des liens qui ne sont plus sélectionnés
 		if (!selectedLinks.isEmpty()) {
 			PuzzleLink lastLink = selectedLinks.removeLast();
-			lastLink.setSelected(lastLink.getSelected() + 1);
+			lastLink.setSelected(lastLink.getSelected() - 1);
 		}
 
 		if (!selectedLetters.isEmpty()) {

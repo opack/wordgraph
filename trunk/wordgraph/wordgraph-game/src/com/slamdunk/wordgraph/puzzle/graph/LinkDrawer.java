@@ -27,8 +27,10 @@ public class LinkDrawer extends Actor {
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		for (String letter : graph.getLetters()) {
-			draw(graph.getLinks(letter), batch);
+		if (graph != null) {
+			for (String letter : graph.getLetters()) {
+				draw(graph.getLinks(letter), batch);
+			}
 		}
 	}
 	

@@ -13,7 +13,7 @@ import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
  * d'un bouton et d'un ensemble de liens
  */
 public class PuzzleNode {
-	private final String letter;
+	private String letter;
 	private TextButton button;
 	private Map<String, PuzzleLink> links;
 	private List<Obstacle> obstacles;
@@ -39,9 +39,26 @@ public class PuzzleNode {
 		return letter.hashCode();
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder(links.size() + 1);
+		sb.append(letter);
+		sb.append("[");
+		for(String connectedLetter : links.keySet()) {
+			sb.append(connectedLetter);
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
 	public String getLetter() {
 		return letter;
 	}
+	
+	public void setLetter(String letter) {
+		this.letter = letter;
+	}
+
 	public TextButton getButton() {
 		return button;
 	}
@@ -60,6 +77,10 @@ public class PuzzleNode {
 	}
 	public void removeLink(String letter) {
 		links.remove(letter);
+	}
+	public void updateLink(String oldLetter, String newLetter) {
+		PuzzleLink link = links.remove(oldLetter);
+		links.put(newLetter, link);
 	}
 	/**
 	 * Retourne le lien vers la lettre indiquée

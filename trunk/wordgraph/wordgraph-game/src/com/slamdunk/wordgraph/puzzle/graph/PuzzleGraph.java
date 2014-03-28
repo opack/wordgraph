@@ -71,36 +71,74 @@ public class PuzzleGraph {
 			// Récupération des noeuds correspondants, ou création le cas échéant
 			PuzzleNode node1 = nodesByLetter.get(letter1);
 			if (node1 == null) {
-				node1 = new PuzzleNode(letter1);
-				nodesByLetter.put(letter1, node1);
+				node1 = addNode(letter1);
 			}
 			PuzzleNode node2 = nodesByLetter.get(letter2);
 			if (node2 == null) {
-				node2 = new PuzzleNode(letter2);
-				nodesByLetter.put(letter2, node2);
+				node2 = addNode(letter2);
 			}
 			
-			// Récupère l'éventuel lien déjà stocké
-			PuzzleLink link = node1.getLink(letter2);
-			
-			// Si ce lien existe, on indique qu'il y en a une seconde occurence
-			if (link != null) {
-				link.setSize(link.getSize() + 1);
-			}
-			// Sinon, on le crée
-			else {
-				// Création du lien et initialisation de la taille
-				link = new PuzzleLink(node1, node2);
-				
-				// Stocke le lien pour les 2 sens de navigation possibles,
-				// de façon à ce qu'on puisse le récupérer en demandant
-				// lettre1 -> lettre2 ou lettre1 <- lettre2.
-				node1.setLink(letter2, link);
-				node2.setLink(letter1, link);
-			}
+			// Ajoute le lien entre ces deux noeuds
+			addLink(node1, node2);
 		}
 	}
 	
+	/**
+	 * Ajoute un noeud au graphe avec la lettre indiquée.
+	 * Si un noeud existe déjà pour cette lettre, il sera
+	 * écrasé.
+	 * @param letter
+	 * @return
+	 */
+	public PuzzleNode addNode(String letter) {
+		PuzzleNode node = new PuzzleNode(letter);
+		nodesByLetter.put(letter, node);
+		return node;
+	}
+	
+	/**
+	 * Change la lettre associée à un noeud
+	 * @param letter
+	 */
+	public void updateNodeLetter(String oldLetter, String newLetter) {
+		if (nodesByLetter.isEmpty()) {
+			return;
+		}
+		PuzzleNode node = nodesByLetter.remove(oldLetter);
+		if (node != null) {
+			nodesByLetter.put(newLetter, node);
+		}
+	}
+
+	/**
+	 * Ajoute un lien entre les 2 nodes indiqués
+	 * @param node1
+	 * @param node2
+	 */
+	public void addLink(PuzzleNode node1, PuzzleNode node2) {
+		String letter1 = node1.getLetter();
+		String letter2 = node2.getLetter();
+		
+		// Récupère l'éventuel lien déjà stocké
+		PuzzleLink link = node1.getLink(letter2);
+		
+		// Si ce lien existe, on indique qu'il y en a une seconde occurence
+		if (link != null) {
+			link.setSize(link.getSize() + 1);
+		}
+		// Sinon, on le crée
+		else {
+			// Création du lien
+			link = new PuzzleLink(node1, node2);
+			
+			// Stocke le lien pour les 2 sens de navigation possibles,
+			// de façon à ce qu'on puisse le récupérer en demandant
+			// lettre1 -> lettre2 ou lettre1 <- lettre2.
+			node1.setLink(letter2, link);
+			node2.setLink(letter1, link);
+		}		
+	}
+
 	/**
 	 * Arrange les lettres du graphe dans une disposition par défaut
 	 * en fonction du nombre de lettres du graphe.
