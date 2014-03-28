@@ -1,6 +1,5 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /**
  * Représente un ou plusieurs liens entre 2 lettres, et leur état
@@ -33,10 +32,6 @@ public class PuzzleLink {
 	 * Indique s'il faut ou non afficher ces liens
 	 */
 	private boolean visible;
-	/**
-	 * Image du lien qui sera dessinée à l'écran
-	 */
-	private Image image;
 	
 	public PuzzleLink(PuzzleNode node1, PuzzleNode node2) {
 		this.node1 = node1;
@@ -61,6 +56,11 @@ public class PuzzleLink {
 	@Override
 	public int hashCode() {
 		return name.hashCode();
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 	
 	public boolean isVisible() {

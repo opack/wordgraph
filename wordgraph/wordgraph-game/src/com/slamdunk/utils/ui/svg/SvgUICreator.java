@@ -33,7 +33,6 @@ public class SvgUICreator {
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Image", new ImageSvgBuilder());
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Table", new TableSvgBuilder());
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Group", new GroupSvgBuilder());
-		BUILDERS.put("com.slamdunk.wordgraph.puzzle.graph.Graph", new GraphSvgBuilder());
 		BUILDERS.put("com.slamdunk.wordgraph.puzzle.graph.LinkDrawer", new LinkDrawerSvgBuilder());
 	}
 	

@@ -1,5 +1,7 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
@@ -10,15 +12,40 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
  * Ne sert à rien à part noter qu'une lettre ne sert à aucun mot
  */
 public class IntruderObstacle extends NodeObstacle{
-	public IntruderObstacle(String target) {
+	private Collection<String> linkedLetters;
+	
+	public IntruderObstacle(String target, Collection<String> connectedLetters) {
 		super(ObstaclesTypes.INTRUDER, target);
+		this.linkedLetters = connectedLetters;
+	}
+	
+	/**
+	 * Retourne les lettres connectées à cet intrus
+	 * @return
+	 */
+	public Collection<String> getLinkedLetters() {
+		return linkedLetters;
+	}
+	
+	@Override
+	public void graphLoaded(PuzzleGraph graph) {
+		// Ajoute le noeud au graphe
+		PuzzleNode node1 = graph.addNode(getTarget());
+		
+		// Ajoute les liens vers les autres noeuds
+		for (String letter : linkedLetters) {
+			PuzzleNode node2 = graph.getNode(letter);
+			graph.addLink(node1, node2);
+		}
 	}
 
 	@Override
 	public void applyEffect(PuzzleGraph graph) {
-		// Si l'effet n'est plus actif, on affiche une image
-		if (!isActive() && getImage() == null) {
-			createImage("obstacle-intruder-revealed");
+		if (!isActive()) {
+			// Si l'effet n'est plus actif, on affiche une image
+			if (!isActive() && getImage() == null) {
+				createImage("obstacle-intruder-revealed");
+			}
 		}
 	}
 
@@ -79,5 +106,30 @@ public class IntruderObstacle extends NodeObstacle{
 			applyEffect(graph);
 			writePreferenceObstacleActive(false);
 		}
+	}
+	
+	/**
+	 * Crée un IntruderObstacle initialisé avec les données lues dans le fichier
+	 * properties décrivant le puzzle. Ces données ont la forme suivante :
+	 * [L]|[XXXX] avec :
+	 *   [L] : lettre du graphe intruse à créer
+	 *   [XXXX] : différentes lettres qui devront être reliées à celle-ci
+	 * Exemple :
+	 * 	- "P|TU" : création d'un intrus avec la lettre P, relié aux lettres T et U 
+	 * @param propertiesDescription
+	 * @return
+	 */
+	public static IntruderObstacle createFromProperties(String propertiesDescription) {
+		String[] parameters = propertiesDescription.split("\\|");
+		if (parameters.length != 2) {
+			throw new IllegalArgumentException("IntruderObstacle : Failure to split '" + propertiesDescription + "' in the 2 required parts.");
+		}
+		String target = parameters[0];
+		String letters = parameters[1];
+		List<String> connectedLetters = new ArrayList<String>();
+		for (int curChar = 0; curChar < letters.length(); curChar++) {
+			connectedLetters.add(String.valueOf(letters.charAt(curChar)));
+		}
+		return new IntruderObstacle(target, connectedLetters);
 	}
 }

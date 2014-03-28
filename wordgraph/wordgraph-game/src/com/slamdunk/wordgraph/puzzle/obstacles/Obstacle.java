@@ -87,6 +87,11 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 	
 	@Override
+	public void graphLoaded(PuzzleGraph graph) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
 	public void linkUsed(PuzzleLink link) {
 		// TODO Auto-generated method stub
 	}

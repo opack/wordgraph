@@ -107,9 +107,19 @@ public class ObstacleManager implements PuzzleListener {
 		this.stage = stage;
 	}
 
+
+	@Override
+	public void graphLoaded(PuzzleGraph graph) {
+		setPuzzleGraph(graph);
+		for (Obstacle obstacle : getTempObstaclesList()) {
+        	if (obstacle.isActive()) {
+        		obstacle.graphLoaded(graph);
+        	}
+        }
+	}
+	
 	@Override
 	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		setPuzzleGraph(graph);
 		setPuzzleAttributes(puzzleAttributes);
 		setStage(stage);
 		

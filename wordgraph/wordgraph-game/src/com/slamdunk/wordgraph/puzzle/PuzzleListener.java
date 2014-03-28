@@ -11,11 +11,22 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
  */
 public interface PuzzleListener {
 	/**
-	 * Méthode appelée une fois que le puzzle a été chargé
+	 * Méthode appelée une fois que le puzzle a été chargé. Cela implique que le
+	 * tous les composants ont été créés et chargés, que le graphe a été chargé
+	 * et que le layout du graphe a été fait. C'est la toute dernière étape
+	 * avant que le joueur ne commence à jouer.
 	 * @param graph Le graphe qui vient d'être chargé
 	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
 	 */
 	void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
+	
+	/**
+	 * Méthode appelée une fois que le graphe a été chargé. Cela signifie que le
+	 * fichier properties du graphe a été lu et que le graphe a été chargé ({@link PuzzleGraph#load(java.util.List)}.
+	 * @param graph Le graphe qui vient d'être chargé
+	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
+	 */
+	void graphLoaded(PuzzleGraph graph);
 	
 	/**
 	 * Méthode appelée une fois qu'un lien est marqué comme utilisé
