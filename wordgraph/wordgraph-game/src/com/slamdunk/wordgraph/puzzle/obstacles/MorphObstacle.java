@@ -1,11 +1,12 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 /**
  * Masque une lettre
@@ -49,7 +50,7 @@ public class MorphObstacle extends NodeObstacle{
 	}
 
 	@Override
-	public void applyEffect(Graph graph) {
+	public void applyEffect(PuzzleGraph graph) {
 		// Si l'obstacle est actif, on affiche une image sur la lettre
 		// pour montrer qu'un obstacle morph est présent
 		if (isActive()) {
@@ -80,26 +81,31 @@ public class MorphObstacle extends NodeObstacle{
 	 * @param target
 	 */
 	private void setNodeLetter(String letter) {
-		GraphNode node = getNode();
+		PuzzleNode node = getNode();
 		
 		// Change les liens
-		String oldLetter = node.getName();
-		for (GraphLink link : node.getLinks()) {
-			if (link.getSourceLetter().equals(oldLetter)) {
-				link.setSourceLetter(letter);
+		String oldLetter = node.getLetter();
+		for (PuzzleLink link : node.getLinks().values()) {
+			PuzzleNode node1 = link.getNode1();
+			if (node1.getLetter().equals(oldLetter)) {
+				node1.removeLink(oldLetter);
+				node1.setLink(oldLetter, link);
 			}
-			if (link.getTargetLetter().equals(oldLetter)) {
-				link.setTargetLetter(letter);
+			PuzzleNode node2 = link.getNode2();
+			if (node2.getLetter().equals(oldLetter)) {
+				node2.removeLink(oldLetter);
+				node2.setLink(oldLetter, link);
 			}
 		}
 		
 		// Change la valeur de la lettre
-		node.setText(letter);
-		node.setName(letter);
+		TextButton button = node.getButton();
+		button.setText(letter);
+		button.setName(letter);
 	}
 	
 	@Override
-	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		
 		// Initialise la valeur du noeud avec la dernière valeur en cours
@@ -150,7 +156,7 @@ public class MorphObstacle extends NodeObstacle{
 			return;
 		}
 		elapsed += delta;
-		applyEffect(getManager().getGraph());
+		applyEffect(getManager().getPuzzleGraph());
 	}
 
 	/**

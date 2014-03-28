@@ -2,9 +2,9 @@ package com.slamdunk.wordgraph.puzzle;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 /**
  * Listener notifié lorsqu'un évènement se produit dans le puzzle
@@ -15,19 +15,19 @@ public interface PuzzleListener {
 	 * @param graph Le graphe qui vient d'être chargé
 	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
 	 */
-	void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
+	void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
 	
 	/**
 	 * Méthode appelée une fois qu'un lien est marqué comme utilisé
 	 * @param word
 	 */
-	void linkUsed(GraphLink link);
+	void linkUsed(PuzzleLink link);
 	
 	/**
 	 * Méthode appelée une fois qu'un noeud est passé à l'état invisible
 	 * @param word
 	 */
-	void nodeHidden(GraphNode node);
+	void nodeHidden(PuzzleNode button);
 	
 	/**
 	 * Méthode appelée lorsqu'un mot est validé avec succès

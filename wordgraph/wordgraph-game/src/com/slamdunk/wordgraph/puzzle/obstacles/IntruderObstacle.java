@@ -2,9 +2,9 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import java.util.List;
 
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 /**
  * Ne sert à rien à part noter qu'une lettre ne sert à aucun mot
@@ -15,7 +15,7 @@ public class IntruderObstacle extends NodeObstacle{
 	}
 
 	@Override
-	public void applyEffect(Graph graph) {
+	public void applyEffect(PuzzleGraph graph) {
 		// Si l'effet n'est plus actif, on affiche une image
 		if (!isActive() && getImage() == null) {
 			createImage("obstacle-intruder-revealed");
@@ -31,25 +31,25 @@ public class IntruderObstacle extends NodeObstacle{
 			return;
 		}
 		// Pour chaque lien de cet intrus
-		String target = getTarget();
-		Graph graph = getManager().getGraph();
+		PuzzleGraph graph = getManager().getPuzzleGraph();
 		List<Obstacle> intruders = getManager().getObstacles(ObstaclesTypes.INTRUDER);
-		for (GraphLink link : getNode().getLinks()) {
+		PuzzleNode node1 = getNode();
+		for (PuzzleLink link : node1.getLinks().values()) {
 			// Chaque lettre à l'autre bout est récupérée
-			String otherEnd = link.getOtherEnd(target);			
-			GraphNode otherNode = graph.getNode(otherEnd);
+			PuzzleNode node2 = link.getOtherNode(node1);
 			
 			// Et chaque lien qu'elle a est analysé : si ce lien
 			// n'est pas utilisé et pointe vers une lettre qui
 			// n'est pas un intrus, alors la lettre reste en jeu.
 			boolean hasValidLinks = false;
-			for (GraphLink otherLink : otherNode.getLinks()) {
+			for (PuzzleLink otherLink : node2.getLinks().values()) {
 				// On regarde d'abord si le lien n'est pas utilisé
-				if (!otherLink.isUsed()) {
+				if (otherLink.isAvailable()) {
 					// On détermine ensuite si l'autre bout du lien n'est pas un intrus
-					String otherLinkEnd = otherLink.getOtherEnd(otherEnd);
+					PuzzleNode node3 = otherLink.getOtherNode(node2);
+					String letter3 = node3.getLetter();
 					for (Obstacle intruder : intruders) {
-						if (!intruder.getTarget().equals(otherLinkEnd)) {
+						if (!intruder.getTarget().equals(letter3)) {
 							// Si l'autre bout n'est pas un intrus, alors c'est que le
 							// noeud a au moins un lien valide
 							hasValidLinks = true;
@@ -63,12 +63,11 @@ public class IntruderObstacle extends NodeObstacle{
 			// ses liens vers les intrus aussi.
 			if (!hasValidLinks) {
 				// Masque le noeud
-				otherNode.setVisible(false);
+				node2.getButton().setVisible(false);
 				
 				// Puis désactive tous les liens de cette lettre
-				for (GraphLink otherLink : otherNode.getLinks()) {
-					otherLink.setUsed(true);
-					otherLink.setVisible(false);
+				for (PuzzleLink otherLink : node2.getLinks().values()) {
+					otherLink.setSize(0);
 				}
 			}
 		}

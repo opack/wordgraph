@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
 
 /**
  * Permet de manipuler facilement les préférences liées à un puzzle d'un pack en particulier
@@ -54,9 +55,9 @@ public class PuzzlePreferencesHelper {
 		return puzzlePack + "_" + puzzleName;
 	}
 
-	public void setLinkUsed(List<String> names, boolean used) {
-		for (String name : names) {
-			prefs.putBoolean("link." + name + ".used", used);
+	public void setLinksSize(List<PuzzleLink> links) {
+		for (PuzzleLink link : links) {
+			prefs.putInteger("link." + link.getName() + ".size", link.getSize());
 		}
 		prefs.flush();
 	}
@@ -68,8 +69,8 @@ public class PuzzlePreferencesHelper {
 	 * @param name
 	 * @return
 	 */
-	public boolean getLinkUsed(String name) {
-		return prefs.getBoolean("link." + name + ".used", false);
+	public int getLinkSize(String name) {
+		return prefs.getInteger("link." + name + ".size", -1);
 	}
 
 	/**

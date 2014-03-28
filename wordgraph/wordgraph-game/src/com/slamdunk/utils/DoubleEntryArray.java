@@ -1,11 +1,12 @@
 package com.slamdunk.utils;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * Cette classe permet de gérer un tableau ? double entrée dont chaque entrée
+ * Cette classe permet de gérer un tableau à double entrée dont chaque entrée
  * est de type EntryType, et dont la valeur est de type ValueType.
  */
 public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
@@ -43,7 +44,15 @@ public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
 	 * Retourne l'ensemble des clés de type Entry1Type
 	 * @return 
 	 */
-	public Set<Entry1Type> getKeys1() {
+	public Set<Entry1Type> getEntries1() {
 		return data.keySet();
+	}
+	
+	public Collection<ValueType> getValues(Entry1Type entry1) {
+		Map<Entry2Type, ValueType> values = data.get(entry1);
+        if (values == null) {
+            return null;
+        }
+        return values.values();
 	}
 }

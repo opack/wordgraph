@@ -2,14 +2,15 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 public abstract class NodeObstacle extends Obstacle {
-	private GraphNode node;
+	private PuzzleNode node;
 	private Image image;
 
 	public NodeObstacle(ObstaclesTypes type, String target) {
@@ -17,7 +18,7 @@ public abstract class NodeObstacle extends Obstacle {
 	}
 	
 	@Override
-	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		// Récupération du noeud ciblé
 		node = graph.getNode(getTarget());
@@ -31,7 +32,7 @@ public abstract class NodeObstacle extends Obstacle {
 		applyEffect(graph);
 	}
 	
-	public GraphNode getNode() {
+	public PuzzleNode getNode() {
 		return node;
 	}
 
@@ -44,9 +45,15 @@ public abstract class NodeObstacle extends Obstacle {
 	}
 
 	public void createImage(String regionName) {
+		TextButton button = node.getButton();
+		if (button == null) {
+			return;
+		}
 		image = new Image(Assets.defaultPuzzleSkin.getDrawable(regionName));
-		node.addActor(image);
+		button.addActor(image);
 		image.setZIndex(0);
-		image.setPosition((node.getWidth() - image.getWidth()) / 2, (node.getHeight() - image.getHeight()) / 2);
+		image.setPosition(
+			(button.getWidth() - image.getWidth()) / 2,
+			(button.getHeight() - image.getHeight()) / 2);
 	}
 }

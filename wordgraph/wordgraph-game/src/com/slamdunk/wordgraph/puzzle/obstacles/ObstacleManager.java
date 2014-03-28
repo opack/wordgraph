@@ -9,12 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
-import com.slamdunk.wordgraph.puzzle.graph.GraphNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 
 public class ObstacleManager implements PuzzleListener {
-	private Graph graph;
+	private PuzzleGraph graph;
 	private PuzzleAttributes puzzleAttributes;
 	private Stage stage;
 	
@@ -83,11 +83,11 @@ public class ObstacleManager implements PuzzleListener {
 		return tmpObstacles;
 	}
 
-	public Graph getGraph() {
+	public PuzzleGraph getPuzzleGraph() {
 		return graph;
 	}
 
-	public void setGraph(Graph graph) {
+	public void setPuzzleGraph(PuzzleGraph graph) {
 		this.graph = graph;
 	}
 
@@ -108,8 +108,8 @@ public class ObstacleManager implements PuzzleListener {
 	}
 
 	@Override
-	public void puzzleLoaded(Graph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		setGraph(graph);
+	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		setPuzzleGraph(graph);
 		setPuzzleAttributes(puzzleAttributes);
 		setStage(stage);
 		
@@ -121,7 +121,7 @@ public class ObstacleManager implements PuzzleListener {
 	}
 
 	@Override
-	public void linkUsed(GraphLink link) {
+	public void linkUsed(PuzzleLink link) {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.linkUsed(link);
@@ -139,7 +139,7 @@ public class ObstacleManager implements PuzzleListener {
 	}
 
 	@Override
-	public void nodeHidden(GraphNode node) {
+	public void nodeHidden(PuzzleNode node) {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.nodeHidden(node);

@@ -317,9 +317,6 @@ public class PuzzleScreenSav implements Screen {
 		// Ajout des composants au stage
 		creator.populate(stage);
 		
-		// On place le background tout au fond
-		background.setZIndex(0);
-		
 		reloadPuzzle = false;
 		
 		// Création du libellé de suggestion courante

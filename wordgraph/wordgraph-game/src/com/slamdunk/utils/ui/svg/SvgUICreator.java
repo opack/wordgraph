@@ -2,6 +2,7 @@ package com.slamdunk.utils.ui.svg;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +21,7 @@ import com.slamdunk.wordgraph.Options;
  */
 public class SvgUICreator {
 	private static final Map<String, UISvgBuilder> BUILDERS;
-	private Map<String, Actor> actorsMap;
+	private Map<String, Actor> actors;
 	private Skin skin;
 	
 	static {
@@ -29,15 +30,18 @@ public class SvgUICreator {
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Label", new LabelSvgBuilder(Options.langCode));
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.TextButton", new TextButtonSvgBuilder(Options.langCode));
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.ScrollPane", new ScrollPaneSvgBuilder());
-		BUILDERS.put("com.slamdunk.wordgraph.puzzle.graph.Graph", new GraphSvgBuilder());
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Image", new ImageSvgBuilder());
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Table", new TableSvgBuilder());
 		BUILDERS.put("com.badlogic.gdx.scenes.scene2d.ui.Group", new GroupSvgBuilder());
+		BUILDERS.put("com.slamdunk.wordgraph.puzzle.graph.Graph", new GraphSvgBuilder());
+		BUILDERS.put("com.slamdunk.wordgraph.puzzle.graph.LinkDrawer", new LinkDrawerSvgBuilder());
 	}
 	
 	public SvgUICreator(Skin skin) {
 		this.skin = skin;
-		actorsMap = new HashMap<String, Actor>();
+		// On utilise une LinkedHashMap pour conserver l'ordre dans lequel
+		// les widgets ont été placés dans le svg
+		actors = new LinkedHashMap<String, Actor>();
 	}
 
 	/**
@@ -79,7 +83,7 @@ public class SvgUICreator {
 			Actor actor = builder.build(skin);
 			
 			// Stocke l'objet dans la table
-			actorsMap.put(actor.getName(), actor);
+			actors.put(actor.getName(), actor);
 		}
 	}
 
@@ -125,10 +129,12 @@ public class SvgUICreator {
 	 * qui n'ont pas de parents sont ajoutés ; ainsi si certains
 	 * widgets ont été manuellement insérés les uns dans les autres,
 	 * cette filiation est conservée.
+	 * L'ordre d'insertion est donné par l'ordre de lecture des widgets
+	 * dans le SVG.
 	 * @param stage
 	 */
 	public void populate(Stage stage) {
-		for (Actor actor : actorsMap.values()) {
+		for (Actor actor : actors.values()) {
 			if (!actor.hasParent()) {
 				stage.addActor(actor);
 			}
@@ -136,6 +142,6 @@ public class SvgUICreator {
 	}
 
 	public Actor getActor(String name) {
-		return actorsMap.get(name);
+		return actors.get(name);
 	}
 }

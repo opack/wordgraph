@@ -25,16 +25,19 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.Options;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
+import com.slamdunk.wordgraph.puzzle.PuzzleButtonDecorator;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 
 public class JokerScreen implements Screen {
 	
 	private WordGraphGame game;
 	private Stage stage;
-	private Graph graph;
+	
+	private PuzzleGraph graph;
 	private PuzzleAttributes puzzleAttributes;
+	private PuzzleButtonDecorator decorator;
 	
 	private TextButton validateButton;
 	
@@ -49,7 +52,11 @@ public class JokerScreen implements Screen {
 		riddlesByName = new HashMap<String, Riddle>();
 	}
 	
-	public void setGraph(Graph graph) {
+	public void setDecorator(PuzzleButtonDecorator decorator) {
+		this.decorator = decorator;
+	}
+
+	public void setGraph(PuzzleGraph graph) {
 		this.graph = graph;
 	}
 
@@ -123,7 +130,6 @@ public class JokerScreen implements Screen {
 		
 		// Image de fond
 		Image background = (Image)creator.getActor("background");
-		background.setZIndex(0);
 		background.setVisible(background.getDrawable() != null);
 		
 		// Personnalise chaque enigme
@@ -285,7 +291,7 @@ public class JokerScreen implements Screen {
 	
 	private void onValidate() {
 		if (selectedRiddle != null && selectedJoker != null) {
-			selectedJoker.decorate(selectedRiddle.getSolution(), graph);
+			selectedJoker.decorate(selectedRiddle.getSolution(), graph, decorator);
 			onBack();
 		}
 	}

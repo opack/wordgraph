@@ -125,8 +125,5 @@ public class PackListScreen implements Screen {
 		
 		// Ajout des composants au stage
 		creator.populate(stage);
-		
-		// On place le background tout au fond
-		background.setZIndex(0);
 	}
 }

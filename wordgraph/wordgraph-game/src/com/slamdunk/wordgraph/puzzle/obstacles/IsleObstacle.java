@@ -2,8 +2,8 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 
 import java.util.List;
 
-import com.slamdunk.wordgraph.puzzle.graph.Graph;
-import com.slamdunk.wordgraph.puzzle.graph.GraphLink;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
 
 /**
  * Isole une lettre
@@ -15,7 +15,7 @@ public class IsleObstacle extends NodeObstacle{
 	}
 
 	@Override
-	public void applyEffect(Graph graph) {
+	public void applyEffect(PuzzleGraph graph) {
 		if (!isActive()) {
 			return;
 		}
@@ -24,7 +24,7 @@ public class IsleObstacle extends NodeObstacle{
 			createImage("obstacle-isle");
 		}
 		// Cache tous les liens vers et depuis cette lettre
-		for (GraphLink link : getNode().getLinks()) {
+		for (PuzzleLink link : getNode().getLinks().values()) {
 			link.setVisible(false);
 		}
 	}
