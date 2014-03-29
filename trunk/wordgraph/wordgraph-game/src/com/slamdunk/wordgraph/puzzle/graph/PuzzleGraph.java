@@ -116,7 +116,7 @@ public class PuzzleGraph {
 	 * @param node1
 	 * @param node2
 	 */
-	public void addLink(PuzzleNode node1, PuzzleNode node2) {
+	public PuzzleLink addLink(PuzzleNode node1, PuzzleNode node2) {
 		String letter1 = node1.getLetter();
 		String letter2 = node2.getLetter();
 		
@@ -137,7 +137,8 @@ public class PuzzleGraph {
 			// lettre1 -> lettre2 ou lettre1 <- lettre2.
 			node1.setLink(letter2, link);
 			node2.setLink(letter1, link);
-		}		
+		}
+		return link;
 	}
 
 	/**

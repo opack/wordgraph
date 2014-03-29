@@ -1,3 +1,6 @@
+- Ajouter une notif du graph lorsqu'un node ou lien est ajouté
+	-> Cela permettra aux obstacles de réagir. Ainsi le Isle pourra s'enregistrer en listener
+	pou ajouter des liens lorsqu'un nouveau noeud est créé
 - Au lieu de modifier l'image de la lettre quand elle est sélectionnée dans un mot et mise en valeur
 par un joker, la mettre en valeur différemment pour que le joueur voit bien toujours si ces lettres sont
 connectées à la dernière lettre jouée, et donc sélectionnable.

@@ -19,6 +19,13 @@ public class IntruderObstacle extends NodeObstacle{
 		this.linkedLetters = connectedLetters;
 	}
 	
+	@Override
+	public boolean isObstacleDrawn() {
+		// Pour cet obstacle, il ne faut modifier l'image
+		// du bouton que si l'obstacle est inactif
+		return !isActive();
+	}
+	
 	/**
 	 * Retourne les lettres connectées à cet intrus
 	 * @return
@@ -37,16 +44,10 @@ public class IntruderObstacle extends NodeObstacle{
 			PuzzleNode node2 = graph.getNode(letter);
 			graph.addLink(node1, node2);
 		}
-	}
-
-	@Override
-	public void applyEffect(PuzzleGraph graph) {
-		if (!isActive()) {
-			// Si l'effet n'est plus actif, on affiche une image
-			if (!isActive() && getImage() == null) {
-				createImage("obstacle-intruder-revealed");
-			}
-		}
+		
+		// ATTENTION ! Pour l'intrus, il faut faire le super A LA FIN
+		// car avant le node n'existe pas !
+		super.graphLoaded(graph);
 	}
 
 	@Override
