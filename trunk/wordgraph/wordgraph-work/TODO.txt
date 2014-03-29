@@ -5,7 +5,7 @@ connectées à la dernière lettre jouée, et donc sélectionnable.
 	est proposée par un joker
 - Nettoyage
 	- Nettoyer l'atlas pour ne garder que les images utiles
-	- Nettoyer les listeners du graphe (en particulier les obstacles) et s'assurer
+	- Nettoyer les PuzzleListeners (en particulier les obstacles) et s'assurer
 	que les méthodes sont utiles et correctement utilisées
 
 - Mieux gérer le fullscreen et l'aspect ratio : http://stackoverflow.com/questions/9899301/fullscreen-resolution-on-android-for-libgdx-games
