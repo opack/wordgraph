@@ -14,16 +14,22 @@ import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
  * d'un bouton et d'un ensemble de liens
  */
 public class PuzzleNode {
+	private PuzzleGraph graph;
 	private String letter;
 	private TextButton button;
 	private Map<String, PuzzleLink> links;
 	private List<Obstacle> obstacles;
 	
-	public PuzzleNode(String letter) {
+	public PuzzleNode(PuzzleGraph graph, String letter) {
+		this.graph = graph;
 		this.letter = letter;
 		links = new HashMap<String, PuzzleLink>();
 	}
 	
+	public PuzzleGraph getGraph() {
+		return graph;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof PuzzleNode)) {

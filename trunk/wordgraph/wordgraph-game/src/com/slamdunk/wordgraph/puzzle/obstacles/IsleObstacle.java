@@ -3,6 +3,7 @@ package com.slamdunk.wordgraph.puzzle.obstacles;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.slamdunk.wordgraph.puzzle.graph.GraphListener;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
@@ -10,7 +11,7 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 /**
  * Isole une lettre
  */
-public class IsleObstacle extends NodeObstacle{
+public class IsleObstacle extends NodeObstacle implements GraphListener{
 	private List<PuzzleLink> fakeLinks;
 	
 	public IsleObstacle(String target) {
@@ -33,6 +34,9 @@ public class IsleObstacle extends NodeObstacle{
 				fakeLinks.add(link);
 			}
 		}
+		
+		// On souhaite être averti des futurs ajouts de noeud
+		graph.addListener(this);
 	}
 
 	@Override
@@ -41,5 +45,22 @@ public class IsleObstacle extends NodeObstacle{
 		if (!isActive()) {
 			return;
 		}
+	}
+
+	@Override
+	public void nodeAdded(PuzzleNode node) {
+		// Ajout d'un faux lien vers ce nouveau noeud
+		PuzzleLink link = node.getGraph().addLink(getNode(), node);
+		fakeLinks.add(link);
+	}
+
+	@Override
+	public void linkAdded(PuzzleLink link) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void nodeLetterUpdated(String oldLetter, PuzzleNode updatedNode) {
+		// TODO Auto-generated method stub
 	}
 }
