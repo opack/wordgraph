@@ -153,4 +153,24 @@ public class PuzzlePreferencesHelper {
 		prefs.putInteger("bombCountDown." + target, countDown);
 		prefs.flush();
 	}
+
+	public void setLayout(String[] layout) {
+		prefs.putInteger("layout.height", layout.length);
+		for (int curLine = 0; curLine < layout.length; curLine++) {
+			prefs.putString("layout." + curLine, layout[curLine]);
+		}
+		prefs.flush();
+	}
+	
+	public String[] getLayout() {
+		int height = prefs.getInteger("layout.height", -1);
+		if (height == -1) {
+			return null;
+		}
+		String[] layout = new String[height];
+		for (int curLine = 0; curLine < height; curLine++) {
+			layout[curLine] = prefs.getString("layout." + curLine);
+		}
+		return layout;
+	}
 }

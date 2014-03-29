@@ -1,5 +1,10 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.SLOT_ANY;
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.SLOT_EMPTY;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,11 +25,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  */
 public class PuzzleGraph {	
 	/**
-	 * Taille d'un côté de la grille de lettres
-	 */
-	public static final int GRID_SIZE = 5;
-	
-	/**
 	 * Contient la grille des noeuds
 	 */
 	private PuzzleNode[][] nodesByPosition;
@@ -35,7 +35,7 @@ public class PuzzleGraph {
 	private Map<String, PuzzleNode> nodesByLetter;
 	
 	public PuzzleGraph() {
-		nodesByPosition = new PuzzleNode[GRID_SIZE][GRID_SIZE];
+		nodesByPosition = new PuzzleNode[GRID_WIDTH][GRID_HEIGHT];
 		nodesByLetter = new HashMap<String, PuzzleNode>();
 	}
 	
@@ -214,7 +214,7 @@ public class PuzzleGraph {
 					String symbol = line.substring(curColumn, curColumn + 1);
 					// S'il s'agit d'un emplacement à contenu aléatoire,
 					// on prend une lettre restante au hasard et on la place
-					if (LayoutFactory.SLOT_ANY.equals(symbol)) {
+					if (SLOT_ANY.equals(symbol)) {
 						// Pour économiser un peu de CPU, on retire les éléments de
 						// la liste par la fin.
 						String letter = letters.remove(letters.size() - 1);
@@ -349,5 +349,28 @@ public class PuzzleGraph {
 		for (PuzzleNode[] line : nodesByPosition) {
 			Arrays.fill(line, null);
 		}
+	}
+
+	/**
+	 * Retourne la disposition actuelle des lettres
+	 * @return
+	 */
+	public String[] getLayout() {
+		String[] layout = new String[GRID_HEIGHT];
+		StringBuilder lineString = new StringBuilder(GRID_WIDTH);
+		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
+			PuzzleNode[] line = nodesByPosition[curLine];
+			lineString.setLength(0);
+			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
+				PuzzleNode node = line[curColumn];
+				if (node == null) {
+					lineString.append(SLOT_EMPTY);
+				} else {
+					lineString.append(node.getLetter());
+				}
+			}
+			layout[curLine] = lineString.toString();
+		}
+		return layout;
 	}
 }

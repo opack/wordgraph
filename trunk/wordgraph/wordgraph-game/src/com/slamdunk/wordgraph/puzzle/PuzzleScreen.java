@@ -1,5 +1,8 @@
 package com.slamdunk.wordgraph.puzzle;
 
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
+import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -303,8 +306,8 @@ public class PuzzleScreen implements Screen {
 			}
 		};
 		TextButton letterButton;
-		for (int curLine = 0; curLine < PuzzleGraph.GRID_SIZE; curLine++) {
-			for (int curColumn = 0; curColumn < PuzzleGraph.GRID_SIZE; curColumn++) {
+		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
+			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
 				letterButton = (TextButton)creator.getActor("letter" + curLine + curColumn);
 				letterButton.addListener(letterSelectListener);
 			}
@@ -371,13 +374,22 @@ public class PuzzleScreen implements Screen {
 		
 		// Arrangement du graphe et affectation des lettres aux boutons
 		final Group stageRoot = stage.getRoot();
-		final TextButton[][] letterButtons = new TextButton[PuzzleGraph.GRID_SIZE][PuzzleGraph.GRID_SIZE];
-		for (int curLine = 0; curLine < PuzzleGraph.GRID_SIZE; curLine++) {
-			for (int curColumn = 0; curColumn < PuzzleGraph.GRID_SIZE; curColumn++) {
+		final TextButton[][] letterButtons = new TextButton[GRID_HEIGHT][GRID_WIDTH];
+		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
+			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
 				letterButtons[curLine][curColumn] = (TextButton)stageRoot.findActor("letter" + curLine + curColumn);
 			}
 		}
-		graph.layout(letterButtons);
+		String[] layout = puzzlePreferences.getLayout();
+		if (layout == null) {
+			graph.layout(letterButtons);
+		} else {
+			graph.layout(layout, letterButtons);
+		}
+		
+		// Enregistrement du layout actuel dans les préférences pour recharger
+		// la disposition à l'identique lors du prochaine affichage
+		puzzlePreferences.setLayout(graph.getLayout());
 		
 		// Récupère la nombre de liens disponibles entre chaque lettre
 		// suite aux éventuelles précédentes parties

@@ -1,5 +1,4 @@
 - Faire un bouton "Mélanger" pour réarranger les lettres
-- Enregistrer le layout actuel du puzzle dans les prefs pour le recharger à l'identique la prochaine fois
 - Au lieu de modifier l'image de la lettre quand elle est sélectionnée dans un mot et mise en valeur
 par un joker, la mettre en valeur différemment pour que le joueur voit bien toujours si ces lettres sont
 connectées à la dernière lettre jouée, et donc sélectionnable.

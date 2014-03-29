@@ -5,7 +5,23 @@ package com.slamdunk.wordgraph.puzzle.graph;
  * en fonction du nombre de lettres différentes.
  */
 public class LayoutFactory {
+	/**
+	 * Largeur la grille de lettres
+	 */
+	public static final int GRID_WIDTH = 5;
+	/**
+	 * Largeur la grille de lettres
+	 */
+	public static final int GRID_HEIGHT = 5;
+	/**
+	 * Symbole dans le layout indiquant que n'importe quel caractère
+	 * peut être placé à cet emplacement
+	 */
 	public static final String SLOT_ANY = "?";
+	/**
+	 * Symbole dans le layout indiquant que l'emplacement doit
+	 * rester vide
+	 */
 	public static final String SLOT_EMPTY = "_";
 	
 	private static final String[] DEFAULT = {
