@@ -7,7 +7,6 @@ import com.slamdunk.wordgraph.joker.JokerScreen;
 import com.slamdunk.wordgraph.pack.PackScreen;
 import com.slamdunk.wordgraph.packlist.PackListScreen;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.PuzzleButtonDecorator;
 import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 
@@ -91,10 +90,9 @@ public class WordGraphGame extends Game {
 	/**
 	 * Affiche l'écran de sélection de joker
 	 */
-	public void showJokerScreen(PuzzleAttributes puzzleAttributes, PuzzleGraph graph, PuzzleButtonDecorator decorator) {
+	public void showJokerScreen(PuzzleAttributes puzzleAttributes, PuzzleGraph graph) {
 		joker.setGraph(graph);
 		joker.setPuzzleAttributes(puzzleAttributes);
-		joker.setDecorator(decorator);
 		setScreen(joker);
 	}
 }

@@ -1,7 +1,5 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import java.util.List;
-
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.utils.graphics.point.Point;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
@@ -29,23 +27,17 @@ public class StoneObstacle extends NodeObstacle{
 
 	@Override
 	public void applyEffect(PuzzleGraph graph) {
+		super.applyEffect(graph);
+		
 		TextButton button = getNode().getButton();
 		// Si l'obstacle est actif, on masque la lettre
 		if (isActive()) {
-			// Place une image de pierre sur la lettre isolée
-			if (getImage() == null) {
-				createImage("obstacle-stone");
-			}
 			// Désactive la lettre
 			button.setDisabled(true);
 		} else {
-			// Sinon on supprime l'image de brouillard
-			if (getImage() != null) {
-				getImage().remove();
-				button.setText(getTarget());
-				setImage(null);
-				button.setDisabled(false);
-			}
+			// Sinon on remet le bon texte
+			button.setText(getTarget());
+			button.setDisabled(false);
 		}
 	}
 

@@ -13,23 +13,15 @@ public class FogObstacle extends NodeObstacle{
 
 	@Override
 	public void applyEffect(PuzzleGraph graph) {
+		super.applyEffect(graph);
 		TextButton button = getNode().getButton();
 		// Si l'obstacle est actif, on masque la lettre
 		if (isActive()) {
 			// Supprime le texte du bouton
 			button.setText("?");
-			
-			// Place une image de brouillard sur la lettre isolée
-			if (getImage() == null) {
-				createImage("obstacle-fog");
-			}
 		} else {
-			// Sinon on supprime l'image de brouillard
-			if (getImage() != null) {
-				getImage().remove();
-				button.setText(getTarget());
-				setImage(null);
-			}
+			// Sinon on remet le texte du bouton
+			button.setText(getTarget());
 		}
 	}
 

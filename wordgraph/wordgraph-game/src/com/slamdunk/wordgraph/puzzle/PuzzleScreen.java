@@ -1,5 +1,7 @@
 package com.slamdunk.wordgraph.puzzle;
 
+import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
+import static com.slamdunk.wordgraph.puzzle.LetterStates.SELECTED;
 import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
 import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
 
@@ -63,15 +65,14 @@ public class PuzzleScreen implements Screen {
 	private TextButton jokerButton;
 	private Image finishedImage;
 	
-	private PuzzleButtonDecorator letterDecorator;
-	
 	// On utilise Label plutôt qu'un simple String pour pouvoir déterminer
 	// la position vers laquelle envoyer les lettres sélectionner, car il
 	// nous faut un TextBounds pour déterminer la taille du mot suggéré
 	private Label currentSuggestion;
 	private LinkedList<String> pendingLetters;
 	private LinkedList<PuzzleLink> selectedLinks;
-	private LinkedList<TextButton> selectedLetters;
+	private LinkedList<PuzzleNode> selectedNodes;
+	private LinkedList<String> selectedLetters;
 	
 	private List<PuzzleListener> listeners;
 	
@@ -81,7 +82,8 @@ public class PuzzleScreen implements Screen {
 		this.game = game;
 		pendingLetters = new LinkedList<String>();
 		selectedLinks = new LinkedList<PuzzleLink>();
-		selectedLetters = new LinkedList<TextButton>();
+		selectedLetters = new LinkedList<String>();
+		selectedNodes = new LinkedList<PuzzleNode>();
 		
 		stage = new Stage();
 		graph = new PuzzleGraph();
@@ -182,7 +184,7 @@ public class PuzzleScreen implements Screen {
 		if (skin == null) {
 			skin = Assets.defaultPuzzleSkin;
 		}
-		letterDecorator = new PuzzleButtonDecorator(skin);
+		PuzzleButtonDecorator.init(skin);
 		
 		// Création des composants depuis le layout définit dans le SVG
 		SvgUICreator creator = new SvgUICreator(skin);
@@ -453,29 +455,27 @@ public class PuzzleScreen implements Screen {
 		String currentWord = currentSuggestion.getText().toString();
 		String last = currentWord.isEmpty() ? "" : currentWord.substring(currentWord.length() - 1);
 		String selected = button.getName().toString();
+		PuzzleNode node = graph.getNode(selected);
 		
 		// Récupère le lien entre les lettres
+		selectedLetters.add(selected);
 		if (!last.isEmpty()) {
 			PuzzleLink link = graph.getLink(last, selected);
-			// Met en évidence le lien
-			if (link != null && link.isAvailable()) {
-				link.setSelected(link.getSelected() + 1);
-				selectedLinks.add(link);
-			} else if (!obstacleManager.isTargeted(ObstaclesTypes.ISLE, last)
-					&& !obstacleManager.isTargeted(ObstaclesTypes.ISLE, selected)) {
-				// Si aucun lien n'existe entre les 2 lettres et qu'aucune des deux
-				// n'est isolée, on interdit la sélection. Si au moins une des deux
-				// est isolée, alors le joueur n'a pas cette aide.
-				// Désélectionne le bouton si la lettre n'est pas déjà dans le mot
+			// S'il n'y a pas de lien entre ces lettres, alors on interdit la sélection
+			if (link == null) {
 				if (!currentWord.contains(selected)) {
-					letterDecorator.setNormalStyle(button);
+					PuzzleButtonDecorator.getInstance().setStyle(node, NORMAL);
+					button.setDisabled(false);
 				}
 				return;
 			}
+			// Met en évidence le lien
+			link.select();
+			selectedLinks.add(link);
 		}
 		// Sélectionne le bouton de cette lettre
-		selectedLetters.add(button);
-		letterDecorator.setSelectedStyle(button);
+		selectedNodes.add(node);
+		PuzzleButtonDecorator.getInstance().setStyle(node, SELECTED);
 		notifyLetterSelected(selected);
 		
 		// Ajoute la lettre au mot courant
@@ -494,20 +494,15 @@ public class PuzzleScreen implements Screen {
 	 * si les autres lettres sont atteignables
 	 */
 	private void fadeOutUnreachableLetters(String sourceLetter) {
-		boolean isSelectedLetterIsolated = obstacleManager.isTargeted(ObstaclesTypes.ISLE, sourceLetter);
 		for (PuzzleNode node : graph.getNodes()) {
-			String letter = node.getLetter();
 			PuzzleLink link = node.getLink(sourceLetter);
 			// Ce noeud peut être atteint s'il y a un lien non utilisé
 			boolean hasAvailableLink = (link != null && link.isAvailable());
-			// Si la lettre est isolée, elle apparaît tout le temps comme accessible
-			// afin de désactiver l'aide des liens
-			boolean isIsolated = isSelectedLetterIsolated || obstacleManager.isTargeted(ObstaclesTypes.ISLE, letter);
 			// Si la lettre est dans la pierre, elle apparaît comme inaccessible
-			boolean isStoned = obstacleManager.isTargeted(ObstaclesTypes.STONE, letter);
+			boolean isStoned = node.isTargeted(ObstaclesTypes.STONE);
 			// La lettre peut être atteinte si elle a un lien ou si elle est isolée,
 			// mais pas si elle est dans la pierre
-			boolean isReachable = (hasAvailableLink || isIsolated) && !isStoned;
+			boolean isReachable = hasAvailableLink && !isStoned;
 			// Au final, le bouton est désactivé si la letter n'est pas joignable
 			node.getButton().setDisabled(!isReachable);
 		}
@@ -561,7 +556,7 @@ public class PuzzleScreen implements Screen {
 			hideIsolatedNodes();
 			
 			// Désactivation des lettres mises en évidence
-			letterDecorator.setNormalStyleOnAllNodes(graph);
+			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(graph);
 			
 			// Notifie les listeners qu'un mot a été validé
 			notifyWordValidated(suggestion);
@@ -796,7 +791,7 @@ public class PuzzleScreen implements Screen {
 	 * Méthode appelée quand le joueur clique sur Joker
 	 */
 	private void onJoker() {
-		game.showJokerScreen(puzzleAttributes, graph, letterDecorator);
+		game.showJokerScreen(puzzleAttributes, graph);
 	}
 	
 	/**
@@ -837,18 +832,20 @@ public class PuzzleScreen implements Screen {
 		backspaceButton.setDisabled(isTextEmpty);
 		
 		// Désélection des liens qui ne sont plus sélectionnés
+		selectedLetters.removeLast();
 		if (!selectedLinks.isEmpty()) {
 			PuzzleLink lastLink = selectedLinks.removeLast();
-			lastLink.setSelected(lastLink.getSelected() - 1);
+			lastLink.unselect();
 		}
 
-		if (!selectedLetters.isEmpty()) {
+		if (!selectedNodes.isEmpty()) {
 			// Suppression du dernier node sélectionné
-			TextButton lastNode = selectedLetters.removeLast();
+			PuzzleNode lastNode = selectedNodes.removeLast();
 		
 			// Désélection de ce node si la lettre n'est plus dans le mot
 			if (newSuggestion.indexOf(removedLetter) == -1) {
-				letterDecorator.setNormalStyle(lastNode);
+				PuzzleButtonDecorator.getInstance().setStyle(lastNode, NORMAL);
+				lastNode.getButton().setDisabled(false);
 			}
 		}
 		
@@ -875,6 +872,7 @@ public class PuzzleScreen implements Screen {
 		validateButton.setDisabled(true);
 		backspaceButton.setDisabled(true);
 		selectedLinks.clear();
+		selectedLetters.clear();
 		
 		// Raz des liens sélectionnés
 		for (String letter : graph.getLetters()) {
@@ -887,7 +885,7 @@ public class PuzzleScreen implements Screen {
 		// DBGgraph.selectAllNodes(false);
 		
 		// Raz des lettres non joignables
-		letterDecorator.setNormalStyleOnAllNodes(graph);
+		PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(graph);
 	}
 	
 	@Override

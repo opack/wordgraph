@@ -78,7 +78,7 @@ public class BombObstacle extends NodeObstacle{
 			//writePreferenceObstacleActive(false);
 			// Création d'un obstacle Isle
 			IsleObstacle isle = new IsleObstacle(getTarget());
-			isle.puzzleLoaded(manager.getPuzzleGraph(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
+			isle.init(manager.getPuzzleGraph(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
 		}
 	}

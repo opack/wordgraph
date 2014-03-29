@@ -1,33 +1,47 @@
 package com.slamdunk.wordgraph.puzzle;
 
+import static com.slamdunk.wordgraph.puzzle.LetterStates.JOKER;
+import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
+import static com.slamdunk.wordgraph.puzzle.LetterStates.SELECTED;
+
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.slamdunk.utils.DoubleEntryArray;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
+
 
 public class PuzzleButtonDecorator {
+	private static PuzzleButtonDecorator instance;
 
-	private TextButtonStyle normalStyle;
-	private TextButtonStyle selectedStyle;
-	private TextButtonStyle jokerStyle;
+	private DoubleEntryArray<LetterStates, ObstaclesTypes, TextButtonStyle> styles;
 	
-	public PuzzleButtonDecorator(final Skin skin) {
-		normalStyle = skin.get("puzzle-letter", TextButtonStyle.class);
-		selectedStyle = skin.get("puzzle-letter-selected", TextButtonStyle.class);
-		jokerStyle = skin.get("puzzle-letter-highlighted", TextButtonStyle.class);
+	public static void init(Skin skin) {
+		instance = new PuzzleButtonDecorator(skin);
 	}
-
-	public TextButtonStyle getNormalStyle() {
-		return normalStyle;
+	
+	public static PuzzleButtonDecorator getInstance() {
+		return instance;
 	}
-
-	public TextButtonStyle getSelectedStyle() {
-		return selectedStyle;
+	
+	private PuzzleButtonDecorator(final Skin skin) {
+		styles = new DoubleEntryArray<LetterStates, ObstaclesTypes, TextButtonStyle>();
+		registerStyles(null, skin, "puzzle-letter", "puzzle-letter-selected", "puzzle-letter-highlighted");
+		registerStyles(ObstaclesTypes.FOG, skin, "obstacle-fog-normal", "obstacle-fog-selected", "obstacle-fog-joker");
+		registerStyles(ObstaclesTypes.STONE, skin, "obstacle-stone-normal", "obstacle-stone-normal", "obstacle-stone-joker");
+		registerStyles(ObstaclesTypes.INTRUDER, skin, "obstacle-intruder-normal", "obstacle-intruder-normal", "obstacle-intruder-normal");
+		registerStyles(ObstaclesTypes.ISLE, skin, "obstacle-isle-normal", "obstacle-isle-selected", "obstacle-isle-joker");
 	}
-
-	public TextButtonStyle getJokerStyle() {
-		return jokerStyle;
+	
+	public void registerStyles(ObstaclesTypes type, Skin skin, String normalStyleName, String selectedStyleName, String jokerStyleName) {
+		styles.put(NORMAL, type, skin.get(normalStyleName, TextButtonStyle.class));
+		styles.put(SELECTED, type, skin.get(selectedStyleName, TextButtonStyle.class));
+		styles.put(JOKER, type, skin.get(jokerStyleName, TextButtonStyle.class));
 	}
 
 	/**
@@ -36,42 +50,35 @@ public class PuzzleButtonDecorator {
 	 */
 	public void setNormalStyleOnAllNodes(PuzzleGraph graph) {
 		for (PuzzleNode node : graph.getNodes()) {
-			setNormalStyle(node.getButton());
-		}
-	}
-
-	/**
-	 * Applique le style joker au bouton indiqué
-	 * @param button
-	 */
-	public void setJokerStyle(TextButton button) {
-		if (button != null) {
-			button.setStyle(jokerStyle);
-		}
-		
-	}
-
-	/**
-	 * Applique le style normal au bouton indiqué, le rend
-	 * de nouveau enabled et le décoche
-	 * @param button
-	 */
-	public void setNormalStyle(TextButton button) {
-		if (button != null) {
-			button.setStyle(normalStyle);
-			button.setChecked(false);
-			button.setDisabled(false);
+			TextButton button = node.getButton();
+			setStyle(node, LetterStates.NORMAL);
+			button.setDisabled(false);			
 		}
 	}
 	
 	/**
-	 * Applique le style selected ou normal au bouton indiqué
+	 * Applique le style correspondant à l'état de la lettre
+	 * indiqué. Le style choisi dépend également des obstacles
+	 * actifs sur le noeud : le premier obstacle actif donne son
+	 * style au bouton.
 	 * @param button
 	 * @param contains
 	 */
-	public void setSelectedStyle(TextButton button) {
-		if (button != null) {
-			button.setStyle(selectedStyle);
+	public void setStyle(PuzzleNode node, LetterStates state) {
+		TextButton button = node.getButton();
+		List<Obstacle> obstacles = node.getObstacles();
+		TextButtonStyle style = styles.get(state, null);
+		if (obstacles != null) {
+			for (Obstacle obstacle : node.getObstacles()) {
+				if (obstacle.isObstacleDrawn()) {
+					TextButtonStyle obstacleStyle = styles.get(state, obstacle.getType());
+					if (obstacleStyle != null) {
+						style = obstacleStyle;
+						break;
+					}
+				}
+			}
 		}
+		button.setStyle(style);
 	}
 }

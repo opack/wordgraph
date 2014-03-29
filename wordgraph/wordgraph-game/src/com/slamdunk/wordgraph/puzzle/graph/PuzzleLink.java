@@ -121,4 +121,32 @@ public class PuzzleLink {
 		}
 		return node1;
 	}
+
+	/**
+	 * Sélectionne une fois de plus ce lien. Il n'est pas possible
+	 * de sélectionner ce lien si le nombre de sélection est déjà
+	 * égal à la taille du lien.
+	 * @return true si le lien a été sélectionné une fois de plus
+	 */
+	public boolean select() {
+		if (selected == size) {
+			return false;
+		}
+		selected++;
+		return true;
+	}
+	
+	/**
+	 * Désélectionne une fois de plus ce lien. Il n'est pas possible
+	 * de désélectionner ce lien si le nombre de sélection est déjà
+	 * égal à 0.
+	 * @return true si le lien a été désélectionné une fois de plus
+	 */
+	public boolean unselect() {
+		if (selected == 0) {
+			return false;
+		}
+		selected--;
+		return true;
+	}
 }

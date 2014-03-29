@@ -35,10 +35,8 @@ public class LinkDrawer extends Actor {
 	}
 	
 	private void draw(Collection<PuzzleLink> links, SpriteBatch batch) {
-		// TODO A PERFECTIONNER !!!
-		// TODO Faire un lien épais lorsqu'il y a plusieurs liens entre les 2 mêmes lettres
 		for (PuzzleLink link : links) {
-			if (link.getSelected() < 1) {
+			if (link.getSelected() < 1 || !link.isVisible()) {
 				continue;
 			}
 			Vector2 A = getNodeCenter(link.getNode1());

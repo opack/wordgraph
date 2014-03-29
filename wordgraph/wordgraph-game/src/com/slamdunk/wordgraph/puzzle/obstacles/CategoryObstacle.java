@@ -10,7 +10,7 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
  * Remplace un indice par une catégorie
  */
 public class CategoryObstacle extends ClueObstacle{
-	private LabelStyle originalStyle;
+//	private LabelStyle originalStyle;
 	private String category;
 	
 	public CategoryObstacle(String target, String category) {
@@ -20,25 +20,26 @@ public class CategoryObstacle extends ClueObstacle{
 
 	@Override
 	public void applyEffect(PuzzleGraph graph) {
+		super.applyEffect(graph);
 		Label label = getLabel();
 		if (label != null) {
 			if (isActive()) {
 //				if (getImage() == null) {
 //					createImage("obstacle-category", false);
 //				}
-				if (originalStyle == null) {
-					originalStyle = label.getStyle();
-				}
-				LabelStyle newStyle = new LabelStyle(originalStyle);
-				newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-category");
-				label.setStyle(newStyle);
+//				if (originalStyle == null) {
+//					originalStyle = label.getStyle();
+//				}
+//				LabelStyle newStyle = new LabelStyle(originalStyle);
+//				newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-category");
+//				label.setStyle(newStyle);
 				label.setText(category);
 				label.setAlignment(Align.center);
 			} else {
 //				if (getImage() != null) {
 //					getImage().remove();
 //				}
-				label.setStyle(originalStyle);
+//				label.setStyle(originalStyle);
 				label.setText(getRiddle().getClue());
 				label.setAlignment(Align.left);
 			}
@@ -72,5 +73,10 @@ public class CategoryObstacle extends ClueObstacle{
 			throw new IllegalArgumentException("CategoryObstacle : Failure to split '" + propertiesDescription + "' in the 2 required parts.");
 		}
 		return new CategoryObstacle(parameters[0], parameters[1]);
+	}
+
+	@Override
+	public LabelStyle getLabelStyle() {
+		return Assets.defaultPuzzleSkin.get("obstacle-category", LabelStyle.class);
 	}
 }

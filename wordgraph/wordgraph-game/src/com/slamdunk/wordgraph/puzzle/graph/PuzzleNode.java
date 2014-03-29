@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 
 /**
  * Représente un noeud dans le PuzzleGraph. Un noeud est composé d'une lettre,
@@ -110,6 +111,26 @@ public class PuzzleNode {
 	
 	public List<Obstacle> getObstacles() {
 		return obstacles;
+	}
+	
+	/**
+	 * Indique s'il existe un obstacle actif du type indiqué qui a ce
+	 * noeud pour cible.
+	 * @param obstacleManager
+	 * @param letter
+	 * @return
+	 */
+	public boolean isTargeted(ObstaclesTypes type) {
+		if (obstacles != null) {
+			for (Obstacle obstacle : obstacles) {
+				if (obstacle.getType() == type
+				&& obstacle.isActive()
+				&& obstacle.getTarget().equals(letter)) {
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

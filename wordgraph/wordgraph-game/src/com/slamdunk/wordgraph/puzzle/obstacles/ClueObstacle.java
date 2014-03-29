@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
@@ -14,6 +15,7 @@ public abstract class ClueObstacle extends Obstacle {
 	private Riddle riddle;
 	private Label label;
 	private Image image;
+	private LabelStyle defaultStyle;
 
 	public ClueObstacle(ObstaclesTypes type, String target) {
 		super(type, target);
@@ -69,4 +71,22 @@ public abstract class ClueObstacle extends Obstacle {
 		}
 		return image;
 	}
+	
+	@Override
+	public void applyEffect(PuzzleGraph graph) {
+		// Lorsque l'effet doit être appliqué, on change le style
+		// du bouton pour que son image reflète l'obstacle
+		if (isActive()) {
+			defaultStyle = label.getStyle();
+			label.setStyle(getLabelStyle());
+		} else {
+			label.setStyle(defaultStyle);
+		}
+	}
+
+	/**
+	 * Retourne le style à appliquer au label de l'indice affecté par
+	 * l'obstacle
+	 */
+	public abstract LabelStyle getLabelStyle();
 }

@@ -239,7 +239,27 @@
 		"puzzle-backspace-disabled":{
 			"name":"puzzle-backspace",
 			"color":"brown-shallow"
-		}
+		},
+		"obstacle-fog-selected":{
+			"name":"obstacle-fog",
+			"color":"yellow"
+		},
+		"obstacle-fog-joker":{
+			"name":"obstacle-fog",
+			"color":"green"
+		},
+		"obstacle-isle-selected":{
+			"name":"obstacle-isle",
+			"color":"yellow"
+		},
+		"obstacle-isle-joker":{
+			"name":"obstacle-isle",
+			"color":"green"
+		},
+		"obstacle-stone-joker":{
+			"name":"obstacle-stone",
+			"color":"green"
+		},
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle":{
 		"main-play":{
@@ -374,6 +394,51 @@
 			"downFontColor":"black",
 			"checked":"button-queen-checked",
 			"disabled":"button-queen-disabled"
+		},
+		"obstacle-fog-normal":{
+			"up":"obstacle-fog",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-fog-selected":{
+			"up":"obstacle-fog-selected",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-fog-joker":{
+			"up":"obstacle-fog-joker",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-stone-normal":{
+			"up":"obstacle-stone",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-stone-joker":{
+			"up":"obstacle-stone-joker",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-intruder-normal":{
+			"up":"obstacle-intruder-revealed",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-isle-normal":{
+			"up":"obstacle-isle",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-isle-selected":{
+			"up":"obstacle-isle-selected",
+			"font":"default-font",
+			"fontColor":"black",
+		},
+		"obstacle-isle-joker":{
+			"up":"obstacle-isle-joker",
+			"font":"default-font",
+			"fontColor":"black",
 		}
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle":{
@@ -389,7 +454,12 @@
 			"font":"riddle-font",
 			"fontColor":"black"
 		},
-		"puzzle-riddle-blur":{
+		"obstacle-category":{
+			"font":"riddle-font",
+			"fontColor":"black",
+			"background":"obstacle-category"
+		},
+		"obstacle-hidden":{
 			"font":"riddle-font-blur",
 			"fontColor":"black",
 			"background":"obstacle-hidden"

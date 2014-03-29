@@ -44,6 +44,15 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 	
 	/**
+	 * Indique si l'image de l'obstacle doit être dessinée ou
+	 * non. Le comportement par défaut répond true si isActive
+	 * @return
+	 */
+	public boolean isObstacleDrawn() {
+		return isActive;
+	}
+	
+	/**
 	 * Définit si l'obstacle est actif ou non
 	 * @param isActive
 	 */
@@ -156,5 +165,24 @@ public abstract class Obstacle implements PuzzleListener {
 		if (puzzlePreferences != null) {
 			puzzlePreferences.setMorphCurrentLetterIndex(getType().toString(), getTarget(), index);
 		}
+	}
+	
+	/**
+	 * Initialise complètement un obstacle, ce qui revient à appeler
+	 * d'un seul coup les méthodes {@link #graphLoaded(PuzzleGraph)}
+	 * et {@link #puzzleLoaded(PuzzleGraph, PuzzleAttributes, Stage, PuzzlePreferencesHelper)}.
+	 * Utile pour les obstacles qui sont créés après l'initialisation
+	 * du graphe, à la volée.
+	 * @param puzzleGraph
+	 * @param puzzleAttributes
+	 * @param stage
+	 * @param puzzlePreferences
+	 */
+	public void init(PuzzleGraph graph,
+			PuzzleAttributes puzzleAttributes,
+			Stage stage,
+			PuzzlePreferencesHelper puzzlePreferences) {
+		graphLoaded(graph);
+		puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 	}
 }

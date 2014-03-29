@@ -25,7 +25,6 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.Options;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.PuzzleButtonDecorator;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
@@ -37,7 +36,6 @@ public class JokerScreen implements Screen {
 	
 	private PuzzleGraph graph;
 	private PuzzleAttributes puzzleAttributes;
-	private PuzzleButtonDecorator decorator;
 	
 	private TextButton validateButton;
 	
@@ -52,10 +50,6 @@ public class JokerScreen implements Screen {
 		riddlesByName = new HashMap<String, Riddle>();
 	}
 	
-	public void setDecorator(PuzzleButtonDecorator decorator) {
-		this.decorator = decorator;
-	}
-
 	public void setGraph(PuzzleGraph graph) {
 		this.graph = graph;
 	}
@@ -292,7 +286,7 @@ public class JokerScreen implements Screen {
 	
 	private void onValidate() {
 		if (selectedRiddle != null && selectedJoker != null) {
-			selectedJoker.decorate(selectedRiddle.getSolution(), graph, decorator);
+			selectedJoker.decorate(selectedRiddle.getSolution(), graph);
 			onBack();
 		}
 	}
