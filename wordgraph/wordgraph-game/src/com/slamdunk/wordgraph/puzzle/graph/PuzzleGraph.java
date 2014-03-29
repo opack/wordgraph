@@ -24,7 +24,8 @@ import com.slamdunk.utils.graphics.point.Point;
  * 		1. Charger le graphe avec {@link #load(List)}
  * 		2. Arranger le graphe avec {@link #layout(TextButton[][])} ou {@link #layout(String[], TextButton[][])}
  */
-public class PuzzleGraph {	
+public class PuzzleGraph {
+	
 	/**
 	 * Contient la grille des noeuds
 	 */
@@ -35,9 +36,21 @@ public class PuzzleGraph {
 	 */
 	private Map<String, PuzzleNode> nodesByLetter;
 	
+	/**
+	 * Listeners souhaitant être notifiés des interventions sur ce graph
+	 */
+	private List<GraphListener> listeners;
+	
 	public PuzzleGraph() {
 		nodesByPosition = new PuzzleNode[GRID_WIDTH][GRID_HEIGHT];
 		nodesByLetter = new HashMap<String, PuzzleNode>();
+	}
+	
+	public void addListener(GraphListener listener) {
+		if (listeners == null) {
+			listeners = new ArrayList<GraphListener>();
+		}
+		listeners.add(listener);
 	}
 	
 	/**
@@ -92,8 +105,16 @@ public class PuzzleGraph {
 	 * @return
 	 */
 	public PuzzleNode addNode(String letter) {
-		PuzzleNode node = new PuzzleNode(letter);
+		// Crée et ajoute le noeud
+		PuzzleNode node = new PuzzleNode(this, letter);
 		nodesByLetter.put(letter, node);
+		
+		// Notifie les listeners de cet ajout
+		if (listeners != null) {
+			for (GraphListener listener : listeners) {
+				listener.nodeAdded(node);
+			}
+		}
 		return node;
 	}
 	
@@ -108,6 +129,12 @@ public class PuzzleGraph {
 		PuzzleNode node = nodesByLetter.remove(oldLetter);
 		if (node != null) {
 			nodesByLetter.put(newLetter, node);
+		}
+		// Notifie les listeners de cette modification
+		if (listeners != null) {
+			for (GraphListener listener : listeners) {
+				listener.nodeLetterUpdated(oldLetter, node);
+			}
 		}
 	}
 
@@ -137,6 +164,13 @@ public class PuzzleGraph {
 			// lettre1 -> lettre2 ou lettre1 <- lettre2.
 			node1.setLink(letter2, link);
 			node2.setLink(letter1, link);
+		}
+		
+		// Notifie les listeners de cet ajout
+		if (listeners != null) {
+			for (GraphListener listener : listeners) {
+				listener.linkAdded(link);
+			}
 		}
 		return link;
 	}
