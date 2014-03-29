@@ -53,14 +53,15 @@ public class IntruderObstacle extends NodeObstacle{
 	public void wordValidated(String word) {
 		// Désactive l'obstacle si les lettres connectées à cette lettre intruse
 		// ne sont connectées à aucune autre lettre
-		 
+		
 		if (!isActive()) {
 			return;
 		}
-		// Pour chaque lien de cet intrus
+		
 		PuzzleGraph graph = getManager().getPuzzleGraph();
 		List<Obstacle> intruders = getManager().getObstacles(ObstaclesTypes.INTRUDER);
 		PuzzleNode node1 = getNode();
+		// Pour chaque lien de cet intrus
 		for (PuzzleLink link : node1.getLinks().values()) {
 			// Chaque lettre à l'autre bout est récupérée
 			PuzzleNode node2 = link.getOtherNode(node1);
@@ -101,7 +102,7 @@ public class IntruderObstacle extends NodeObstacle{
 		
 		// S'il ne reste aucune lettre en jeu connectée à cet intrus,
 		// alors l'intrus est révélé.
-		if (!getNode().isReachable() && getImage() == null) {
+		if (!getNode().isReachable() && isActive()) {
 			setActive(false);
 			applyEffect(graph);
 			writePreferenceObstacleActive(false);

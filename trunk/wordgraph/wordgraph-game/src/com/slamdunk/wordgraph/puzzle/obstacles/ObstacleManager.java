@@ -192,4 +192,23 @@ public class ObstacleManager implements PuzzleListener {
         	}
         }
 	}
+	
+	/**
+	 * Indique s'il existe un obstacle actif du type indiqué qui a cette
+	 * lettre pour cible.
+	 * @param obstacleManager
+	 * @param letter
+	 * @return
+	 */
+	public boolean isTargeted(ObstaclesTypes type, String letter) {
+		List<Obstacle> obstacles = obstaclesByType.get(type);
+		if (obstacles != null && letter != null) {
+			for (Obstacle obstacle : obstacles) {
+				if (obstacle.isActive() && obstacle.getTarget().equals(letter)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

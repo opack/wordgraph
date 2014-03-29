@@ -7,5 +7,6 @@ public enum ObstaclesTypes {
 	MORPH,
 	BOMB,
 	CATEGORY,
-	HIDDEN
+	HIDDEN,
+	STONE
 }
