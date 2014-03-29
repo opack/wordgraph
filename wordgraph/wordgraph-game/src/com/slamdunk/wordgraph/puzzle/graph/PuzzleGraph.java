@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.slamdunk.utils.graphics.point.Point;
 
 /**
  * Représentation logique du graphe du puzzle.
@@ -286,6 +287,10 @@ public class PuzzleGraph {
 	 * @return
 	 */
 	public PuzzleNode getNode(int line, int column) {
+		if (line < 0 || line >= GRID_HEIGHT
+		|| column < 0 || column >= GRID_WIDTH) {
+			return null;
+		}
 		return nodesByPosition[line][column];
 	}
 
@@ -372,5 +377,22 @@ public class PuzzleGraph {
 			layout[curLine] = lineString.toString();
 		}
 		return layout;
+	}
+
+	/**
+	 * Retourne la position de la lettre indiquée
+	 * @param target
+	 * @return
+	 */
+	public Point getPosition(String letter) {
+		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
+			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
+				PuzzleNode node = nodesByPosition[curLine][curColumn];
+				if (node != null && letter.equals(node.getLetter())) {
+					return new Point(curLine, curColumn);
+				}
+			}
+		}
+		return null;
 	}
 }

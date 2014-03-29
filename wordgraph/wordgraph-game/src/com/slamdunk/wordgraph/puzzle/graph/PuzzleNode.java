@@ -25,7 +25,7 @@ public class PuzzleNode {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof PuzzleLink)) {
+		if (!(obj instanceof PuzzleNode)) {
 			return false;
 		}
 		// Deux noeuds sont considérés comme identique s'ils ont

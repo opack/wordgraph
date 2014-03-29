@@ -38,8 +38,8 @@ import com.slamdunk.wordgraph.puzzle.graph.LinkDrawer;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
-import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
 
 public class PuzzleScreen implements Screen {
@@ -461,8 +461,8 @@ public class PuzzleScreen implements Screen {
 			if (link != null && link.isAvailable()) {
 				link.setSelected(link.getSelected() + 1);
 				selectedLinks.add(link);
-			} else if (!IsleObstacle.isIsolated(obstacleManager, last)
-					&& !IsleObstacle.isIsolated(obstacleManager, selected)) {
+			} else if (!obstacleManager.isTargeted(ObstaclesTypes.ISLE, last)
+					&& !obstacleManager.isTargeted(ObstaclesTypes.ISLE, selected)) {
 				// Si aucun lien n'existe entre les 2 lettres et qu'aucune des deux
 				// n'est isolée, on interdit la sélection. Si au moins une des deux
 				// est isolée, alors le joueur n'a pas cette aide.
@@ -494,17 +494,21 @@ public class PuzzleScreen implements Screen {
 	 * si les autres lettres sont atteignables
 	 */
 	private void fadeOutUnreachableLetters(String sourceLetter) {
-		boolean isSelectedLetterIsolated = IsleObstacle.isIsolated(obstacleManager, sourceLetter);
+		boolean isSelectedLetterIsolated = obstacleManager.isTargeted(ObstaclesTypes.ISLE, sourceLetter);
 		for (PuzzleNode node : graph.getNodes()) {
 			String letter = node.getLetter();
 			PuzzleLink link = node.getLink(sourceLetter);
-			boolean isReachable = 
-					// Ce noeud peut être atteint s'il y a un lien non utilisé
-					(link != null && link.isAvailable())
-					// Si la lettre est isolée, elle apparaît tout le temps comme accessible
-					// afin de désactiver l'aide des liens
-					|| isSelectedLetterIsolated
-					|| IsleObstacle.isIsolated(obstacleManager, letter);
+			// Ce noeud peut être atteint s'il y a un lien non utilisé
+			boolean hasAvailableLink = (link != null && link.isAvailable());
+			// Si la lettre est isolée, elle apparaît tout le temps comme accessible
+			// afin de désactiver l'aide des liens
+			boolean isIsolated = isSelectedLetterIsolated || obstacleManager.isTargeted(ObstaclesTypes.ISLE, letter);
+			// Si la lettre est dans la pierre, elle apparaît comme inaccessible
+			boolean isStoned = obstacleManager.isTargeted(ObstaclesTypes.STONE, letter);
+			// La lettre peut être atteinte si elle a un lien ou si elle est isolée,
+			// mais pas si elle est dans la pierre
+			boolean isReachable = (hasAvailableLink || isIsolated) && !isStoned;
+			// Au final, le bouton est désactivé si la letter n'est pas joignable
 			node.getButton().setDisabled(!isReachable);
 		}
 	}

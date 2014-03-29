@@ -39,24 +39,16 @@ joker-rook
   orig: 80, 80
   offset: 0, 0
   index: -1
-link
-  rotate: false
-  xy: 426, 25
-  size: 10, 10
-  split: 3, 3, 3, 3
-  orig: 10, 10
-  offset: 0, 0
-  index: -1
 link-highlighted
   rotate: false
-  xy: 68, 8
+  xy: 134, 6
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
   index: -1
 link-normal
   rotate: false
-  xy: 97, 8
+  xy: 163, 6
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
@@ -85,7 +77,7 @@ obstacle-fog
   index: -1
 obstacle-hidden
   rotate: false
-  xy: 284, 25
+  xy: 334, 3
   size: 32, 26
   split: 6, 5, 4, 4
   orig: 32, 26
@@ -110,6 +102,13 @@ obstacle-isle
 obstacle-morph
   rotate: false
   xy: 2, 2
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+obstacle-stone
+  rotate: false
+  xy: 68, 2
   size: 64, 63
   orig: 64, 63
   offset: 0, 0
@@ -174,21 +173,21 @@ puzzle-cancel
   index: -1
 puzzle-joker-down
   rotate: false
-  xy: 68, 17
+  xy: 200, 30
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-joker-up
   rotate: false
-  xy: 200, 30
+  xy: 250, 3
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-suggestion
   rotate: false
-  xy: 250, 19
+  xy: 300, 19
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5

@@ -20,6 +20,7 @@ import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.MorphObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.StoneObstacle;
 
 public class PuzzleAttributesReader {
 
@@ -240,6 +241,15 @@ public class PuzzleAttributesReader {
 			String[] bombingParameters = obstacleBomb.split(",");
 			for (String parameters : bombingParameters) {
 				manager.add(BombObstacle.createFromProperties(parameters));
+			}
+		}
+		
+		// Lettres dans la pierre
+		String stoneFog = propertiesFile.getProperty("obstacles.stone", "");
+		if (!stoneFog.isEmpty()) {
+			String[] stonedLetters = stoneFog.split(",");
+			for (String letter : stonedLetters) {
+				manager.add(new StoneObstacle(letter));
 			}
 		}
 		

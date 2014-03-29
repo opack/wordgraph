@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
@@ -43,8 +44,9 @@ public class BombObstacle extends NodeObstacle{
 				label = new Label(String.valueOf(countDown), Assets.defaultPuzzleSkin.get("text", LabelStyle.class));
 				TextButton button = getNode().getButton();
 				button.addActor(label);
+				label.setWidth(button.getWidth());
+				label.setAlignment(Align.center);
 				label.setZIndex(0);
-				label.setPosition((button.getWidth() - label.getWidth()) / 2, 0);
 			}
 			// Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
 			updateAndDetonate();
