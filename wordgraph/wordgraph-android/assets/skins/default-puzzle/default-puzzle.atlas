@@ -77,7 +77,7 @@ obstacle-fog
   index: -1
 obstacle-hidden
   rotate: false
-  xy: 484, 462
+  xy: 484, 412
   size: 32, 26
   split: 6, 5, 4, 4
   orig: 32, 26
@@ -171,6 +171,20 @@ puzzle-backspace
   orig: 80, 50
   offset: 0, 0
   index: -1
+puzzle-black-market-down
+  rotate: false
+  xy: 960, 973
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+puzzle-black-market-up
+  rotate: false
+  xy: 382, 171
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 puzzle-bullet-checked
   rotate: false
   xy: 1010, 1009
@@ -194,14 +208,14 @@ puzzle-cancel
   index: -1
 puzzle-joker-down
   rotate: false
-  xy: 960, 973
+  xy: 484, 440
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-joker-up
   rotate: false
-  xy: 382, 171
+  xy: 432, 171
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -224,7 +238,7 @@ puzzle-validate
   index: -1
 white
   rotate: false
-  xy: 432, 203
+  xy: 84, 84
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
