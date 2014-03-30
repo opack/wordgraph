@@ -1,7 +1,6 @@
 package com.slamdunk.wordgraph.puzzle;
 
 import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
-import static com.slamdunk.wordgraph.puzzle.LetterStates.SELECTED;
 import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
 import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
 
@@ -54,6 +53,7 @@ public class PuzzleScreen implements Screen {
 	private PuzzleAttributes puzzleAttributes;
 	private PuzzleGraph graph;
 	private ObstacleManager obstacleManager;
+	private LinkDrawer linkDrawer;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
@@ -297,7 +297,7 @@ public class PuzzleScreen implements Screen {
 		}
 		
 		// Initialisation du dessinateur de liens
-		LinkDrawer linkDrawer = (LinkDrawer)creator.getActor("linkdrawer");
+		linkDrawer = (LinkDrawer)creator.getActor("linkdrawer");
 		linkDrawer.setGraph(graph);
 		
 		// Affectation des listeners
@@ -475,11 +475,12 @@ public class PuzzleScreen implements Screen {
 		}
 		// Sélectionne le bouton de cette lettre
 		selectedNodes.add(node);
-		PuzzleButtonDecorator.getInstance().setStyle(node, SELECTED);
 		notifyLetterSelected(selected);
 		
 		// Ajoute la lettre au mot courant
-		currentSuggestion.setText(currentWord + selected);
+		String newSuggestion = currentWord + selected;
+		currentSuggestion.setText(newSuggestion);
+		linkDrawer.setWord(newSuggestion);
 		
 		// Lance une jolie animation qui "envoie" la lettre affichée vers le libellé de suggestion
 		animateLetterFly(button);
@@ -826,6 +827,7 @@ public class PuzzleScreen implements Screen {
 		currentSuggestion.setText(newSuggestion);
 		String removedLetter = curSuggestion.substring(curText.length() - 1);
 		notifyLetterUnselected(removedLetter);
+		linkDrawer.setWord(newSuggestion);
 		
 		// Activation des boutons
 		boolean isTextEmpty = newText.isEmpty();

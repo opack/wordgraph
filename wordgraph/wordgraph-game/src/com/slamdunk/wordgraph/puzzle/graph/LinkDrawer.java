@@ -1,12 +1,15 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 /**
@@ -14,27 +17,77 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
  */
 public class LinkDrawer extends Actor {
 	private static final float LINK_THICKNESS = 5;
-	private TextureRegion textureRegion;
+	private TextureRegion linkTexture;
+	private TextureRegion linkedNodeTexture;
 	private PuzzleGraph graph;
+	private Map<String, Integer> tmpNodeLinkCount;
+	private String word;
+	
+	public LinkDrawer() {
+		tmpNodeLinkCount = new HashMap<String, Integer>();
+	}
 
-	public void setTextureRegion(TextureRegion textureRegion) {
-		this.textureRegion = textureRegion;
+	public void setLinkTexture(TextureRegion linkTexture) {
+		this.linkTexture = linkTexture;
+	}
+	
+	public void setLinkedNodeTexture(TextureRegion linkedNodeTexture) {
+		this.linkedNodeTexture = linkedNodeTexture;
 	}
 
 	public void setGraph(PuzzleGraph graph) {
 		this.graph = graph;
 	}
+	
+	public void setWord(String word) {
+		this.word = word;
+	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		if (graph != null) {
+			// Dessin des liens
 			for (String letter : graph.getLetters()) {
-				draw(graph.getLinks(letter), batch);
+				drawLinks(graph.getLinks(letter), batch);
+			}
+			
+			// Dessin des noeuds liés
+			if (word != null && !word.isEmpty()) {
+				drawNodes(batch);
 			}
 		}
 	}
 	
-	private void draw(Collection<PuzzleLink> links, SpriteBatch batch) {
+	private void drawNodes(SpriteBatch batch) {
+		// Compte le nombre de fois que chaque lettre apparaît dans le mot
+		tmpNodeLinkCount.clear();
+		final int length = word.length();
+		for (int curChar = 0; curChar < length; curChar++) {
+			incrementLetterCount(word.substring(curChar, curChar + 1));
+		}
+		
+		// Dessin des noeuds
+		for (Map.Entry<String, Integer> entries : tmpNodeLinkCount.entrySet()) {
+			// Récupération du noeud associé à la lettre
+			PuzzleNode node = graph.getNode(entries.getKey());
+			Button button = node.getButton();
+			Integer linkCount = entries.getValue();
+
+			float halfThickness = LINK_THICKNESS * linkCount;
+			float thickness = halfThickness * 2;
+			float width = button.getWidth() + thickness;
+			float height = button.getHeight() + thickness;
+			batch.draw(
+				linkedNodeTexture,
+				button.getX() - halfThickness, button.getY() - halfThickness,
+				0f, 0f,
+				width, height,
+				1f, 1f,
+				0f);
+		}
+	}
+
+	private void drawLinks(Collection<PuzzleLink> links, SpriteBatch batch) {
 		for (PuzzleLink link : links) {
 			if (link.getSelected() < 1 || !link.isVisible()) {
 				continue;
@@ -69,13 +122,21 @@ public class LinkDrawer extends Actor {
 			float thickness = LINK_THICKNESS * link.getSelected();
 			float halfThickness = thickness / 2;
 			batch.draw(
-				textureRegion,
+				linkTexture,
 				A.x - halfThickness, A.y - halfThickness,
 				0f, 0f,
 				length, thickness,
 				1f, 1f,
 				angleDeg);
 		}
+	}
+
+	private void incrementLetterCount(String letter) {
+		Integer linkCount = tmpNodeLinkCount.get(letter);
+		if (linkCount == null) {
+			linkCount = 0;
+		}
+		tmpNodeLinkCount.put(letter, linkCount + 1);
 	}
 
 	/**

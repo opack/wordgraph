@@ -1,9 +1,8 @@
-- Au lieu de modifier l'image de la lettre quand elle est sélectionnée dans un mot et mise en valeur
+- Au lieu de modifier l'image de la lettre quand elle est mise en valeur
 par un joker, la mettre en valeur différemment pour que le joueur voit bien toujours si ces lettres sont
 connectées à la dernière lettre jouée, et donc sélectionnable.
-	-> Par exemple : chenillard jaune autour de la lettre quand elle est sélectionnée et vert (en plus) quand elle
-	est proposée par un joker
-	-> Faire cela dans le LineDrawer
+	-> Par exemple : chenillard vert autour de la lettre quand elle est proposée par un joker
+	-> Faire cela dans le LinkDrawer
 - Nettoyage
 	- Nettoyer l'atlas pour ne garder que les images utiles
 	- Nettoyer les PuzzleListeners (en particulier les obstacles) et s'assurer

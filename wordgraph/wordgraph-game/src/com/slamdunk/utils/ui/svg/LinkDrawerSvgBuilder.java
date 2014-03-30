@@ -16,18 +16,29 @@ public class LinkDrawerSvgBuilder extends UISvgBuilder {
 		// Gère les propriétés basiques du widget
 		LinkDrawer linkDrawer = (LinkDrawer)super.build(skin);
 		
-		// Gère la propriété image
-		parseImage(skin, linkDrawer);
+		// Gère les propriétés spéciales
+		parseLinkImage(skin, linkDrawer);
+		parseLinkedNodeImage(skin, linkDrawer);
 		
 		return linkDrawer;
 	}
 	
-	private void parseImage(Skin skin, LinkDrawer linkDrawer) {
-		if (hasAttribute("ui.image")) {
-			String atlasRegionName = actorDescription.getAttribute("ui.image");
+	private void parseLinkImage(Skin skin, LinkDrawer linkDrawer) {
+		if (hasAttribute("ui.link-image")) {
+			String atlasRegionName = actorDescription.getAttribute("ui.link-image");
 			TextureRegion region = skin.getAtlas().findRegion(atlasRegionName);
 			if (region != null) {
-				linkDrawer.setTextureRegion(region);
+				linkDrawer.setLinkTexture(region);
+			}
+		}
+	}
+	
+	private void parseLinkedNodeImage(Skin skin, LinkDrawer linkDrawer) {
+		if (hasAttribute("ui.linked-node-image")) {
+			String atlasRegionName = actorDescription.getAttribute("ui.linked-node-image");
+			TextureRegion region = skin.getAtlas().findRegion(atlasRegionName);
+			if (region != null) {
+				linkDrawer.setLinkedNodeTexture(region);
 			}
 		}
 	}
