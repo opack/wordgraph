@@ -3,6 +3,7 @@ par un joker, la mettre en valeur différemment pour que le joueur voit bien touj
 connectées à la dernière lettre jouée, et donc sélectionnable.
 	-> Par exemple : chenillard jaune autour de la lettre quand elle est sélectionnée et vert (en plus) quand elle
 	est proposée par un joker
+	-> Faire cela dans le LineDrawer
 - Nettoyage
 	- Nettoyer l'atlas pour ne garder que les images utiles
 	- Nettoyer les PuzzleListeners (en particulier les obstacles) et s'assurer
