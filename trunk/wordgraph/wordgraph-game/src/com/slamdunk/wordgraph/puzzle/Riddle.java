@@ -1,6 +1,7 @@
 package com.slamdunk.wordgraph.puzzle;
 
-public class Riddle {
+
+public class Riddle extends ObstacleTarget {
 	private int id;
 	private String clue;
 	private String solution;

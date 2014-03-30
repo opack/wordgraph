@@ -42,6 +42,7 @@ public abstract class ClueObstacle extends Obstacle {
 		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
 		// Récupération de l'indice ciblé
 		riddle = puzzleAttributes.getRiddle(Integer.valueOf(getTarget()));
+		riddle.addObstacle(this);
 		// Récupération du libellé de l'indice
 		Actor actor = stage.getRoot().findActor("riddle" + getTarget());
 		if (actor != null) {

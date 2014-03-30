@@ -1,24 +1,20 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
-import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
+import com.slamdunk.wordgraph.puzzle.ObstacleTarget;
 
 /**
  * Représente un noeud dans le PuzzleGraph. Un noeud est composé d'une lettre,
  * d'un bouton et d'un ensemble de liens
  */
-public class PuzzleNode {
+public class PuzzleNode extends ObstacleTarget {
 	private PuzzleGraph graph;
 	private String letter;
 	private TextButton button;
 	private Map<String, PuzzleLink> links;
-	private List<Obstacle> obstacles;
 	
 	public PuzzleNode(PuzzleGraph graph, String letter) {
 		this.graph = graph;
@@ -98,47 +94,6 @@ public class PuzzleNode {
 		return links.get(letter);
 	}
 	
-	/**
-	 * Ajoute un obstacle connecté à ce noeud.
-	 * @param link
-	 */
-	public void addObstacle(Obstacle obstacle) {
-		if (obstacles == null) {
-			obstacles = new ArrayList<Obstacle>();
-		}
-		obstacles.add(obstacle);
-	}
-	
-	public void removeObstacle(Obstacle obstacle) {
-		if (obstacles != null) {
-			obstacles.remove(obstacle);
-		}
-	}
-	
-	public List<Obstacle> getObstacles() {
-		return obstacles;
-	}
-	
-	/**
-	 * Indique s'il existe un obstacle actif du type indiqué qui a ce
-	 * noeud pour cible.
-	 * @param obstacleManager
-	 * @param letter
-	 * @return
-	 */
-	public boolean isTargeted(ObstaclesTypes type) {
-		if (obstacles != null) {
-			for (Obstacle obstacle : obstacles) {
-				if (obstacle.getType() == type
-				&& obstacle.isActive()
-				&& obstacle.getTarget().equals(letter)) {
-						return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	/**
 	 * Retourne true s'il reste au moins 1 lien menant à ce noeud
 	 * @return

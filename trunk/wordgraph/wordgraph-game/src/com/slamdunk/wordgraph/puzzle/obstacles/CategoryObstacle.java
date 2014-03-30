@@ -10,12 +10,15 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
  * Remplace un indice par une catégorie
  */
 public class CategoryObstacle extends ClueObstacle{
-//	private LabelStyle originalStyle;
 	private String category;
 	
 	public CategoryObstacle(String target, String category) {
 		super(ObstaclesTypes.CATEGORY, target);
 		this.category = category;
+	}
+	
+	public String getCategory() {
+		return category;
 	}
 
 	@Override
@@ -24,22 +27,9 @@ public class CategoryObstacle extends ClueObstacle{
 		Label label = getLabel();
 		if (label != null) {
 			if (isActive()) {
-//				if (getImage() == null) {
-//					createImage("obstacle-category", false);
-//				}
-//				if (originalStyle == null) {
-//					originalStyle = label.getStyle();
-//				}
-//				LabelStyle newStyle = new LabelStyle(originalStyle);
-//				newStyle.background = Assets.defaultPuzzleSkin.getDrawable("obstacle-category");
-//				label.setStyle(newStyle);
 				label.setText(category);
 				label.setAlignment(Align.center);
 			} else {
-//				if (getImage() != null) {
-//					getImage().remove();
-//				}
-//				label.setStyle(originalStyle);
 				label.setText(getRiddle().getClue());
 				label.setAlignment(Align.left);
 			}

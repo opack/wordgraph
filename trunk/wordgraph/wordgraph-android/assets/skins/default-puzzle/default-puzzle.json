@@ -315,6 +315,12 @@
 			"font":"default-font",
 			"fontColor":"black"
 		},
+		"puzzle-black-market":{
+			"up":"puzzle-black-market-up",
+			"down":"puzzle-black-market-down",
+			"font":"default-font",
+			"fontColor":"black"
+		},
 		"puzzle-bullet":{
 			"up":"puzzle-bullet-normal",
 			"checked":"puzzle-bullet-checked",

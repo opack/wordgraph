@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.slamdunk.utils.PropertiesManager;
 import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
@@ -28,6 +30,9 @@ import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.HiddenObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 
 public class JokerScreen implements Screen {
 	
@@ -139,7 +144,24 @@ public class JokerScreen implements Screen {
 				} else {
 					// Il existe une enigme pour ce bouton
 					Riddle riddle = riddles.get(idx);
-					clue.setText(riddle.getClue());
+					
+					// Choix du libellé en fonction de la présence d'un obstacle
+					if (riddle.isTargeted(ObstaclesTypes.CATEGORY)) {
+						// Obstacle catégorie : on affiche la catégorie
+						CategoryObstacle obstacle = (CategoryObstacle)riddle.getObstacles().get(0);
+						clue.setText(obstacle.getCategory());
+					} else if (riddle.isTargeted(ObstaclesTypes.HIDDEN)) {
+						// Obstacle hidden : on affiche le message flou
+						HiddenObstacle obstacle = (HiddenObstacle)riddle.getObstacles().get(0);
+						LabelStyle labelStyle = obstacle.getLabelStyle();
+						TextButtonStyle buttonStyle = new TextButtonStyle(clue.getStyle());
+						buttonStyle.font = labelStyle.font;
+						clue.setStyle(buttonStyle);
+						clue.setText(riddle.getClue());
+					} else {
+						// Aucun obstacle, on affiche l'indice
+						clue.setText(riddle.getClue());
+					}
 		
 					// Si la solution a été trouvée précédemment, on met à jour l'interface
 					if (riddle.isFound()) {
