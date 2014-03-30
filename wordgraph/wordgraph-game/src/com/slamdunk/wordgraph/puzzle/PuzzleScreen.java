@@ -542,6 +542,7 @@ public class PuzzleScreen implements Screen {
 			for (String letter : graph.getLetters()) {
 				for (PuzzleLink link : graph.getLinks(letter)) {
 					if (link.isSelected()) {
+						link.unselect();
 						link.setSize(link.getSize() - 1);
 						usedLinks.add(link);
 						notifyLinkUsed(link);
