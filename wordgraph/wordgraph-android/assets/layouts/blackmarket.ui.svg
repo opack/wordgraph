@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="480"
+   height="800"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="blackmarket.ui.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="160.74237"
+     inkscape:cy="376.13515"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="968"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:0.5;color:#000000;fill:#cccccc;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="background"
+       width="480"
+       height="800"
+       x="0"
+       y="0"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
+       ui.image="puzzle-background" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="back"
+       width="40"
+       height="24.000002"
+       x="5.5"
+       y="18.000002"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.style="puzzle-back" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="title"
+       width="319"
+       height="49"
+       x="50.499992"
+       y="5.5000024"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="puzzle-title"
+       ui.text="Marché noir" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="validate"
+       width="99.000008"
+       height="49"
+       x="190.5"
+       y="737.15759"
+       ry="0"
+       ui.style="puzzle-validate"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999988;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins"
+       width="100.42857"
+       height="29"
+       x="337.78571"
+       y="74.64286"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#800080;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coin"
+       width="31"
+       height="31"
+       x="443.5"
+       y="73.64286"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
+       ui.image="coin" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-"
+       width="79"
+       height="79"
+       x="5.5000014"
+       y="131.07143"
+       ry="0"
+       ui.style="bonus-"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus--count"
+       width="39"
+       height="29"
+       x="5.5000014"
+       y="217.21429"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus--buy"
+       width="31"
+       height="31"
+       x="53.5"
+       y="216.21429"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-8"
+       width="79"
+       height="79"
+       x="135.5"
+       y="131.07143"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-8"
+       width="39"
+       height="29"
+       x="135.5"
+       y="217.21429"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-2"
+       width="31"
+       height="31"
+       x="183.5"
+       y="216.21429"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-5"
+       width="79"
+       height="79"
+       x="265.5"
+       y="131.07143"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-1"
+       width="39"
+       height="29"
+       x="265.5"
+       y="217.21429"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-7"
+       width="31"
+       height="31"
+       x="313.5"
+       y="216.21429"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-1"
+       width="79"
+       height="79"
+       x="395.5"
+       y="131.07143"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-5"
+       width="39"
+       height="29"
+       x="395.5"
+       y="217.21429"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-27"
+       width="31"
+       height="31"
+       x="443.5"
+       y="216.21429"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-14"
+       width="79"
+       height="79"
+       x="5.5000014"
+       y="297.64285"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-2"
+       width="39"
+       height="29"
+       x="5.5000014"
+       y="383.78571"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-3"
+       width="31"
+       height="31"
+       x="53.5"
+       y="382.78571"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-2"
+       width="79"
+       height="79"
+       x="135.5"
+       y="297.64285"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-16"
+       width="39"
+       height="29"
+       x="135.5"
+       y="383.78571"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-8"
+       width="31"
+       height="31"
+       x="183.5"
+       y="382.78571"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-7"
+       width="79"
+       height="79"
+       x="265.5"
+       y="297.64285"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-6"
+       width="39"
+       height="29"
+       x="265.5"
+       y="383.78571"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-1"
+       width="31"
+       height="31"
+       x="313.5"
+       y="382.78571"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-9"
+       width="79"
+       height="79"
+       x="395.5"
+       y="297.64285"
+       ry="0"
+       ui.style="joker-bishop"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999976;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="coins-4-27"
+       width="39"
+       height="29"
+       x="395.5"
+       y="383.78571"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="buy-9"
+       width="31"
+       height="31"
+       x="443.5"
+       y="382.78571"
+       ry="0"
+       ui.style="bonus-buy"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.65241283;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="name"
+       width="469.3476"
+       height="29.347588"
+       x="5.3262048"
+       y="457.61218"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text"
+       ui.align="1" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="description"
+       width="469"
+       height="69"
+       x="5.5000024"
+       y="489.78564"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="puzzle-riddle"
+       ui.align="3" />
+  </g>
+</svg>
