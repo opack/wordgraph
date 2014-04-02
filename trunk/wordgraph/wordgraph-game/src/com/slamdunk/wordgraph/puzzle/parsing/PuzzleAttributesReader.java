@@ -60,6 +60,9 @@ public class PuzzleAttributesReader {
 		
 		// Charge les obstacles
 		loadObstacles(propertiesFile, puzzleAttributes);
+		
+		// Charge le layout du puzzle
+		loadLayout(propertiesFile, puzzleAttributes);
 
 		return puzzleAttributes;
 	}
@@ -270,5 +273,21 @@ public class PuzzleAttributesReader {
 				manager.add(new HiddenObstacle(clueIndex));
 			}
 		}
+	}
+	
+	/**
+	 * Charge les lignes contenant le layout
+	 * @param propertiesFile
+	 * @param puzzleAttributes
+	 */
+	private void loadLayout(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+		int size = Integer.parseInt(propertiesFile.getProperty("layout.size", "5"));
+		
+		String[] layout = new String[size];
+		for (int curLine = 0; curLine < size; curLine ++) {
+			layout[curLine] = propertiesFile.getProperty("layout.line" + curLine);
+		}
+		
+		puzzleAttributes.setLayout(layout);
 	}
 }

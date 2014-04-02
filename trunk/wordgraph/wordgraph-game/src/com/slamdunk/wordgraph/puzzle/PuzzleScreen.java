@@ -382,11 +382,14 @@ public class PuzzleScreen implements Screen {
 				letterButtons[curLine][curColumn] = (TextButton)stageRoot.findActor("letter" + curLine + curColumn);
 			}
 		}
-		String[] layout = puzzlePreferences.getLayout();
-		if (layout == null) {
-			graph.layout(letterButtons);
+		String[] prefsLayout = puzzlePreferences.getLayout();
+		String[] attributesLayout = puzzleAttributes.getLayout();
+		if (prefsLayout != null) {
+			graph.layout(prefsLayout, letterButtons);
+		} else if (attributesLayout != null) {
+			graph.layout(attributesLayout, letterButtons);
 		} else {
-			graph.layout(layout, letterButtons);
+			graph.layout(letterButtons);
 		}
 		
 		// Enregistrement du layout actuel dans les préférences pour recharger

@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +34,7 @@ public class PuzzleGraph {
 	 * Associe les noeuds aux lettres
 	 */
 	private Map<String, PuzzleNode> nodesByLetter;
+	private List<String> letters;
 	
 	/**
 	 * Listeners souhaitant être notifiés des interventions sur ce graph
@@ -44,6 +44,7 @@ public class PuzzleGraph {
 	public PuzzleGraph() {
 		nodesByPosition = new PuzzleNode[GRID_WIDTH][GRID_HEIGHT];
 		nodesByLetter = new HashMap<String, PuzzleNode>();
+		letters = new ArrayList<String>();
 	}
 	
 	public void addListener(GraphListener listener) {
@@ -94,6 +95,12 @@ public class PuzzleGraph {
 			
 			// Ajoute le lien entre ces deux noeuds
 			addLink(node1, node2);
+		}
+		
+		for (String letter : solution.split("")) {
+			if (!letter.isEmpty()) {
+				letters.add(letter);
+			}
 		}
 	}
 	
@@ -218,7 +225,9 @@ public class PuzzleGraph {
 		}
 		
 		// Récupération des lettres
-		Set<String> lettersToArrange = new HashSet<String>(nodesByLetter.keySet());
+		//DBGSet<String> lettersToArrange = new HashSet<String>(nodesByLetter.keySet());
+		List<String> lettersToArrange = new ArrayList<String>(letters);
+		
 		
 		// Place les lettres fixées du layout
 		for (int curLine = 0; curLine < layout.length; curLine ++) {
