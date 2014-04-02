@@ -155,7 +155,7 @@ public class PuzzlePreferencesHelper {
 	}
 
 	public void setLayout(String[] layout) {
-		prefs.putInteger("layout.height", layout.length);
+		prefs.putInteger("layout.size", layout.length);
 		for (int curLine = 0; curLine < layout.length; curLine++) {
 			prefs.putString("layout." + curLine, layout[curLine]);
 		}
@@ -163,7 +163,7 @@ public class PuzzlePreferencesHelper {
 	}
 	
 	public String[] getLayout() {
-		int height = prefs.getInteger("layout.height", -1);
+		int height = prefs.getInteger("layout.size", -1);
 		if (height == -1) {
 			return null;
 		}

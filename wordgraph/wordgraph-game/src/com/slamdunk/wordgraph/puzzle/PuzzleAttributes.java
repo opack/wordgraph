@@ -11,6 +11,7 @@ public class PuzzleAttributes {
 	private PuzzleInfos infos;
 	private List<Riddle> riddles;
 	private List<String> lines;
+	private String[] layout;
 	private String skinName;
 	private Skin skin;
 	private ObstacleManager obstacleManager;
@@ -109,5 +110,13 @@ public class PuzzleAttributes {
 	
 	public void setObstacleManager(ObstacleManager obstacleManager) {
 		this.obstacleManager = obstacleManager;
+	}
+
+	public String[] getLayout() {
+		return layout;
+	}
+
+	public void setLayout(String[] layout) {
+		this.layout = layout;
 	}
 }
