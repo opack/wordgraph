@@ -5,20 +5,21 @@ import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 
 public class PuzzleAttributes {
 	private PuzzleInfos infos;
 	private List<Riddle> riddles;
-	private List<String> lines;
-	private String[] layout;
+	private List<String> riddleSentenceLines;
+	private PuzzleLayout layout;
 	private String skinName;
 	private Skin skin;
 	private ObstacleManager obstacleManager;
 	
 	public PuzzleAttributes() {
 		riddles = new ArrayList<Riddle>();
-		lines = new ArrayList<String>();
+		riddleSentenceLines = new ArrayList<String>();
 	}
 
 	public void addRiddle(Riddle riddle) {
@@ -92,16 +93,16 @@ public class PuzzleAttributes {
 		this.skinName = skinName;
 	}
 
-	public List<String> getLines() {
-		return lines;
+	public List<String> getRiddleSentenceLines() {
+		return riddleSentenceLines;
 	}
 
-	public void addLine(String line) {
-		lines.add(line);
+	public void addRiddleSentenceLine(String line) {
+		riddleSentenceLines.add(line);
 	}
 
-	public String getLine(int lineNum) {
-		return lines.get(lineNum);
+	public String getRiddleSentenceLine(int lineNum) {
+		return riddleSentenceLines.get(lineNum);
 	}
 
 	public ObstacleManager getObstacleManager() {
@@ -112,11 +113,11 @@ public class PuzzleAttributes {
 		this.obstacleManager = obstacleManager;
 	}
 
-	public String[] getLayout() {
+	public PuzzleLayout getLayout() {
 		return layout;
 	}
 
-	public void setLayout(String[] layout) {
+	public void setLayout(PuzzleLayout layout) {
 		this.layout = layout;
 	}
 }

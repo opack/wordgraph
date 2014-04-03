@@ -1,15 +1,15 @@
 package com.slamdunk.wordgraph.pack.parsing;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.pack.PackAttributes;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 
 public class PackAttributesReader {
-	private Properties loadedProperties;
+	private PropertiesEx loadedProperties;
 	private boolean loaded;
 	private String packPath;
 
@@ -38,7 +38,7 @@ public class PackAttributesReader {
 	}
 	
 	public void loadFile(String file) {
-		loadedProperties = new Properties();
+		loadedProperties = new PropertiesEx();
 		FileHandle handle = null;
 		try {
 			handle = Gdx.files.internal(file);
@@ -50,8 +50,8 @@ public class PackAttributesReader {
 		}
 	}
 	
-	public Properties loadPuzzleProperties(String path, String puzzlePropsFile) {
-		Properties properties = new Properties();
+	public PropertiesEx loadPuzzleProperties(String path, String puzzlePropsFile) {
+		PropertiesEx properties = new PropertiesEx();
 		FileHandle handle = null;
 		try {
 			handle = Gdx.files.internal(path + "/" + puzzlePropsFile);
@@ -69,8 +69,8 @@ public class PackAttributesReader {
 		}
 		String name = loadedProperties.getProperty("name");
 		String label = loadedProperties.getProperty("label", "");
-		int difficulty = Integer.parseInt(loadedProperties.getProperty("difficulty", "1"));
-		boolean available = Boolean.parseBoolean(loadedProperties.getProperty("available", "false"));
+		int difficulty = loadedProperties.getIntegerProperty("difficulty", 1);
+		boolean available = loadedProperties.getBooleanProperty("available", false);
 		
 		packAttributes.setName(name);
 		packAttributes.setLabel(label);
@@ -92,17 +92,17 @@ public class PackAttributesReader {
 		float silverTime = 0;
 		float bronzeTime = 0;
 		while ((name = loadedProperties.getProperty("puzzle." + count + ".name")) != null) {
-			available = Boolean.parseBoolean(loadedProperties.getProperty("puzzle." + count + ".available", "false"));
+			available = loadedProperties.getBooleanProperty("puzzle." + count + ".available", false);
 			
 			// Ouverture et lecture du fichier de propriétés du puzzle
-			Properties puzzleProperties = loadPuzzleProperties(packPath, name + ".properties");
+			PropertiesEx puzzleProperties = loadPuzzleProperties(packPath, name + ".properties");
 			label = puzzleProperties.getProperty("label", "");
 			description = puzzleProperties.getProperty("description", "");
-			difficulty = Integer.parseInt(puzzleProperties.getProperty("difficulty", "1"));
+			difficulty = puzzleProperties.getIntegerProperty("difficulty", 1);
 			
-			goldTime = Float.parseFloat(puzzleProperties.getProperty("time.gold", "0"));
-			silverTime = Float.parseFloat(puzzleProperties.getProperty("time.silver", "0"));
-			bronzeTime = Float.parseFloat(puzzleProperties.getProperty("time.bronze", "0"));
+			goldTime = puzzleProperties.getFloatProperty("time.gold", 0);
+			silverTime = puzzleProperties.getFloatProperty("time.silver", 0);
+			bronzeTime = puzzleProperties.getFloatProperty("time.bronze", 0);
 			
 			// Création du bean d'infos
 			PuzzleInfos infos = new PuzzleInfos();

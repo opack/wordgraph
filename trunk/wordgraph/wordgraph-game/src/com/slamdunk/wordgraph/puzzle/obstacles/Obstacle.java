@@ -1,12 +1,17 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 /**
  * Représente un obstacle qui peut gêner le joueur.
@@ -18,12 +23,14 @@ public abstract class Obstacle implements PuzzleListener {
 	private String target;
 	private PuzzlePreferencesHelper puzzlePreferences;
 	
-	public Obstacle(ObstaclesTypes type, String target) {
-		this.type = type;
-		this.target = target;
+	public Obstacle() {
 		this.isActive = true;
 	}
 	
+	public void setType(ObstaclesTypes type) {
+		this.type = type;
+	}
+
 	/**
 	 * Applique l'effet de l'obstacle sur le graphe.
 	 * Cette méthode doit être appelée à chaque rafraîchissement
@@ -33,7 +40,7 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @param graph
 	 * @see #isActive()
 	 */
-	public abstract void applyEffect(PuzzleGraph graph);
+	public abstract void applyEffect(Grid grid);
 	
 	/**
 	 * Indique si l'obstacle est toujours actif ou non.
@@ -89,15 +96,10 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 	
 	@Override
-	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		this.puzzlePreferences = puzzlePreferences;
 		// Regarde dans les préférences si cet obstacle est actif
 		setActive(readPreferenceObstacleActive());
-	}
-	
-	@Override
-	public void graphLoaded(PuzzleGraph graph) {
-		// TODO Auto-generated method stub
 	}
 	
 	@Override
@@ -111,12 +113,12 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 
 	@Override
-	public void wordValidated(String word) {
+	public void wordValidated(String word, List<GridCell> cells) {
 		// TODO Auto-generated method stub
 	}
 	
 	@Override
-	public void wordRejected(String word) {
+	public void wordRejected(String word, List<GridCell> cells) {
 		// TODO Auto-generated method stub
 	}
 
@@ -178,11 +180,22 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @param stage
 	 * @param puzzlePreferences
 	 */
-	public void init(PuzzleGraph graph,
+	public void init(Grid grid,
 			PuzzleAttributes puzzleAttributes,
 			Stage stage,
 			PuzzlePreferencesHelper puzzlePreferences) {
-		graphLoaded(graph);
-		puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
+		puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
+	}
+
+	/**
+	 * Initialise les données de cet obstacle à partir des clés du fichier de propriétés
+	 * @param properties
+	 * @param key Clé de l'obstacle sous laquelle se trouvent ses données
+	 */
+	public void initFromProperties(PropertiesEx properties, String key) {
+		// Lecture du type de l'obstacle
+		type = ObstaclesTypes.valueOf(properties.getProperty(key + ".type"));
+		
+		// Par défaut, on n'a rien d'autre de spécial à lire dans le fichier
 	}
 }

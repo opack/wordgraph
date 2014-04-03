@@ -88,7 +88,7 @@ public class ClipLoader {
             clip = createClip(
         		assets.get(properties.getProperty("spriteSheet.atlas"), TextureAtlas.class),
                 properties.getProperty("spriteSheet.region"),
-                Float.parseFloat(properties.getProperty("frameDuration")));
+                properties.getFloatProperty("frameDuration", 1/24));
         }
 
         // Initialisation du clip

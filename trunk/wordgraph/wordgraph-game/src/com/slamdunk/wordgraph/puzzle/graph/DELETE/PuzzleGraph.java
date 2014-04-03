@@ -1,9 +1,9 @@
-package com.slamdunk.wordgraph.puzzle.graph;
+package com.slamdunk.wordgraph.puzzle.graph.DELETE;
 
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.SLOT_ANY;
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.SLOT_EMPTY;
+import static com.slamdunk.wordgraph.puzzle.graph.DELETE.LayoutFactory.GRID_HEIGHT;
+import static com.slamdunk.wordgraph.puzzle.graph.DELETE.LayoutFactory.GRID_WIDTH;
+import static com.slamdunk.wordgraph.puzzle.graph.DELETE.LayoutFactory.SLOT_ANY;
+import static com.slamdunk.wordgraph.puzzle.graph.DELETE.LayoutFactory.SLOT_EMPTY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.slamdunk.utils.graphics.point.Point;
+import com.slamdunk.wordgraph.puzzle.graph.GraphListener;
 
 /**
  * Représentation logique du graphe du puzzle.

@@ -1,18 +1,18 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.slamdunk.wordgraph.Assets;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 /**
  * Masque un indice
  */
 public class HiddenObstacle extends ClueObstacle{
-	public HiddenObstacle(String target) {
-		super(ObstaclesTypes.HIDDEN, target);
-	}
-	
 	@Override
-	public void wordValidated(String word) {
+	public void wordValidated(String word, List<GridCell> cells) {
+		super.wordValidated(word, cells);
 		// Si le mot validé est celui de cet obstacle, alors l'obstacle disparaît
 		if (word.equals(getRiddle().getSolution())) {
 			setActive(false);

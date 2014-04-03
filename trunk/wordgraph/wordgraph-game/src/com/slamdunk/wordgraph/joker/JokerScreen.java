@@ -15,10 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.slamdunk.utils.PropertiesManager;
 import com.slamdunk.utils.ui.ButtonClickListener;
@@ -29,7 +29,7 @@ import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.HiddenObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
@@ -39,7 +39,7 @@ public class JokerScreen implements Screen {
 	private WordGraphGame game;
 	private Stage stage;
 	
-	private PuzzleGraph graph;
+	private Grid grid;
 	private PuzzleAttributes puzzleAttributes;
 	
 	private TextButton validateButton;
@@ -55,8 +55,8 @@ public class JokerScreen implements Screen {
 		riddlesByName = new HashMap<String, Riddle>();
 	}
 	
-	public void setGraph(PuzzleGraph graph) {
-		this.graph = graph;
+	public void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 
 	public void setPuzzleAttributes(PuzzleAttributes puzzleAttributes) {
@@ -182,7 +182,7 @@ public class JokerScreen implements Screen {
 			
 			// Création des lignes
 			int idx = 0;
-			for (String line : puzzleAttributes.getLines()) {
+			for (String line : puzzleAttributes.getRiddleSentenceLines()) {
 				// Récupération de la Table dans laquelle on va écrire
 				Table table = (Table)creator.getActor("line" + idx);
 				
@@ -308,7 +308,7 @@ public class JokerScreen implements Screen {
 	
 	private void onValidate() {
 		if (selectedRiddle != null && selectedJoker != null) {
-			selectedJoker.decorate(selectedRiddle.getSolution(), graph);
+			selectedJoker.decorate(selectedRiddle.getSolution(), grid);
 			onBack();
 		}
 	}

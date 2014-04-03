@@ -1,5 +1,8 @@
 package com.slamdunk.wordgraph.puzzle.graph;
 
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+
 public interface GraphListener {
 	/**
 	 * Méthode appelée lorsqu'un noeud est créé

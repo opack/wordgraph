@@ -1,10 +1,13 @@
 package com.slamdunk.wordgraph.puzzle;
 
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 /**
  * Listener notifié lorsqu'un évènement se produit dans le puzzle
@@ -12,21 +15,12 @@ import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
 public interface PuzzleListener {
 	/**
 	 * Méthode appelée une fois que le puzzle a été chargé. Cela implique que le
-	 * tous les composants ont été créés et chargés, que le graphe a été chargé
-	 * et que le layout du graphe a été fait. C'est la toute dernière étape
+	 * tous les composants ont été créés et chargés. C'est la toute dernière étape
 	 * avant que le joueur ne commence à jouer.
-	 * @param graph Le graphe qui vient d'être chargé
+	 * @param grid La grille qui vient d'être chargée
 	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
 	 */
-	void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
-	
-	/**
-	 * Méthode appelée une fois que le graphe a été chargé. Cela signifie que le
-	 * fichier properties du graphe a été lu et que le graphe a été chargé ({@link PuzzleGraph#load(java.util.List)}.
-	 * @param graph Le graphe qui vient d'être chargé
-	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
-	 */
-	void graphLoaded(PuzzleGraph graph);
+	void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
 	
 	/**
 	 * Méthode appelée une fois qu'un lien est marqué comme utilisé
@@ -44,13 +38,13 @@ public interface PuzzleListener {
 	 * Méthode appelée lorsqu'un mot est validé avec succès
 	 * @param word
 	 */
-	void wordValidated(String word);
+	void wordValidated(String word, List<GridCell> cells);
 	
 	/**
 	 * Méthode appelée lorsqu'un mot est rejeté
 	 * @param word
 	 */
-	void wordRejected(String word);
+	void wordRejected(String word, List<GridCell> cells);
 	
 	/**
 	 * Méthode appelée lorsqu'une lettre est sélectionnée, c'est-à-dire que
