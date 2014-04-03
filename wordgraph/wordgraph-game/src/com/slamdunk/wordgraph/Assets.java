@@ -2,7 +2,6 @@ package com.slamdunk.wordgraph;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -47,30 +46,6 @@ public class Assets {
 	public static final float VIRTUAL_HEIGHT = 20.0f;
 	
 	public static float pixelDensity;
-
-	public static boolean asBoolean(Properties properties, String name, boolean fallback) {
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Boolean.parseBoolean(v);
-	}
-
-	public static float asFloat(Properties properties, String name, float fallback) {
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Float.parseFloat(v);
-	}
-
-	public static int asInt(Properties properties, String name, int fallback) {
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return Integer.parseInt(v);
-	}
-
-	public static String asString(Properties properties, String name, String fallback) {
-		String v = properties.getProperty(name);
-		if (v == null) return fallback;
-		return v;
-	}
 
 	private static float calculatePixelDensity () {
 		FileHandle textureDir = Gdx.files.internal("textures");

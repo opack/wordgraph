@@ -1,4 +1,4 @@
-package com.slamdunk.wordgraph.puzzle.graph;
+package com.slamdunk.wordgraph.puzzle.graph.DELETE;
 
 /**
  * Retourne des dispositions de lettre par défaut

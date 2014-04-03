@@ -1,17 +1,18 @@
 package com.slamdunk.wordgraph.puzzle.parsing;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
 import com.slamdunk.wordgraph.puzzle.obstacles.BombObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.FogObstacle;
@@ -19,7 +20,9 @@ import com.slamdunk.wordgraph.puzzle.obstacles.HiddenObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IntruderObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.IsleObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.MorphObstacle;
+import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
+import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 import com.slamdunk.wordgraph.puzzle.obstacles.StoneObstacle;
 
 public class PuzzleAttributesReader {
@@ -31,9 +34,9 @@ public class PuzzleAttributesReader {
 	 */
 	public PuzzleAttributes read(String file) {
 		// Ouverture du fichier
-		Properties propertiesFile = new Properties();
+		PropertiesEx properties = new PropertiesEx();
 		try {
-			propertiesFile.load(Gdx.files.internal(file).reader());
+			properties.load(Gdx.files.internal(file).reader());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,41 +45,41 @@ public class PuzzleAttributesReader {
 		PuzzleAttributes puzzleAttributes = new PuzzleAttributes();
 		
 		// Charge les attributs du puzzle
-		loadGeneralInfos(propertiesFile, puzzleAttributes);
+		loadGeneralInfos(properties, puzzleAttributes);
 		
 		// Charge les graphismes du puzzle (images de fond, images des boutons...)
 		// ...
 		
 		// Charge la skin pour les widgets de l'UI
-		loadSkin(propertiesFile, puzzleAttributes);
+		loadSkin(properties, puzzleAttributes);
 
 		// Charge les lignes d'indice
 		if (puzzleAttributes.getInfos().getType() == PuzzleTypes.SENTENCE) {
-			loadSentenceLines(propertiesFile, puzzleAttributes);
+			loadSentenceLines(properties, puzzleAttributes);
 		}
 		
 		// Charge les enigmes
-		loadRiddles(propertiesFile, puzzleAttributes);
+		loadRiddles(properties, puzzleAttributes);
 		
 		// Charge les obstacles
-		loadObstacles(propertiesFile, puzzleAttributes);
+		loadObstacles(properties, puzzleAttributes);
 		
 		// Charge le layout du puzzle
-		loadLayout(propertiesFile, puzzleAttributes);
+		loadLayout(properties, puzzleAttributes);
 
 		return puzzleAttributes;
 	}
 	
-	private void loadGeneralInfos(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
-		String label = propertiesFile.getProperty("label", "");
-		String description = propertiesFile.getProperty("description", "");
-		int difficulty = Integer.parseInt(propertiesFile.getProperty("difficulty", "1"));
-		String type = propertiesFile.getProperty("type", "WORDS");
-		boolean grid = Boolean.parseBoolean(propertiesFile.getProperty("grid", "false"));
+	private void loadGeneralInfos(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
+		String label = properties.getProperty("label", "");
+		String description = properties.getProperty("description", "");
+		int difficulty = properties.getIntegerProperty("difficulty", 1);
+		String type = properties.getProperty("type", "WORDS");
+		boolean grid = properties.getBooleanProperty("grid", false);
 		
-		float goldTime = Float.parseFloat(propertiesFile.getProperty("time.gold", "0"));
-		float silverTime = Float.parseFloat(propertiesFile.getProperty("time.silver", "0"));
-		float bronzeTime = Float.parseFloat(propertiesFile.getProperty("time.bronze", "0"));
+		float goldTime = properties.getFloatProperty("time.gold", 0);
+		float silverTime = properties.getFloatProperty("time.silver", 0);
+		float bronzeTime = properties.getFloatProperty("time.bronze", 0);
 		
 		PuzzleInfos infos = new PuzzleInfos();
 		infos.setLabel(label);
@@ -92,8 +95,8 @@ public class PuzzleAttributesReader {
 		puzzleAttributes.setInfos(infos);
 	}
 	
-	private void loadSkin(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
-		String skinName = propertiesFile.getProperty("skin.name", "");
+	private void loadSkin(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
+		String skinName = properties.getProperty("skin.name", "");
 		if (!skinName.isEmpty()) {
 			// Chargement de la skin indiquée
 			Skin skin = Assets.getSkin(skinName);
@@ -155,17 +158,17 @@ public class PuzzleAttributesReader {
 
 	/**
 	 * Charge les enigmes définies dans le fichier de propriétés.
-	 * @param propertiesFile
+	 * @param properties
 	 * @param puzzleAttributes
 	 */
-	private void loadRiddles(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+	private void loadRiddles(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
 		int id = 0;
 		String clue = null;
 		String solution = null;
 		int difficulty = 0;
-		while ((solution = propertiesFile.getProperty("riddle." + id + ".solution")) != null) {
-			clue = propertiesFile.getProperty("riddle." + id + ".clue", "");
-			difficulty = Integer.parseInt(propertiesFile.getProperty("riddle." + id + ".difficulty", "1"));
+		while ((solution = properties.getProperty("riddle." + id + ".solution")) != null) {
+			clue = properties.getProperty("riddle." + id + ".clue", "");
+			difficulty = properties.getIntegerProperty("riddle." + id + ".difficulty", 1);
 
 			Riddle riddle = new Riddle();
 			riddle.setId(id);
@@ -180,112 +183,148 @@ public class PuzzleAttributesReader {
 	
 	/**
 	 * Charge les lignes contenant la phrase à trouver définies dans le fichier de propriétés.
-	 * @param propertiesFile
+	 * @param properties
 	 * @param puzzleAttributes
 	 */
-	private void loadSentenceLines(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+	private void loadSentenceLines(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
 		int id = 0;
 		String line = null;
-		while ((line = propertiesFile.getProperty("sentence.line." + id)) != null) {
-			puzzleAttributes.addLine(line);
+		while ((line = properties.getProperty("sentence.line." + id)) != null) {
+			puzzleAttributes.addRiddleSentenceLine(line);
 			id++;
 		}
 	}
 	
 	/**
 	 * Charge les obstacles définis dans le fichier de propriétés.
-	 * @param propertiesFile
+	 * @param properties
 	 * @param puzzleAttributes
 	 */
-	private void loadObstacles(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
+	private void loadObstacles(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
 		// Création du gestionnaire d'obstacles
 		ObstacleManager manager = new ObstacleManager();
 		puzzleAttributes.setObstacleManager(manager);
 		
-		// Lettres isolées
-		String obstacleIsle = propertiesFile.getProperty("obstacles.isle", "");
-		if (!obstacleIsle.isEmpty()) {
-			String[] isolatedLetters = obstacleIsle.split(",");
-			for (String letter : isolatedLetters) {
-				manager.add(new IsleObstacle(letter));
+		// Parcourt de tous les obstacles placés sur la grille
+		int idx = 0;
+		String type;
+		while ((type = properties.getProperty("obstacle." + idx + ".type")) != null) {
+			Obstacle obstacle = null;
+			switch (ObstaclesTypes.valueOf(type)) {
+			case ISLE:
+				obstacle = new IsleObstacle();
+				break;
+			case FOG:
+				obstacle = new FogObstacle();
+				break;
+			case INTRUDER:
+				obstacle = new IntruderObstacle();
+				break;
+			case MORPH:
+				obstacle = new MorphObstacle();
+				break;
+			case BOMB:
+				obstacle = new BombObstacle();
+				break;
+			case STONE:
+				obstacle = new StoneObstacle();
+				break;
+			case CATEGORY:
+				obstacle = new CategoryObstacle();
+				break;
+			case HIDDEN:
+				obstacle = new HiddenObstacle();
+				break;
 			}
+			obstacle.initFromProperties(properties, "obstacle." + idx);
+			manager.add(obstacle);
+			
+			idx++;
 		}
 		
-		// Lettres cachées
-		String obstacleFog = propertiesFile.getProperty("obstacles.fog", "");
-		if (!obstacleFog.isEmpty()) {
-			String[] maskedLetters = obstacleFog.split(",");
-			for (String letter : maskedLetters) {
-				manager.add(new FogObstacle(letter));
-			}
-		}
-		
-		// Lettres intruses
-		String obstacleIntruder = propertiesFile.getProperty("obstacles.intruder", "");
-		if (!obstacleIntruder.isEmpty()) {
-			String[] intruderParameters = obstacleIntruder.split(",");
-			for (String parameters : intruderParameters) {
-				manager.add(IntruderObstacle.createFromProperties(parameters));
-			}
-		}
-		
-		// Lettres changeantes
-		String obstacleMorph = propertiesFile.getProperty("obstacles.morph", "");
-		if (!obstacleMorph.isEmpty()) {
-			String[] morphingParameters = obstacleMorph.split(",");
-			for (String parameters : morphingParameters) {
-				manager.add(MorphObstacle.createFromProperties(parameters));
-			}
-		}
-		
-		// Lettres piégées
-		String obstacleBomb = propertiesFile.getProperty("obstacles.bomb", "");
-		if (!obstacleBomb.isEmpty()) {
-			String[] bombingParameters = obstacleBomb.split(",");
-			for (String parameters : bombingParameters) {
-				manager.add(BombObstacle.createFromProperties(parameters));
-			}
-		}
-		
-		// Lettres dans la pierre
-		String stoneFog = propertiesFile.getProperty("obstacles.stone", "");
-		if (!stoneFog.isEmpty()) {
-			String[] stonedLetters = stoneFog.split(",");
-			for (String letter : stonedLetters) {
-				manager.add(new StoneObstacle(letter));
-			}
-		}
-		
-		// Catégorie affichée
-		String obstacleCategory = propertiesFile.getProperty("obstacles.category", "");
-		if (!obstacleCategory.isEmpty()) {
-			String[] categoryParameters = obstacleCategory.split(",");
-			for (String parameters : categoryParameters) {
-				manager.add(CategoryObstacle.createFromProperties(parameters));
-			}
-		}
-		
-		// Indice masqué
-		String obstacleHidden = propertiesFile.getProperty("obstacles.hidden", "");
-		if (!obstacleHidden.isEmpty()) {
-			String[] hiddenClues = obstacleHidden.split(",");
-			for (String clueIndex : hiddenClues) {
-				manager.add(new HiddenObstacle(clueIndex));
-			}
-		}
+//		// Lettres cachées
+//		String obstacleFog = properties.getProperty("obstacles.fog", "");
+//		if (!obstacleFog.isEmpty()) {
+//			String[] maskedLetters = obstacleFog.split(",");
+//			for (String letter : maskedLetters) {
+//				manager.add(new FogObstacle(letter));
+//			}
+//		}
+//		
+//		// Lettres intruses
+//		String obstacleIntruder = properties.getProperty("obstacles.intruder", "");
+//		if (!obstacleIntruder.isEmpty()) {
+//			String[] intruderParameters = obstacleIntruder.split(",");
+//			for (String parameters : intruderParameters) {
+//				manager.add(IntruderObstacle.createFromProperties(parameters));
+//			}
+//		}
+//		
+//		// Lettres changeantes
+//		String obstacleMorph = properties.getProperty("obstacles.morph", "");
+//		if (!obstacleMorph.isEmpty()) {
+//			String[] morphingParameters = obstacleMorph.split(",");
+//			for (String parameters : morphingParameters) {
+//				manager.add(MorphObstacle.createFromProperties(parameters));
+//			}
+//		}
+//		
+//		// Lettres piégées
+//		String obstacleBomb = properties.getProperty("obstacles.bomb", "");
+//		if (!obstacleBomb.isEmpty()) {
+//			String[] bombingParameters = obstacleBomb.split(",");
+//			for (String parameters : bombingParameters) {
+//				manager.add(BombObstacle.createFromProperties(parameters));
+//			}
+//		}
+//		
+//		// Lettres dans la pierre
+//		String stoneFog = properties.getProperty("obstacles.stone", "");
+//		if (!stoneFog.isEmpty()) {
+//			String[] stonedLetters = stoneFog.split(",");
+//			for (String letter : stonedLetters) {
+//				manager.add(new StoneObstacle(letter));
+//			}
+//		}
+//		
+//		// Catégorie affichée
+//		String obstacleCategory = properties.getProperty("obstacles.category", "");
+//		if (!obstacleCategory.isEmpty()) {
+//			String[] categoryParameters = obstacleCategory.split(",");
+//			for (String parameters : categoryParameters) {
+//				manager.add(CategoryObstacle.createFromProperties(parameters));
+//			}
+//		}
+//		
+//		// Indice masqué
+//		String obstacleHidden = properties.getProperty("obstacles.hidden", "");
+//		if (!obstacleHidden.isEmpty()) {
+//			String[] hiddenClues = obstacleHidden.split(",");
+//			for (String clueIndex : hiddenClues) {
+//				manager.add(new HiddenObstacle(clueIndex));
+//			}
+//		}
 	}
-	
+
 	/**
 	 * Charge les lignes contenant le layout
-	 * @param propertiesFile
+	 * @param properties
 	 * @param puzzleAttributes
 	 */
-	private void loadLayout(Properties propertiesFile, PuzzleAttributes puzzleAttributes) {
-		int size = Integer.parseInt(propertiesFile.getProperty("layout.size", "5"));
+	private void loadLayout(PropertiesEx properties, PuzzleAttributes puzzleAttributes) {
+		// Récupération de la taille de la grille et des lettres
+		int width = properties.getIntegerProperty("layout.width", -1);
+		int height = properties.getIntegerProperty("layout.height", -1);
+		PuzzleLayout layout = new PuzzleLayout(width, height);
 		
-		String[] layout = new String[size];
-		for (int curLine = 0; curLine < size; curLine ++) {
-			layout[curLine] = propertiesFile.getProperty("layout.line" + curLine);
+		for (int curLine = 0; curLine < height; curLine ++) {
+			// Récupère les lettres du layout
+			String[] letters = properties.getProperty("layout.line" + curLine).split(",");
+			
+			// Remplit le layout
+			for (int curColumn = 0; curColumn < width; curColumn++) {
+				layout.setLetter(curLine, curColumn, letters[curColumn]);
+			}
 		}
 		
 		puzzleAttributes.setLayout(layout);

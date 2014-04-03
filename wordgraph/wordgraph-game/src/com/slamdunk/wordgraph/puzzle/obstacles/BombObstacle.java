@@ -5,44 +5,41 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
 
 /**
  * Place une bombe sur la lettre qui va exploser et casser tous les liens
  * au bout d'un certain nombre de touches
  */
-public class BombObstacle extends NodeObstacle{
+public class BombObstacle extends CellObstacle{
 	private int countDown;
 	private Label label;
 	
-	public BombObstacle(String target, int countDown) {
-		super(ObstaclesTypes.BOMB, target);
-		this.countDown = countDown;
-	}
-	
 	@Override
-	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
+	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
 		// Initialise le compte
 		int prefsCountDown = puzzlePreferences.getBombCountDown(getTarget());
 		if (prefsCountDown != -1) {
 			countDown = prefsCountDown;
 		}
-		applyEffect(graph);
+		applyEffect(grid);
 	}
 
 	@Override
-	public void applyEffect(PuzzleGraph graph) {
+	public void applyEffect(Grid grid) {
+		super.applyEffect(grid);
 		// Si l'obstacle est actif, on masque la lettre
 		if (isActive()) {
 			// Place une image de bombe et un libellé avec le décompte
 			if (getImage() == null) {
 				createImage("obstacle-bomb");
 				label = new Label(String.valueOf(countDown), Assets.defaultPuzzleSkin.get("text", LabelStyle.class));
-				TextButton button = getNode().getButton();
+				TextButton button = getCell().getButton();
 				button.addActor(label);
 				label.setWidth(button.getWidth());
 				label.setAlignment(Align.center);
@@ -77,8 +74,10 @@ public class BombObstacle extends NodeObstacle{
 			// lors du prochain affichage
 			//writePreferenceObstacleActive(false);
 			// Création d'un obstacle Isle
-			IsleObstacle isle = new IsleObstacle(getTarget());
-			isle.init(manager.getPuzzleGraph(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
+			IsleObstacle isle = new IsleObstacle();
+			isle.setLine(getLine());
+			isle.setColumn(getColumn());
+			isle.init(manager.getGrid(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
 		}
 	}
@@ -88,29 +87,16 @@ public class BombObstacle extends NodeObstacle{
 		super.letterSelected(letter);
 		// A chaque lettre sélectionnée, le compte-à-rebours baisse
 		countDown--;
-		applyEffect(getManager().getPuzzleGraph());
+		applyEffect(getManager().getGrid());
 		// Sauvegarde le compte
 		getPuzzlePreferences().setBombCountDown(getTarget(), countDown);
 	}
 	
-	/**
-	 * Crée un BombObstacle initialisé avec les données lues dans le fichier
-	 * properties décrivant le puzzle. Ces données ont la forme suivante :
-	 * [L]|[t] avec :
-	 *   [L] : lettre du graphe sur laquelle est placé l'obstacle
-	 *   [t] : nombre de touches avant que la bombe n'explose
-	 * Exemple :
-	 * 	- "C|5" : obstacle sur la lettre C, explose dans 5 touches
-	 * @param propertiesDescription
-	 * @return
-	 */
-	public static BombObstacle createFromProperties(String propertiesDescription) {
-		String[] parameters = propertiesDescription.split("\\|");
-		if (parameters.length != 2) {
-			throw new IllegalArgumentException("BombObstacle : Failure to split '" + propertiesDescription + "' in the 2 required parts.");
-		}
-		String target = parameters[0];
-		int countDown = Integer.valueOf(parameters[1]);
-		return new BombObstacle(target, countDown);
+	@Override
+	public void initFromProperties(PropertiesEx properties, String key) {
+		super.initFromProperties(properties, key);
+		
+		// Lit le compte-à-rebours initial
+		countDown = properties.getIntegerProperty(key + ".countDown", 10);
 	}
 }

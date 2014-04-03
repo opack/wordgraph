@@ -1,38 +1,38 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import java.util.List;
+
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 /**
  * Masque une lettre
  */
-public class FogObstacle extends NodeObstacle{
-	public FogObstacle(String target) {
-		super(ObstaclesTypes.FOG, target);
-	}
-
+public class FogObstacle extends CellObstacle{
 	@Override
-	public void applyEffect(PuzzleGraph graph) {
-		super.applyEffect(graph);
-		TextButton button = getNode().getButton();
+	public void applyEffect(Grid grid) {
+		super.applyEffect(grid);
+		TextButton button = getCell().getButton();
 		// Si l'obstacle est actif, on masque la lettre
 		if (isActive()) {
 			// Supprime le texte du bouton
 			button.setText("?");
 		} else {
 			// Sinon on remet le texte du bouton
-			button.setText(getTarget());
+			button.setText(getCell().getLetter());
 		}
 	}
 
 	@Override
-	public void wordValidated(String word) {
+	public void wordValidated(String word, List<GridCell> cells) {
+		super.wordValidated(word, cells);
 		// Si la lettre de cet obstacle est contenue dans le mot validé,
 		// alors le brouillard est dissipé
 		if (word.indexOf(getTarget()) != -1) {
 			setActive(false);
 			writePreferenceObstacleActive(false);
-			applyEffect(getManager().getPuzzleGraph());
+			applyEffect(getManager().getGrid());
 		}
 	}
 }

@@ -9,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 public class ObstacleManager implements PuzzleListener {
-	private PuzzleGraph graph;
+	private Grid grid;
 	private PuzzleAttributes puzzleAttributes;
 	private Stage stage;
 	
@@ -65,7 +66,7 @@ public class ObstacleManager implements PuzzleListener {
 	public void applyEffect() {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
-        		obstacle.applyEffect(graph);
+        		obstacle.applyEffect(grid);
         	}
         }
 	}
@@ -83,12 +84,12 @@ public class ObstacleManager implements PuzzleListener {
 		return tmpObstacles;
 	}
 
-	public PuzzleGraph getPuzzleGraph() {
-		return graph;
+	public Grid getGrid() {
+		return grid;
 	}
 
-	public void setPuzzleGraph(PuzzleGraph graph) {
-		this.graph = graph;
+	public void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 
 	public PuzzleAttributes getPuzzleAttributes() {
@@ -109,23 +110,13 @@ public class ObstacleManager implements PuzzleListener {
 
 
 	@Override
-	public void graphLoaded(PuzzleGraph graph) {
-		setPuzzleGraph(graph);
-		for (Obstacle obstacle : getTempObstaclesList()) {
-        	if (obstacle.isActive()) {
-        		obstacle.graphLoaded(graph);
-        	}
-        }
-	}
-	
-	@Override
-	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		setPuzzleAttributes(puzzleAttributes);
 		setStage(stage);
-		
+		setGrid(grid);
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
-        		obstacle.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
+        		obstacle.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
         	}
         }
 	}
@@ -140,10 +131,10 @@ public class ObstacleManager implements PuzzleListener {
 	}
 	
 	@Override
-	public void wordValidated(String word) {
+	public void wordValidated(String word, List<GridCell> cells) {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
-        		obstacle.wordValidated(word);
+        		obstacle.wordValidated(word, cells);
         	}
         }
 	}
@@ -176,10 +167,10 @@ public class ObstacleManager implements PuzzleListener {
 	}
 
 	@Override
-	public void wordRejected(String word) {
+	public void wordRejected(String word, List<GridCell> cells) {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
-        		obstacle.wordRejected(word);
+        		obstacle.wordRejected(word, cells);
         	}
         }
 	}

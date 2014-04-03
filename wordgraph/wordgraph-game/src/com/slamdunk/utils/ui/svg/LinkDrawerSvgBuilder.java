@@ -2,7 +2,7 @@ package com.slamdunk.utils.ui.svg;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.slamdunk.wordgraph.puzzle.graph.LinkDrawer;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.LinkDrawer;
 
 public class LinkDrawerSvgBuilder extends UISvgBuilder {
 	

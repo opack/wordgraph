@@ -5,22 +5,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
 
 public abstract class ClueObstacle extends Obstacle {
 	private Riddle riddle;
 	private Label label;
 	private Image image;
 	private LabelStyle defaultStyle;
+	private int riddleId;
 
-	public ClueObstacle(ObstaclesTypes type, String target) {
-		super(type, target);
-	}
-	
 	public Riddle getRiddle() {
 		return riddle;
 	}
@@ -38,10 +36,10 @@ public abstract class ClueObstacle extends Obstacle {
 	}
 	
 	@Override
-	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
+	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
 		// Récupération de l'indice ciblé
-		riddle = puzzleAttributes.getRiddle(Integer.valueOf(getTarget()));
+		riddle = puzzleAttributes.getRiddle(riddleId);
 		riddle.addObstacle(this);
 		// Récupération du libellé de l'indice
 		Actor actor = stage.getRoot().findActor("riddle" + getTarget());
@@ -52,7 +50,7 @@ public abstract class ClueObstacle extends Obstacle {
 		// marqué comme inactif dans les préférences
 		setActive(riddle != null && isActive());
 		// Application de l'effet de l'obstacle
-		applyEffect(graph);
+		applyEffect(grid);
 	}
 	
 	/**
@@ -74,7 +72,7 @@ public abstract class ClueObstacle extends Obstacle {
 	}
 	
 	@Override
-	public void applyEffect(PuzzleGraph graph) {
+	public void applyEffect(Grid grid) {
 		// Lorsque l'effet doit être appliqué, on change le style
 		// du bouton pour que son image reflète l'obstacle
 		if (isActive()) {
@@ -90,4 +88,12 @@ public abstract class ClueObstacle extends Obstacle {
 	 * l'obstacle
 	 */
 	public abstract LabelStyle getLabelStyle();
+	
+	@Override
+	public void initFromProperties(PropertiesEx properties, String key) {
+		super.initFromProperties(properties, key);
+		
+		// Lecture de la position de la cellule impactée par l'obstacle
+		riddleId = properties.getIntegerProperty(key + ".riddleId", -1);
+	}
 }

@@ -1,5 +1,6 @@
 package com.slamdunk.utils.graphics.point;
 
+
 public class Point {
 
     /**
@@ -70,6 +71,18 @@ public class Point {
         int deltaX = point.getX() - x;
         int deltaY = point.getY() - y;
         return deltaX * deltaX + deltaY * deltaY;
+    }
+    
+    /**
+     * Returns the distance between the current point and the specified one.
+     * This distance is calculated using Pythagore.
+     *
+     * @param point
+     *            The other point
+     * @return Square of the distance between the two points
+     */
+    public double distance(Point point) {
+    	return Math.sqrt(distanceSq(point));
     }
 
     @Override

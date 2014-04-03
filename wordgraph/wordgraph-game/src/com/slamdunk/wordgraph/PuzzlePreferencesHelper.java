@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
 
 /**
  * Permet de manipuler facilement les préférences liées à un puzzle d'un pack en particulier

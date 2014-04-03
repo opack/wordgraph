@@ -1,8 +1,6 @@
 package com.slamdunk.wordgraph.puzzle;
 
 import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_HEIGHT;
-import static com.slamdunk.wordgraph.puzzle.graph.LayoutFactory.GRID_WIDTH;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,7 +12,6 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
 import com.slamdunk.utils.ui.ButtonClickListener;
@@ -35,10 +33,9 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
-import com.slamdunk.wordgraph.puzzle.graph.LinkDrawer;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstacleManager;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 import com.slamdunk.wordgraph.puzzle.parsing.PuzzleAttributesReader;
@@ -51,9 +48,8 @@ public class PuzzleScreen implements Screen {
 	
 	private PuzzlePreferencesHelper puzzlePreferences;
 	private PuzzleAttributes puzzleAttributes;
-	private PuzzleGraph graph;
+	private Grid grid;
 	private ObstacleManager obstacleManager;
-	private LinkDrawer linkDrawer;
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
@@ -63,16 +59,19 @@ public class PuzzleScreen implements Screen {
 	private TextButton validateButton;
 	private TextButton backspaceButton;
 	private TextButton jokerButton;
+	private TextButton blackMarketButton;
+	private Table gridTable;
 	private Image finishedImage;
 	
 	// On utilise Label plutôt qu'un simple String pour pouvoir déterminer
 	// la position vers laquelle envoyer les lettres sélectionner, car il
-	// nous faut un TextBounds pour déterminer la taille du mot suggéré
-	private Label currentSuggestion;
+	// nous faut un TextBounds pour déterminer la taille du mot suggéré.
+	// On ne peut pas s'appuyer sur le suggestionLabel car la lettre qui
+	// est "envoyée" vers ce label n'apparaît pas encore dans le texte
+	// et la taille n'est donc pas correcte.
+	private Label suggestionTextBounds;
 	private LinkedList<String> pendingLetters;
-	private LinkedList<PuzzleLink> selectedLinks;
-	private LinkedList<PuzzleNode> selectedNodes;
-	private LinkedList<String> selectedLetters;
+	private LinkedList<GridCell> selectedCells;
 	
 	private List<PuzzleListener> listeners;
 	
@@ -81,12 +80,9 @@ public class PuzzleScreen implements Screen {
 	public PuzzleScreen(WordGraphGame game) {
 		this.game = game;
 		pendingLetters = new LinkedList<String>();
-		selectedLinks = new LinkedList<PuzzleLink>();
-		selectedLetters = new LinkedList<String>();
-		selectedNodes = new LinkedList<PuzzleNode>();
+		selectedCells = new LinkedList<GridCell>();
 		
 		stage = new Stage();
-		graph = new PuzzleGraph();
 	}
 	
 	private void addListener(PuzzleListener listener) {
@@ -96,34 +92,10 @@ public class PuzzleScreen implements Screen {
 		listeners.add(listener);
 	}
 	
-	private void notifyPuzzleLoaded(PuzzleGraph graph, PuzzlePreferencesHelper puzzlePreferences) {
+	private void notifyPuzzleLoaded() {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
-				listener.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
-			}
-		}
-	}
-	
-	private void notifyGraphLoaded(PuzzleGraph graph) {
-		if (listeners != null) {
-			for (PuzzleListener listener : listeners) {
-				listener.graphLoaded(graph);
-			}
-		}
-	}
-	
-	private void notifyLinkUsed(PuzzleLink link) {
-		if (listeners != null) {
-			for (PuzzleListener listener : listeners) {
-				listener.linkUsed(link);
-			}
-		}
-	}
-	
-	private void notifyNodeHidden(PuzzleNode node) {
-		if (listeners != null) {
-			for (PuzzleListener listener : listeners) {
-				listener.nodeHidden(node);
+				listener.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
 			}
 		}
 	}
@@ -147,7 +119,7 @@ public class PuzzleScreen implements Screen {
 	private void notifyWordValidated(String word) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
-				listener.wordValidated(word);
+				listener.wordValidated(word, selectedCells);
 			}
 		}
 	}
@@ -155,7 +127,7 @@ public class PuzzleScreen implements Screen {
 	private void notifyWordRejected(String word) {
 		if (listeners != null) {
 			for (PuzzleListener listener : listeners) {
-				listener.wordRejected(word);
+				listener.wordRejected(word, selectedCells);
 			}
 		}
 	}
@@ -199,6 +171,7 @@ public class PuzzleScreen implements Screen {
 		backspaceButton = (TextButton)creator.getActor("backspace");
 		finishedImage = (Image)creator.getActor("finished");
 		jokerButton = (TextButton)creator.getActor("joker");
+		blackMarketButton = (TextButton)creator.getActor("blackmarket");
 		
 		// Image de fond
 		Image background = (Image)creator.getActor("background");
@@ -207,6 +180,10 @@ public class PuzzleScreen implements Screen {
 		// Titre du puzzle
 		Label title = (Label)creator.getActor("title");
 		title.setText(puzzleAttributes.getInfos().getLabel());
+		
+		// Label de temps et de score
+		chrono.setLabel((Label)creator.getActor("timer"), 1f);
+		scoreBoard.setLabel((Label)creator.getActor("score"));
 		
 		// Chargement des indices
 		List<Riddle> riddles = puzzleAttributes.getRiddles();
@@ -235,7 +212,7 @@ public class PuzzleScreen implements Screen {
 			
 			// Création des lignes
 			int idx = 0;
-			for (String line : puzzleAttributes.getLines()) {
+			for (String line : puzzleAttributes.getRiddleSentenceLines()) {
 				// Récupération de la Table dans laquelle on va écrire
 				Table table = (Table)creator.getActor("line" + idx);
 				
@@ -280,9 +257,39 @@ public class PuzzleScreen implements Screen {
 			}
 		}
 		
-		// Label de temps et de score
-		chrono.setLabel((Label)creator.getActor("timer"), 1f);
-		scoreBoard.setLabel((Label)creator.getActor("score"));
+		// Grille de boutons
+		TextButtonStyle letterStyle = PuzzleButtonDecorator.getInstance().getLetterStyle(NORMAL);
+		gridTable = (Table)creator.getActor("grid");
+		PuzzleLayout layout = puzzleAttributes.getLayout();
+		grid = new Grid(layout.getHeight(), layout.getWidth());
+		for (int curLine = 0; curLine < layout.getHeight(); curLine ++) {
+			for (int curColumn = 0; curColumn < layout.getWidth(); curColumn ++) {
+				// Création du bouton
+				final String letter = layout.getLetter(curLine, curColumn);
+				final TextButton button = new TextButton(letter, letterStyle);
+				if ("_".equals(letter)) {
+					button.setVisible(false);
+				}
+				
+				// Création de la cellule de grille
+				final GridCell cell = new GridCell(letter);
+				cell.setButton(button);
+				grid.setCell(curLine, curColumn, cell);
+				
+				// Affectation du listener
+				button.addListener(new ButtonClickListener() {
+					@Override
+					public void clicked(Button button) {
+						selectLetter(cell);
+					}
+				});
+				
+				// Ajout du bouton à la grille
+				gridTable.add(button).expand().fill();
+			}
+			// Nouvelle ligne
+			gridTable.row();
+		}
 		
 		// Au début, les boutons de validation et d'annulation sont désactivés
 		// car il n'y a pas de saisie
@@ -296,24 +303,7 @@ public class PuzzleScreen implements Screen {
         	displayFinishImage();
 		}
 		
-		// Initialisation du dessinateur de liens
-		linkDrawer = (LinkDrawer)creator.getActor("linkdrawer");
-		linkDrawer.setGraph(graph);
-		
 		// Affectation des listeners
-		ButtonClickListener	letterSelectListener = new ButtonClickListener() {
-			@Override
-			public void clicked(Button button) {
-				selectLetter((TextButton)button);
-			}
-		};
-		TextButton letterButton;
-		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
-			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
-				letterButton = (TextButton)creator.getActor("letter" + curLine + curColumn);
-				letterButton.addListener(letterSelectListener);
-			}
-		}
 		creator.getActor("back").addListener(new ButtonClickListener() {
 			@Override
 			public void clicked(Button button) {
@@ -349,67 +339,12 @@ public class PuzzleScreen implements Screen {
         
 		// Ajout des composants au stage
 		creator.populate(stage);
-		
-		// Chargement du graph
-		loadGraph(graph);
 		reloadPuzzle = false;
 		
 		// Création du libellé de suggestion courante
-		currentSuggestion = new Label("", suggestionLabel.getStyle());
+		suggestionTextBounds = new Label("", suggestionLabel.getStyle());
 	}
 	
-	/**
-	 * Crée le graphe
-	 * @param graph
-	 */
-	private void loadGraph(PuzzleGraph graph) {
-		// Vidage du graph existant
-		graph.clear();
-		
-		// Création du graphe
-		List<String> solutions = new ArrayList<String>();
-		for (Riddle riddle : puzzleAttributes.getRiddles()) {
-			solutions.add(riddle.getSolution());
-		}
-		graph.load(solutions);
-		notifyGraphLoaded(graph);
-		
-		// Arrangement du graphe et affectation des lettres aux boutons
-		final Group stageRoot = stage.getRoot();
-		final TextButton[][] letterButtons = new TextButton[GRID_HEIGHT][GRID_WIDTH];
-		for (int curLine = 0; curLine < GRID_HEIGHT; curLine++) {
-			for (int curColumn = 0; curColumn < GRID_WIDTH; curColumn++) {
-				letterButtons[curLine][curColumn] = (TextButton)stageRoot.findActor("letter" + curLine + curColumn);
-			}
-		}
-		String[] prefsLayout = puzzlePreferences.getLayout();
-		String[] attributesLayout = puzzleAttributes.getLayout();
-		if (prefsLayout != null) {
-			graph.layout(prefsLayout, letterButtons);
-		} else if (attributesLayout != null) {
-			graph.layout(attributesLayout, letterButtons);
-		} else {
-			graph.layout(letterButtons);
-		}
-		
-		// Enregistrement du layout actuel dans les préférences pour recharger
-		// la disposition à l'identique lors du prochaine affichage
-		puzzlePreferences.setLayout(graph.getLayout());
-		
-		// Récupère la nombre de liens disponibles entre chaque lettre
-		// suite aux éventuelles précédentes parties
-		for (String letter : graph.getLetters()) {
-			for (PuzzleLink link : graph.getLinks(letter)) {
-				int size = puzzlePreferences.getLinkSize(link.getName());
-				if (size > -1) {
-					link.setSize(size);
-				}
-			}
-		}
-		
-		// Cache les noeuds qui n'ont plus de lien disponible
-		hideIsolatedNodes();
-	}
 
 	/**
 	 * Charge un puzzle et crée le graphe
@@ -446,84 +381,58 @@ public class PuzzleScreen implements Screen {
 		chrono = new Chronometer(puzzlePreferences.getElapsedTime());
 		
 		if (puzzlePreferences.isFinished()) {
-			graph = null;
+			grid = null;
 		} else {
 			// Démarrage du chrono
 			chrono.start();
 		}
 	}
 	
-	public void selectLetter(TextButton button) {
-		// Récupère la lettre sélectionnée et la dernière lettre actuelle
-		String currentWord = currentSuggestion.getText().toString();
-		String last = currentWord.isEmpty() ? "" : currentWord.substring(currentWord.length() - 1);
-		String selected = button.getName().toString();
-		PuzzleNode node = graph.getNode(selected);
-		
-		// Récupère le lien entre les lettres
-		selectedLetters.add(selected);
-		if (!last.isEmpty()) {
-			PuzzleLink link = graph.getLink(last, selected);
-			// S'il n'y a pas de lien entre ces lettres, alors on interdit la sélection
-			if (link == null) {
-				if (!currentWord.contains(selected)) {
-					PuzzleButtonDecorator.getInstance().setStyle(node, NORMAL);
-					button.setDisabled(false);
-				}
-				return;
-			}
-			// Met en évidence le lien
-			link.select();
-			selectedLinks.add(link);
+	private void selectLetter(GridCell cell) {
+		// Vérifie si la lettre sélectionnée n'est pas déjà sélectionnée
+		if (cell.isSelected()
+		// Vérifie si la cellule peut être atteinte depuis la cellule précédente
+		|| (!selectedCells.isEmpty() && !isReachable(selectedCells.getLast(), cell))) {
+			return;
 		}
-		// Sélectionne le bouton de cette lettre
-		selectedNodes.add(node);
-		notifyLetterSelected(selected);
+		// Sélectionne la lettre
+		cell.select();
+		selectedCells.add(cell);
+		String letter = cell.getLetter();
+		notifyLetterSelected(letter);
 		
 		// Ajoute la lettre au mot courant
-		String newSuggestion = currentWord + selected;
-		currentSuggestion.setText(newSuggestion);
-		linkDrawer.setWord(newSuggestion);
+		suggestionTextBounds.setText(suggestionTextBounds.getText() + letter);
 		
 		// Lance une jolie animation qui "envoie" la lettre affichée vers le libellé de suggestion
-		animateLetterFly(button);
-		
-		// Met en retrait et désactive les lettres qui ne sont pas connectées.
-		fadeOutUnreachableLetters(selected);
+		animateLetterFly(cell.getButton());
 	}
 	
 	/**
-	 * Cache un peu les lettres qui ne sont pas atteignables
-	 * @param sourceLetter La lettre à partir de laquelle on souhaite voir
-	 * si les autres lettres sont atteignables
+	 * Indique si les 2 cellules peuvent être atteintes l'une à partir de l'autre.
+	 * C'est le cas si eles sont voisines ou que l'une au moins est isolée.
+	 * @param cell1
+	 * @param cell2
+	 * @return
 	 */
-	private void fadeOutUnreachableLetters(String sourceLetter) {
-		for (PuzzleNode node : graph.getNodes()) {
-			PuzzleLink link = node.getLink(sourceLetter);
-			// Ce noeud peut être atteint s'il y a un lien non utilisé
-			boolean hasAvailableLink = (link != null && link.isAvailable());
-			// Si la lettre est dans la pierre, elle apparaît comme inaccessible
-			boolean isStoned = node.isTargeted(ObstaclesTypes.STONE);
-			// La lettre peut être atteinte si elle a un lien ou si elle est isolée,
-			// mais pas si elle est dans la pierre
-			boolean isReachable = hasAvailableLink && !isStoned;
-			// Au final, le bouton est désactivé si la letter n'est pas joignable
-			node.getButton().setDisabled(!isReachable);
-		}
+	private boolean isReachable(GridCell cell1, GridCell cell2) {
+		return cell1.isAround(cell2)
+		|| cell1.isTargeted(ObstaclesTypes.ISLE)
+		|| cell2.isTargeted(ObstaclesTypes.ISLE);
 	}
 
 	/**
 	 * Valide le mot sélectionné
 	 */
 	private void validateWord() {
-		final String suggestion = currentSuggestion.getText().toString();
-		// S'il reste une lettre en train d'arriver ou qu'il n'y a pas de suggestion,
-		// on ne peut pas faire de validation		
-		if (!pendingLetters.isEmpty() || suggestion.isEmpty()) {
+		// S'il reste une lettre en train d'arriver ou qu'il n'y a pas de lettres
+		// sélectionnées, on ne peut pas faire de validation		
+		if (!pendingLetters.isEmpty() || selectedCells.isEmpty()) {
 			return;
 		}
 		
 		// Vérification de la validité du mot sélectionné
+		final String suggestion = suggestionTextBounds.getText().toString();
 		Riddle riddle = puzzleAttributes.getRiddle(suggestion);
 		
 		// Si le mot est valide, c'est cool !
@@ -541,28 +450,6 @@ public class PuzzleScreen implements Screen {
 				animateSuggestionFly(suggestion, bullet, label);
 			}
 			
-			// Suppression des liens utilisés
-			List<PuzzleLink> usedLinks = new ArrayList<PuzzleLink>();
-			for (String letter : graph.getLetters()) {
-				for (PuzzleLink link : graph.getLinks(letter)) {
-					if (link.isSelected()) {
-						link.unselect();
-						link.setSize(link.getSize() - 1);
-						usedLinks.add(link);
-						notifyLinkUsed(link);
-					}
-				}
-			}
-			
-			// Mise à jour des préférences avec la nouvelle taille des liens
-			puzzlePreferences.setLinksSize(usedLinks);
-			
-			// Cache les lettres isolées
-			hideIsolatedNodes();
-			
-			// Désactivation des lettres mises en évidence
-			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(graph);
-			
 			// Notifie les listeners qu'un mot a été validé
 			notifyWordValidated(suggestion);
 			
@@ -579,7 +466,7 @@ public class PuzzleScreen implements Screen {
 		// Application des obstacles sur le graphe
 		obstacleManager.applyEffect();
 		
-		// Réinitialisation de la suggestion
+		// Réinitialisation de la suggestion et des cellules sélectionnées
 		cancelWord();
 		
 		// S'il ne reste aucune enigme, fin du jeu !
@@ -623,7 +510,7 @@ public class PuzzleScreen implements Screen {
 		stage.addActor(copy);
 		copy.addAction(Actions.sequence(
 				Actions.moveTo(
-					suggestionLabel.getX() + currentSuggestion.getTextBounds().width,
+					suggestionLabel.getX() + suggestionTextBounds.getTextBounds().width,
 					suggestionLabel.getY() + suggestionLabel.getHeight() / 2 - copy.getHeight() / 2,
 					0.6f,
 					Interpolation.circleOut),
@@ -695,21 +582,6 @@ public class PuzzleScreen implements Screen {
 	}
 	
 	/**
-	 * Cache les noeuds qui n'ont plus aucun lien avec d'autres noeuds
-	 */
-	private void hideIsolatedNodes() {
-		for (PuzzleNode node : graph.getNodes()) {
-			if (!node.isReachable()) {
-				TextButton button = node.getButton();
-				if (button != null) {
-					button.setVisible(false);
-				}
-				notifyNodeHidden(node);
-			}
-		}
-	}
-	
-	/**
 	 * Affiche l'image indiquant que le puzzle est terminé, et cache les
 	 * composants permettant de saisir une suggestion
 	 */
@@ -719,6 +591,8 @@ public class PuzzleScreen implements Screen {
 		backspaceButton.setVisible(false);
 		finishedImage.setVisible(true);
 		jokerButton.setVisible(false);
+		blackMarketButton.setVisible(false);
+		gridTable.setVisible(false);
 	}
 
 	/**
@@ -757,7 +631,7 @@ public class PuzzleScreen implements Screen {
 		} else {
 			// On arrête le compteur et masque le graphe pendant l'affichage de la boîte de dialoug
 			chrono.stop();
-			showLetters(true);
+			gridTable.setVisible(false);
 			
 			MessageBoxUtils.showConfirm(
 				"Quitter le puzzle ?",
@@ -777,18 +651,9 @@ public class PuzzleScreen implements Screen {
 					public void clicked(Button button) {
 						// Redémarre le compteur et raffiche le graphe
 						chrono.start();
-						showLetters(true);
+						gridTable.setVisible(true);
 					}
 				});
-		}
-	}
-	
-	private void showLetters(boolean show) {
-		for (PuzzleNode node : graph.getNodes()) {
-			TextButton button = node.getButton();
-			if (button != null) {
-				button.setVisible(show);
-			}
 		}
 	}
 
@@ -796,7 +661,7 @@ public class PuzzleScreen implements Screen {
 	 * Méthode appelée quand le joueur clique sur Joker
 	 */
 	private void onJoker() {
-		game.showJokerScreen(puzzleAttributes, graph);
+		game.showJokerScreen(puzzleAttributes, grid);
 	}
 	
 	/**
@@ -815,83 +680,46 @@ public class PuzzleScreen implements Screen {
 	 * Annule le mot actuellement sélectionné
 	 */
 	private void backspace() {
-		String curText = suggestionLabel.getText().toString();
-		String curSuggestion = currentSuggestion.getText().toString();
 		// S'il reste une lettre en train d'arriver ou qu'il n'y a pas de suggestion,
-		// on ne peut pas faire de backspace		
-		if (!pendingLetters.isEmpty() || curText.isEmpty()) {
+		// on ne peut pas faire de backspace
+		if (!pendingLetters.isEmpty() || selectedCells.isEmpty()) {
 			return;
 		}
 		
 		// Supprime la dernière lettre sélectionnée
-		String newText = curText.substring(0, curText.length() - 1);
-		suggestionLabel.setText(newText);
-		String newSuggestion = curSuggestion.substring(0, curText.length() - 1);
-		currentSuggestion.setText(newSuggestion);
-		String removedLetter = curSuggestion.substring(curText.length() - 1);
-		notifyLetterUnselected(removedLetter);
-		linkDrawer.setWord(newSuggestion);
+		GridCell removed = selectedCells.removeLast();
+		notifyLetterUnselected(removed.getLetter());
+		
+		// Désélectionne cette lettre
+		removed.unselect();
+		
+		// Met à jour la suggestion
+		CharSequence cur = suggestionLabel.getText();
+		suggestionLabel.setText(cur.subSequence(0, cur.length() - 1));
+		cur = suggestionTextBounds.getText();
+		suggestionTextBounds.setText(cur.subSequence(0, cur.length() - 1));
 		
 		// Activation des boutons
-		boolean isTextEmpty = newText.isEmpty();
-		validateButton.setDisabled(isTextEmpty);
-		backspaceButton.setDisabled(isTextEmpty);
-		
-		// Désélection des liens qui ne sont plus sélectionnés
-		selectedLetters.removeLast();
-		if (!selectedLinks.isEmpty()) {
-			PuzzleLink lastLink = selectedLinks.removeLast();
-			lastLink.unselect();
-		}
-
-		if (!selectedNodes.isEmpty()) {
-			// Suppression du dernier node sélectionné
-			PuzzleNode lastNode = selectedNodes.removeLast();
-		
-			// Désélection de ce node si la lettre n'est plus dans le mot
-			if (newSuggestion.indexOf(removedLetter) == -1) {
-				PuzzleButtonDecorator.getInstance().setStyle(lastNode, NORMAL);
-				lastNode.getButton().setDisabled(false);
-			}
-		}
-		
-		// Mise en évidence des lettres accessibles
-		if (!newSuggestion.isEmpty()) {
-			String lastLetter = newSuggestion.substring(newSuggestion.length() - 1);
-			fadeOutUnreachableLetters(lastLetter);
-		} else {
-			// Il n'y a plus de lettres dans la suggestion : toutes les lettres sont donc accessibles
-			for (PuzzleNode node : graph.getNodes()) {
-				TextButton button = node.getButton();
-				if (button != null) {
-					button.setDisabled(false);
-				}
-			}
-		}
+		boolean canBackspace = selectedCells.isEmpty();
+		validateButton.setDisabled(canBackspace);
+		backspaceButton.setDisabled(canBackspace);
 	}
-	
+
 	private void cancelWord() {
 		// Raz du mot sélectionné
 		suggestionLabel.setText("");
-		currentSuggestion.setText("");
+		suggestionTextBounds.setText("");
 		pendingLetters.clear();
+		
+		// Désactive les boutons
 		validateButton.setDisabled(true);
 		backspaceButton.setDisabled(true);
-		selectedLinks.clear();
-		selectedLetters.clear();
 		
-		// Raz des liens sélectionnés
-		for (String letter : graph.getLetters()) {
-			for (PuzzleLink link : graph.getLinks(letter)) {
-				link.setSelected(0);
-			}
+		// Désélectionne les lettres actuellements sélectionnées
+		for (GridCell cell : selectedCells) {
+			cell.unselect();
 		}
-		
-		// Raz des lettres sélectionnées
-		// DBGgraph.selectAllNodes(false);
-		
-		// Raz des lettres non joignables
-		PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(graph);
+		selectedCells.clear();
 	}
 	
 	@Override
@@ -938,7 +766,7 @@ public class PuzzleScreen implements Screen {
 		if (reloadPuzzle) {
 	        loadPuzzle();
 	        createUI();
-			notifyPuzzleLoaded(graph, puzzlePreferences);
+			notifyPuzzleLoaded();
 		}
 		// Dans tous les cas, l'écran actuel doit récupérer les input
 		Gdx.input.setInputProcessor(stage);

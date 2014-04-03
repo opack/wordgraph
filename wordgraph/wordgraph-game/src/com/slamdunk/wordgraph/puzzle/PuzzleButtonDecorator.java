@@ -10,8 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.slamdunk.utils.DoubleEntryArray;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleGraph;
+import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
 
@@ -80,5 +81,39 @@ public class PuzzleButtonDecorator {
 			}
 		}
 		button.setStyle(style);
+	}
+	
+	/**
+	 * Applique le style correspondant à l'état de la lettre
+	 * indiqué. Le style choisi dépend également des obstacles
+	 * actifs sur le noeud : le premier obstacle actif donne son
+	 * style au bouton.
+	 * @param button
+	 * @param contains
+	 */
+	public void setStyle(GridCell cell, LetterStates state) {
+		TextButton button = cell.getButton();
+		List<Obstacle> obstacles = cell.getObstacles();
+		TextButtonStyle style = styles.get(state, null);
+		if (obstacles != null) {
+			for (Obstacle obstacle : cell.getObstacles()) {
+				if (obstacle.isObstacleDrawn()) {
+					TextButtonStyle obstacleStyle = styles.get(state, obstacle.getType());
+					if (obstacleStyle != null) {
+						style = obstacleStyle;
+						break;
+					}
+				}
+			}
+		}
+		button.setStyle(style);
+	}
+	
+	public TextButtonStyle getLetterStyle(LetterStates state) {
+		return styles.get(state, null);
+	}
+	
+	public TextButtonStyle getObstacleStyle(LetterStates state, ObstaclesTypes obstacle) {
+		return styles.get(state, obstacle);
 	}
 }

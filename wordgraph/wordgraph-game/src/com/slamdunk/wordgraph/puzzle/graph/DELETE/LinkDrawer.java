@@ -1,4 +1,4 @@
-package com.slamdunk.wordgraph.puzzle.graph;
+package com.slamdunk.wordgraph.puzzle.graph.DELETE;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleGraph;
-import com.slamdunk.wordgraph.puzzle.graph.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 /**
  * Masque une lettre
  */
-public class MorphObstacle extends NodeObstacle{
+public class MorphObstacle extends CellObstacle{
 	/**
 	 * Liste des lettres qui seront affectées à la cible
 	 */
@@ -40,14 +40,13 @@ public class MorphObstacle extends NodeObstacle{
 	 */
 	private boolean paused;
 	
-	public MorphObstacle(String target, float interval, List<String> changingLetters) {
-		super(ObstaclesTypes.MORPH, target);
-		this.interval = interval;
-		this.changingLetters = changingLetters;
+	public MorphObstacle() {
+		changingLetters = new ArrayList<String>();
 	}
-
+	
 	@Override
-	public void applyEffect(PuzzleGraph graph) {
+	public void applyEffect(Grid grid) {
+		super.applyEffect(grid);
 		// Si l'obstacle est actif, on affiche une image sur la lettre
 		// pour montrer qu'un obstacle morph est présent
 		if (isActive()) {
@@ -78,31 +77,20 @@ public class MorphObstacle extends NodeObstacle{
 	 * @param target
 	 */
 	private void setNodeLetter(String letter) {
-		PuzzleNode node = getNode();
-		String oldLetter = node.getLetter();
+		GridCell cell = getCell();
+		String oldLetter = cell.getLetter();
 		if (letter.equals(oldLetter)) {
 			return;
 		}
 		
-		// Change la valeur de la lettre dans le graphe...
-		node.setLetter(letter);
-		PuzzleGraph graph = getManager().getPuzzleGraph();
-		graph.updateNodeLetter(oldLetter, letter);
-		// ... et sur le bouton
-		TextButton button = node.getButton();
-		button.setText(letter);
-		button.setName(letter);
-		
-		// Change les liens
-		for (String linkedLetter : node.getLinks().keySet()) {
-			PuzzleNode linkedNode = graph.getNode(linkedLetter);
-			linkedNode.updateLink(oldLetter, letter);
-		}
+		// Change la valeur de la lettre dans la grille
+		cell.setLetter(letter);
+		cell.getButton().setText(letter);
 	}
 	
 	@Override
-	public void puzzleLoaded(PuzzleGraph graph, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		super.puzzleLoaded(graph, puzzleAttributes, stage, puzzlePreferences);
+	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
+		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
 		
 		// Initialise la valeur du noeud avec la dernière valeur en cours
 		// la dernière fois que le puzzle a été joué
@@ -129,8 +117,8 @@ public class MorphObstacle extends NodeObstacle{
 	}
 	
 	@Override
-	public void wordValidated(String word) {
-		super.wordValidated(word);
+	public void wordValidated(String word, List<GridCell> cells) {
+		super.wordValidated(word, cells);
 		// Une fois qu'un mot a été suggéré, que la lettre soit ou non dans ce mot,
 		// l'obstacle redémarre car la suggestion est vidée et la lettre gênée n'est
 		// forcément plus dans le mot.
@@ -138,8 +126,8 @@ public class MorphObstacle extends NodeObstacle{
 	}
 	
 	@Override
-	public void wordRejected(String word) {
-		super.wordRejected(word);
+	public void wordRejected(String word, List<GridCell> cells) {
+		super.wordRejected(word, cells);
 		// Une fois qu'un mot a été suggéré, que la lettre soit ou non dans ce mot,
 		// l'obstacle redémarre car la suggestion est vidée et la lettre gênée n'est
 		// forcément plus dans le mot.
@@ -148,11 +136,12 @@ public class MorphObstacle extends NodeObstacle{
 	
 	@Override
 	public void timeElapsed(float delta) {
+		super.timeElapsed(delta);
 		if (paused) {
 			return;
 		}
 		elapsed += delta;
-		applyEffect(getManager().getPuzzleGraph());
+		applyEffect(getManager().getGrid());
 	}
 
 	/**
@@ -173,34 +162,19 @@ public class MorphObstacle extends NodeObstacle{
 		writePreferenceMorphCurrentLetterIndex(currentLetterIndex);
 	}
 	
-	/**
-	 * Crée un MorphObstacle initialisé avec les données lues dans le fichier
-	 * properties décrivant le puzzle. Ces données ont la forme suivante :
-	 * [L]|[s]|[XXXX] avec :
-	 *   [L] : lettre du graphe sur laquelle est placé l'obstacle
-	 *   [s] : temps en secondes provoquant un changement de lettre
-	 *   [XXXX] : différentes valeurs que prendra le noeud. La lettre [L] doit faire
-	 *   partie de la liste.
-	 * Exemple :
-	 * 	- "C|5|MHCJ" : obstacle sur la lettre C, change toutes les 5 secondes et prend
-	 * les valeurs M, H, C et J (dans cet ordre). 
-	 *  - "U|2|UZX" : obstacle sur la lettre U, change toutes les 2 secondes et prend
-	 *  les valeurs U, Z et X (dans cet ordre).
-	 * @param propertiesDescription
-	 * @return
-	 */
-	public static MorphObstacle createFromProperties(String propertiesDescription) {
-		String[] parameters = propertiesDescription.split("\\|");
-		if (parameters.length != 3) {
-			throw new IllegalArgumentException("MorphObstacle : Failure to split '" + propertiesDescription + "' in the 3 required parts.");
-		}
-		String target = parameters[0];
-		float interval = Float.valueOf(parameters[1]);
-		String letters = parameters[2];
+	@Override
+	public void initFromProperties(PropertiesEx properties, String key) {
+		super.initFromProperties(properties, key);
+		
+		// Charge la liste des lettres tournantes
+		String letters = properties.getStringProperty(key + ".letters", "");
+		changingLetters.clear();
 		List<String> changingLetters = new ArrayList<String>();
 		for (int curChar = 0; curChar < letters.length(); curChar++) {
 			changingLetters.add(String.valueOf(letters.charAt(curChar)));
 		}
-		return new MorphObstacle(target, interval, changingLetters);
+		
+		// Lit l'intervalle de changement
+		interval = properties.getIntegerProperty(key + ".interval", 3);
 	}
 }
