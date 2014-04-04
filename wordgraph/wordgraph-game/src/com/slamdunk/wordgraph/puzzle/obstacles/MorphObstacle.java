@@ -15,6 +15,10 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
  */
 public class MorphObstacle extends CellObstacle{
 	/**
+	 * Lettre d'origine de la cellule, avant que l'obstacle ne soit appliqué
+	 */
+	private String originalLetter;
+	/**
 	 * Liste des lettres qui seront affectées à la cible
 	 */
 	private List<String> changingLetters;
@@ -42,6 +46,7 @@ public class MorphObstacle extends CellObstacle{
 	
 	public MorphObstacle() {
 		changingLetters = new ArrayList<String>();
+		setType(ObstaclesTypes.MORPH);
 	}
 	
 	@Override
@@ -57,12 +62,13 @@ public class MorphObstacle extends CellObstacle{
 			// Si le temps est écoulé depuis le dernier changement,
 			// on passe à la lettre suivante
 			if (elapsed >= interval) {
+				currentLetterIndex++;
 				morphLetter();
 				elapsed = 0;
 			}
 		} else {
 			// Sinon on remet les infos d'origine dans le noeud...
-			setNodeLetter(getTarget());
+			setCellLetter(originalLetter);
 			
 			// ... et on supprime l'image
 			if (getImage() != null) {
@@ -76,9 +82,15 @@ public class MorphObstacle extends CellObstacle{
 	 * Change la lettre du noeud (texte + name)
 	 * @param target
 	 */
-	private void setNodeLetter(String letter) {
+	private void setCellLetter(String letter) {
+		// Conserve la lettre source lors du premier changement
 		GridCell cell = getCell();
 		String oldLetter = cell.getLetter();
+		if (originalLetter == null) {
+			originalLetter = oldLetter;
+		}
+		
+		// Si on veut appliquer la même lettre, on n'a rien à faire
 		if (letter.equals(oldLetter)) {
 			return;
 		}
@@ -92,9 +104,7 @@ public class MorphObstacle extends CellObstacle{
 	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
 		
-		// Initialise la valeur du noeud avec la dernière valeur en cours
-		// la dernière fois que le puzzle a été joué
-		currentLetterIndex = readPreferenceMorphCurrentLetterIndex() - 1;
+		// Met à jour la lettre actuellement affichée
 		morphLetter();
 	}
 
@@ -150,16 +160,15 @@ public class MorphObstacle extends CellObstacle{
 	 */
 	private void morphLetter() {
 		// Récupère la prochaine lettre
-		currentLetterIndex++;
 		if (currentLetterIndex >= changingLetters.size()) {
 			currentLetterIndex = 0;
 		}
 		// Quelle que soit la lettre sélectionnée, on change la valeur
 		// de la lettre morphée
-		setNodeLetter(changingLetters.get(currentLetterIndex));
+		setCellLetter(changingLetters.get(currentLetterIndex));
 		
 		// On enregistre la lettre actuellement affichée dans les préférences
-		writePreferenceMorphCurrentLetterIndex(currentLetterIndex);
+		saveToPreferences();
 	}
 	
 	@Override
@@ -169,12 +178,31 @@ public class MorphObstacle extends CellObstacle{
 		// Charge la liste des lettres tournantes
 		String letters = properties.getStringProperty(key + ".letters", "");
 		changingLetters.clear();
-		List<String> changingLetters = new ArrayList<String>();
 		for (int curChar = 0; curChar < letters.length(); curChar++) {
 			changingLetters.add(String.valueOf(letters.charAt(curChar)));
 		}
 		
 		// Lit l'intervalle de changement
 		interval = properties.getIntegerProperty(key + ".interval", 3);
+	}
+	
+	/**
+	 * Lit les informations de l'instance de l'obstacle depuis les préférences
+	 */
+	public void loadFromPreferences() {
+		super.loadFromPreferences();
+		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
+		
+		currentLetterIndex = prefs.getInteger(getPreferencesKey() + ".index", 0);
+	}
+	
+	@Override
+	public void saveToPreferences() {
+		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
+		
+		prefs.putInteger(getPreferencesKey() + ".index", currentLetterIndex);
+		
+		// Faire le super en dernier car il contient le flush()
+		super.saveToPreferences();
 	}
 }

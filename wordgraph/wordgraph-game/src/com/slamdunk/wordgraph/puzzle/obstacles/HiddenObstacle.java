@@ -10,6 +10,10 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
  * Masque un indice
  */
 public class HiddenObstacle extends ClueObstacle{
+	public HiddenObstacle() {
+		setType(ObstaclesTypes.HIDDEN);
+	}
+	
 	@Override
 	public void wordValidated(String word, List<GridCell> cells) {
 		super.wordValidated(word, cells);
@@ -17,7 +21,7 @@ public class HiddenObstacle extends ClueObstacle{
 		if (word.equals(getRiddle().getSolution())) {
 			setActive(false);
 			applyEffect(null);
-			writePreferenceObstacleActive(false);
+			saveToPreferences();
 		}
 	}
 	

@@ -10,6 +10,11 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
  * Masque une lettre
  */
 public class FogObstacle extends CellObstacle{
+	
+	public FogObstacle() {
+		setType(ObstaclesTypes.FOG);
+	}
+	
 	@Override
 	public void applyEffect(Grid grid) {
 		super.applyEffect(grid);
@@ -29,10 +34,10 @@ public class FogObstacle extends CellObstacle{
 		super.wordValidated(word, cells);
 		// Si la lettre de cet obstacle est contenue dans le mot validé,
 		// alors le brouillard est dissipé
-		if (word.indexOf(getTarget()) != -1) {
+		if (cells.contains(getCell())) {
 			setActive(false);
-			writePreferenceObstacleActive(false);
 			applyEffect(getManager().getGrid());
+			saveToPreferences();
 		}
 	}
 }

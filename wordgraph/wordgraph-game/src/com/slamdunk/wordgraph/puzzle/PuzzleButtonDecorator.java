@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.slamdunk.utils.DoubleEntryArray;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
+import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
@@ -49,11 +49,18 @@ public class PuzzleButtonDecorator {
 	 * Remet le style normal sur tous les boutons de lettre
 	 * @param highlighted
 	 */
-	public void setNormalStyleOnAllNodes(PuzzleGraph graph) {
-		for (PuzzleNode node : graph.getNodes()) {
-			TextButton button = node.getButton();
-			setStyle(node, LetterStates.NORMAL);
-			button.setDisabled(false);			
+	public void setNormalStyleOnAllNodes(Grid grid) {
+		final int nbLines = grid.getNbLines();
+		final int nbColumns = grid.getNbColumns();
+		GridCell cell;
+		TextButton button;
+		for (int line = 0; line < nbLines; line ++) {
+			for (int column = 0; column < nbColumns; column ++) {
+				cell = grid.getCell(line, column);
+				button = cell.getButton();
+				setStyle(cell, LetterStates.NORMAL);
+				button.setDisabled(false);	
+			}
 		}
 	}
 	

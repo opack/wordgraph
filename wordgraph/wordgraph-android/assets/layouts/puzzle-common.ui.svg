@@ -31,9 +31,9 @@
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1680"
-     inkscape:window-height="994"
-     inkscape:window-x="1676"
-     inkscape:window-y="-4"
+     inkscape:window-height="987"
+     inkscape:window-x="1432"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -155,6 +155,16 @@
        ui.text="Score : %d"
        ui.align="16" />
     <rect
+       style="color:#000000;fill:#ff0000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="linkdrawer"
+       width="50.725834"
+       height="22.837559"
+       x="-136.47971"
+       y="65.311996"
+       ry="0"
+       ui.class="com.slamdunk.wordgraph.puzzle.graph.LinkDrawer"
+       ui.link-image="link" />
+    <rect
        style="opacity:0.5;color:#000000;fill:#ff00ff;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="grid"
        width="469"
@@ -173,5 +183,28 @@
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
        ui.visible="false" />
+    <text
+       xml:space="preserve"
+       style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Arial;-inkscape-font-specification:Arial"
+       x="-328.52969"
+       y="15.238847"
+       id="text3018"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3020"
+         x="-328.52969"
+         y="15.238847">LinkDrawer chargé de dessiner les liens.</tspan><tspan
+         sodipodi:role="line"
+         x="-328.52969"
+         y="35.238846"
+         id="tspan3832">Doit être ajouté avant les boutons de lettre</tspan><tspan
+         sodipodi:role="line"
+         x="-328.52969"
+         y="55.238846"
+         id="tspan3838">dans l'arbre SVG pour que les liens soient</tspan><tspan
+         sodipodi:role="line"
+         x="-328.52969"
+         y="75.238846"
+         id="tspan3836">dessinés sous les lettres :</tspan></text>
   </g>
 </svg>

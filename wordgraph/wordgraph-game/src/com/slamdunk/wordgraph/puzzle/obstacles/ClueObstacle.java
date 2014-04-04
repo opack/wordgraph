@@ -42,7 +42,7 @@ public abstract class ClueObstacle extends Obstacle {
 		riddle = puzzleAttributes.getRiddle(riddleId);
 		riddle.addObstacle(this);
 		// Récupération du libellé de l'indice
-		Actor actor = stage.getRoot().findActor("riddle" + getTarget());
+		Actor actor = stage.getRoot().findActor("riddle" + riddleId);
 		if (actor != null) {
 			label = (Label)actor;
 		}
