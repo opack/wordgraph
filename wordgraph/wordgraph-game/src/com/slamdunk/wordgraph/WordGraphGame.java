@@ -3,6 +3,7 @@ package com.slamdunk.wordgraph;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.slamdunk.utils.PropertiesManager;
+import com.slamdunk.wordgraph.blackmarket.BlackMarketScreen;
 import com.slamdunk.wordgraph.joker.JokerScreen;
 import com.slamdunk.wordgraph.pack.PackScreen;
 import com.slamdunk.wordgraph.packlist.PackListScreen;
@@ -17,6 +18,7 @@ public class WordGraphGame extends Game {
 	private PackScreen pack;
 	private PuzzleScreen puzzle;
 	private JokerScreen joker;
+	private BlackMarketScreen blackMarket;
 
 	@Override
 	public void create() {
@@ -33,6 +35,7 @@ public class WordGraphGame extends Game {
 		pack = new PackScreen(this);
 		puzzle = new PuzzleScreen(this);
 		joker = new JokerScreen(this);
+		blackMarket = new BlackMarketScreen(this);
 		
 		showMainScreen();
 	}
@@ -94,5 +97,14 @@ public class WordGraphGame extends Game {
 		joker.setGrid(grid);
 		joker.setPuzzleAttributes(puzzleAttributes);
 		setScreen(joker);
+	}
+	
+	/**
+	 * Affiche l'écran de sélection d'objet au marché noir
+	 */
+	public void showBlackMarketScreen(PuzzleAttributes puzzleAttributes, Grid grid) {
+		blackMarket.setGrid(grid);
+		blackMarket.setPuzzleAttributes(puzzleAttributes);
+		setScreen(blackMarket);
 	}
 }
