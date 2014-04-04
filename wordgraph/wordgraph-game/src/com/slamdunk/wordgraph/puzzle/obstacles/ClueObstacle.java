@@ -45,6 +45,7 @@ public abstract class ClueObstacle extends Obstacle {
 		Actor actor = stage.getRoot().findActor("riddle" + riddleId);
 		if (actor != null) {
 			label = (Label)actor;
+			defaultStyle = label.getStyle();
 		}
 		// Activation de l'obstacle s'il y a bien un noeud et que l'obstacle n'est pas
 		// marqué comme inactif dans les préférences
@@ -76,7 +77,6 @@ public abstract class ClueObstacle extends Obstacle {
 		// Lorsque l'effet doit être appliqué, on change le style
 		// du bouton pour que son image reflète l'obstacle
 		if (isActive()) {
-			defaultStyle = label.getStyle();
 			label.setStyle(getLabelStyle());
 		} else {
 			label.setStyle(defaultStyle);

@@ -74,8 +74,8 @@ public class LinkDrawer extends Actor {
 			// Dessin du lien
 			batch.draw(
 				linkTexture,
-				a.x - LINK_HALF_THICKNESS, a.y - LINK_HALF_THICKNESS,
-				0f, 0f,
+				a.x, a.y,
+				0, LINK_HALF_THICKNESS,
 				length, LINK_THICKNESS,
 				1f, 1f,
 				angleDeg);

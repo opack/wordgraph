@@ -287,7 +287,7 @@ public class PuzzleScreen implements Screen {
 				});
 				
 				// Ajout du bouton à la grille
-				gridTable.add(button).expand().fill();
+				gridTable.add(button).expand().fill().pad(5);
 			}
 			// Nouvelle ligne
 			gridTable.row();
