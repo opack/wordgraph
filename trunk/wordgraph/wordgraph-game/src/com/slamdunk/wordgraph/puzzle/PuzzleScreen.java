@@ -316,10 +316,16 @@ public class PuzzleScreen implements Screen {
 				onBack();
 			}
         });
-		creator.getActor("joker").addListener(new ButtonClickListener() {
+		jokerButton.addListener(new ButtonClickListener() {
 			@Override
 			public void clicked(Button button) {
 				onJoker();
+			}
+        });
+		blackMarketButton.addListener(new ButtonClickListener() {
+			@Override
+			public void clicked(Button button) {
+				onBlackMarket();
 			}
         });
 		validateButton.addListener(new ButtonClickListener() {
@@ -668,6 +674,13 @@ public class PuzzleScreen implements Screen {
 	 */
 	private void onJoker() {
 		game.showJokerScreen(puzzleAttributes, grid);
+	}
+	
+	/**
+	 * Méthode appelée quand le joueur clique sur BlackMarket
+	 */
+	private void onBlackMarket() {
+		game.showBlackMarketScreen(puzzleAttributes, grid);
 	}
 	
 	/**
