@@ -44,8 +44,6 @@ public class BombObstacle extends CellObstacle{
 				label.setAlignment(Align.center);
 				label.setZIndex(0);
 			}
-			// Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
-			updateAndDetonate();
 		}
 		// Si, après le updateAndDetonate, la bombe n'est plus active, alors
 		// on retire la bombe
@@ -58,13 +56,14 @@ public class BombObstacle extends CellObstacle{
 				label = null;
 			}
 		}
+		// Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
+		updateAndDetonate();
 	}
 	
 	/**
 	 * Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
 	 */
 	private void updateAndDetonate() {
-		label.setText(String.valueOf(countDown));
 		if (countDown == 0) {
 			ObstacleManager manager = getManager();
 			// Suppression de l'obstacle Bomb
@@ -78,6 +77,8 @@ public class BombObstacle extends CellObstacle{
 			isle.setColumn(getColumn());
 			isle.puzzleLoaded(manager.getGrid(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
+		} else {
+			label.setText(String.valueOf(countDown));
 		}
 	}
 
