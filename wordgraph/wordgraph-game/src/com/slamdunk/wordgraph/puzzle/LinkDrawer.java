@@ -40,9 +40,11 @@ public class LinkDrawer extends Actor {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		GridCell previous = null;
 		Vector2 tmp;
+		float parentX = 0;
 		for (GridCell cell : cells) {
 			if (previous == null) {
 				previous = cell;
+				parentX = cell.getButton().getParent().getX();
 				continue;
 			}
 			// Récupération du centre des 2 cellules
@@ -74,7 +76,7 @@ public class LinkDrawer extends Actor {
 			// Dessin du lien
 			batch.draw(
 				linkTexture,
-				a.x, a.y,
+				a.x + parentX, a.y,
 				0, LINK_HALF_THICKNESS,
 				length, LINK_THICKNESS,
 				1f, 1f,
