@@ -54,6 +54,7 @@ public class PuzzleScreen implements Screen {
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
 
+	// Composants de l'interface qui seront réutilisés
 	private Stage stage;
 	private Label suggestionLabel;
 	private TextButton validateButton;
@@ -61,6 +62,7 @@ public class PuzzleScreen implements Screen {
 	private TextButton jokerButton;
 	private TextButton blackMarketButton;
 	private Table gridTable;
+	private LinkDrawer linkDrawer;
 	private Image finishedImage;
 	
 	// On utilise Label plutôt qu'un simple String pour pouvoir déterminer
@@ -272,9 +274,9 @@ public class PuzzleScreen implements Screen {
 				}
 				
 				// Création de la cellule de grille
-				final GridCell cell = new GridCell(letter);
+				final GridCell cell = new GridCell(curLine, curColumn, letter);
 				cell.setButton(button);
-				grid.setCell(curLine, curColumn, cell);
+				grid.putCell(cell);
 				
 				// Affectation du listener
 				button.addListener(new ButtonClickListener() {
@@ -290,6 +292,10 @@ public class PuzzleScreen implements Screen {
 			// Nouvelle ligne
 			gridTable.row();
 		}
+		
+		// Dessinateur de liens
+		linkDrawer = (LinkDrawer)creator.getActor("linkdrawer");
+		linkDrawer.setCells(selectedCells);
 		
 		// Au début, les boutons de validation et d'annulation sont désactivés
 		// car il n'y a pas de saisie

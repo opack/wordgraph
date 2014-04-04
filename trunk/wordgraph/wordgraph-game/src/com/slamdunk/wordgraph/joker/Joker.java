@@ -2,72 +2,69 @@ package com.slamdunk.wordgraph.joker;
 
 import static com.slamdunk.wordgraph.puzzle.LetterStates.JOKER;
 
+import java.util.List;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.slamdunk.wordgraph.puzzle.PuzzleButtonDecorator;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 public enum Joker {
 	bishop {
 		@Override
 		public void decorate(String word, Grid grid) {
-			// Désélectionne toutes les lettres
-			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			// Cherche le mot dans la grille
+			List<GridCell> selectedCells = grid.findWord(word);
 			
-			// Choisit une lettre au hasard
-			int index = MathUtils.random(0, word.length() - 1);
-			String letter = word.substring(index, index + 1);
+			// Choisit une cellule au hasard
+			int index = MathUtils.random(0, selectedCells.size() - 1);
+			GridCell jokerCell = selectedCells.get(index);
 			
 			// Met la lettre en valeur
-			PuzzleButtonDecorator.getInstance().setStyle(grid.getNode(letter), JOKER);
+			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			PuzzleButtonDecorator.getInstance().setStyle(jokerCell, JOKER);
 		}
 	},
 	rook {
 		@Override
 		public void decorate(String word, Grid grid) {
-			// Désélectionne toutes les lettres
-			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			// Cherche le mot dans la grille
+			List<GridCell> selectedCells = grid.findWord(word);
 			
-			// Choisit la première lettre
-			String letter = word.substring(0, 1);
+			// Choisit la première cellule
+			GridCell jokerCell = selectedCells.get(0);
 			
 			// Met la lettre en valeur
-			PuzzleButtonDecorator.getInstance().setStyle(grid.getNode(letter), JOKER);
+			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			PuzzleButtonDecorator.getInstance().setStyle(jokerCell, JOKER);
 		}
 	},
 	knight {
 		@Override
 		public void decorate(String word, Grid grid) {
-			// Désélectionne toutes les lettres
+			// Cherche le mot dans la grille
+			List<GridCell> selectedCells = grid.findWord(word);
+			
+			// Choisit la première et la dernière cellule
+			GridCell firstJokerCell = selectedCells.get(0);
+			GridCell lastJokerCell = selectedCells.get(selectedCells.size() - 1);
+			
+			// Met la lettre en valeur
 			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
-			
-			// Choisit la première lettre
-			String firstLetter = word.substring(0, 1);
-			
-			// Met la lettre en valeur
-			PuzzleButtonDecorator.getInstance().setStyle(grid.getNode(firstLetter), JOKER);
-			
-			// Choisit la dernière lettre
-			int length = word.length();
-			String lastLetter = word.substring(length - 1, length);
-			
-			// Met la lettre en valeur
-			PuzzleButtonDecorator.getInstance().setStyle(grid.getNode(lastLetter), JOKER);
+			PuzzleButtonDecorator.getInstance().setStyle(firstJokerCell, JOKER);
+			PuzzleButtonDecorator.getInstance().setStyle(lastJokerCell, JOKER);
 		}
 	},
 	queen {
 		@Override
 		public void decorate(String word, Grid grid) {
-			// Désélectionne toutes les lettres
-			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			// Cherche le mot dans la grille
+			List<GridCell> selectedCells = grid.findWord(word);
 			
-			int length = word.length();
-			for (int index = 0; index < length; index++) {
-				// Choisit la lettre suivante
-				String letter = String.valueOf(word.charAt(index));
-				
-				// Met la lettre en valeur
-				PuzzleButtonDecorator.getInstance().setStyle(grid.getNode(letter), JOKER);
+			// Met les cellules en valeur
+			PuzzleButtonDecorator.getInstance().setNormalStyleOnAllNodes(grid);
+			for (GridCell jokerCell : selectedCells) {
+				PuzzleButtonDecorator.getInstance().setStyle(jokerCell, JOKER);
 			}
 		}
 	};

@@ -4,6 +4,7 @@ import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
 import static com.slamdunk.wordgraph.puzzle.LetterStates.SELECTED;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.slamdunk.utils.HashCodeUtil;
 import com.slamdunk.wordgraph.puzzle.LetterStates;
 import com.slamdunk.wordgraph.puzzle.ObstacleTarget;
 import com.slamdunk.wordgraph.puzzle.PuzzleButtonDecorator;
@@ -25,49 +26,85 @@ public class GridCell extends ObstacleTarget {
 	/**
 	 * Ligne de la grille dans laquelle se trouve cette lettre
 	 */
-	private int line;
+	private final int line;
 	/**
 	 * Colonne de la grille dans laquelle se trouve cette lettre
 	 */
-	private int column;
+	private final int column;
 	/**
 	 * Etat de la cellule
 	 */
 	private LetterStates state;
+	/**
+	 * HashCode, calculé 1 fois dans le constructeur étant donné
+	 * que l'objet est immuable sur les données testées dans le
+	 * equals et donc utilisées dans le calcul du hashCode (ligne
+	 * et colonne).
+	 */
+	private int hashCode;
 	
-	public GridCell(String letter) {
+	public GridCell(int line, int column, String letter) {
+		this.line = line;
+		this.column = column;
 		this.letter = letter;
 		state = NORMAL;
+		computeHashCode();
+	}
+	
+	private void computeHashCode() {
+		hashCode = HashCodeUtil.SEED;
+		hashCode = HashCodeUtil.hash(hashCode, line);
+		hashCode = HashCodeUtil.hash(hashCode, column);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof GridCell)) {
+			return false;
+		}
+		GridCell other = (GridCell)obj;
+		return other.line == line
+			&& other.column == column;
+	}
+	
+	@Override
+	public int hashCode() {
+		return hashCode;
+	}
+	
+	@Override
+	public String toString() {
+		return "L" + line + ";C" + column + ";" + letter;
 	}
 	
 	public String getLetter() {
 		return letter;
 	}
+	
 	public void setLetter(String letter) {
 		this.letter = letter;
 	}
+	
 	public TextButton getButton() {
 		return button;
 	}
+	
 	public void setButton(TextButton button) {
 		this.button = button;
 	}
+	
 	public int getLine() {
 		return line;
 	}
-	public void setLine(int line) {
-		this.line = line;
-	}
+	
 	public int getColumn() {
 		return column;
-	}
-	public void setColumn(int column) {
-		this.column = column;
 	}
 
 	public LetterStates getState() {
 		return state;
 	}
+	
 	public void setState(LetterStates state) {
 		this.state = state;
 	}
@@ -76,10 +113,12 @@ public class GridCell extends ObstacleTarget {
 		setState(SELECTED);
 		PuzzleButtonDecorator.getInstance().setStyle(this, SELECTED);
 	}
+	
 	public void unselect() {
 		setState(NORMAL);
 		PuzzleButtonDecorator.getInstance().setStyle(this, NORMAL);
 	}
+	
 	public boolean isSelected() {
 		return state == SELECTED;
 	}

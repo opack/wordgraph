@@ -7,7 +7,6 @@ import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleGraph;
 import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
 import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
@@ -17,16 +16,26 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
  * Représente un obstacle qui peut gêner le joueur.
  */
 public abstract class Obstacle implements PuzzleListener {
+	private int id;
 	private ObstacleManager manager;
-	private boolean isActive;
+	private boolean active;
 	private ObstaclesTypes type;
-	private String target;
 	private PuzzlePreferencesHelper puzzlePreferences;
+	private String preferencesKey;
 	
 	public Obstacle() {
-		this.isActive = true;
+		this.active = true;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+		preferencesKey = "obstacle." + id;
+	}
+
 	public void setType(ObstaclesTypes type) {
 		this.type = type;
 	}
@@ -47,7 +56,7 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @return
 	 */
 	public boolean isActive() {
-		return isActive;
+		return active;
 	}
 	
 	/**
@@ -56,7 +65,7 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @return
 	 */
 	public boolean isObstacleDrawn() {
-		return isActive;
+		return active;
 	}
 	
 	/**
@@ -64,7 +73,7 @@ public abstract class Obstacle implements PuzzleListener {
 	 * @param isActive
 	 */
 	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+		this.active = isActive;
 	}
 	
 	/**
@@ -73,14 +82,6 @@ public abstract class Obstacle implements PuzzleListener {
 	 */
 	public ObstaclesTypes getType() {
 		return type;
-	}
-	
-	/**
-	 * Retourne l'identifiant de la cible sur laquelle est appliqué l'obstacle
-	 * @return
-	 */
-	public String getTarget() {
-		return target;
 	}
 	
 	/**
@@ -98,8 +99,7 @@ public abstract class Obstacle implements PuzzleListener {
 	@Override
 	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		this.puzzlePreferences = puzzlePreferences;
-		// Regarde dans les préférences si cet obstacle est actif
-		setActive(readPreferenceObstacleActive());
+		loadFromPreferences();
 	}
 	
 	@Override
@@ -141,52 +141,6 @@ public abstract class Obstacle implements PuzzleListener {
 		return puzzlePreferences;
 	}
 	
-	protected boolean readPreferenceObstacleActive() {
-		if (puzzlePreferences != null) {
-			return puzzlePreferences.isObstacleActive(getType().toString(), getTarget());
-		}
-		// Par défaut, l'obstacle est actif
-		return true;
-	}
-	
-	protected void writePreferenceObstacleActive(boolean isActive) {
-		if (puzzlePreferences != null) {
-			puzzlePreferences.setObstacleActive(getType().toString(), getTarget(), isActive);
-		}
-	}
-	
-	protected int readPreferenceMorphCurrentLetterIndex() {
-		if (puzzlePreferences != null) {
-			return puzzlePreferences.getMorphCurrentLetterIndex(getType().toString(), getTarget());
-		}
-		// Par défaut, l'obstacle affichera la première lettre
-		return 0;
-	}
-	
-	protected void writePreferenceMorphCurrentLetterIndex(int index) {
-		if (puzzlePreferences != null) {
-			puzzlePreferences.setMorphCurrentLetterIndex(getType().toString(), getTarget(), index);
-		}
-	}
-	
-	/**
-	 * Initialise complètement un obstacle, ce qui revient à appeler
-	 * d'un seul coup les méthodes {@link #graphLoaded(PuzzleGraph)}
-	 * et {@link #puzzleLoaded(PuzzleGraph, PuzzleAttributes, Stage, PuzzlePreferencesHelper)}.
-	 * Utile pour les obstacles qui sont créés après l'initialisation
-	 * du graphe, à la volée.
-	 * @param puzzleGraph
-	 * @param puzzleAttributes
-	 * @param stage
-	 * @param puzzlePreferences
-	 */
-	public void init(Grid grid,
-			PuzzleAttributes puzzleAttributes,
-			Stage stage,
-			PuzzlePreferencesHelper puzzlePreferences) {
-		puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
-	}
-
 	/**
 	 * Initialise les données de cet obstacle à partir des clés du fichier de propriétés
 	 * @param properties
@@ -197,5 +151,24 @@ public abstract class Obstacle implements PuzzleListener {
 		type = ObstaclesTypes.valueOf(properties.getProperty(key + ".type"));
 		
 		// Par défaut, on n'a rien d'autre de spécial à lire dans le fichier
+	}
+	
+	protected String getPreferencesKey() {
+		return preferencesKey;
+	}
+
+	/**
+	 * Lit les informations de l'instance de l'obstacle depuis les préférences
+	 */
+	public void loadFromPreferences() {
+		active = puzzlePreferences.getBoolean(preferencesKey + ".active", true);
+	}
+	
+	/**
+	 * Enregistre les informationsde l'instance de l'obstacle dans les préférences
+	 */
+	public void saveToPreferences() {
+		puzzlePreferences.putBoolean(preferencesKey + ".active", active);
+		puzzlePreferences.flush();
 	}
 }

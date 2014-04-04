@@ -19,14 +19,13 @@ public class BombObstacle extends CellObstacle{
 	private int countDown;
 	private Label label;
 	
+	public BombObstacle() {
+		setType(ObstaclesTypes.BOMB);
+	}
+	
 	@Override
 	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
-		// Initialise le compte
-		int prefsCountDown = puzzlePreferences.getBombCountDown(getTarget());
-		if (prefsCountDown != -1) {
-			countDown = prefsCountDown;
-		}
 		applyEffect(grid);
 	}
 
@@ -77,7 +76,7 @@ public class BombObstacle extends CellObstacle{
 			IsleObstacle isle = new IsleObstacle();
 			isle.setLine(getLine());
 			isle.setColumn(getColumn());
-			isle.init(manager.getGrid(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
+			isle.puzzleLoaded(manager.getGrid(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
 			manager.add(isle);
 		}
 	}
@@ -89,7 +88,7 @@ public class BombObstacle extends CellObstacle{
 		countDown--;
 		applyEffect(getManager().getGrid());
 		// Sauvegarde le compte
-		getPuzzlePreferences().setBombCountDown(getTarget(), countDown);
+		saveToPreferences();
 	}
 	
 	@Override
@@ -98,5 +97,27 @@ public class BombObstacle extends CellObstacle{
 		
 		// Lit le compte-à-rebours initial
 		countDown = properties.getIntegerProperty(key + ".countDown", 10);
+	}
+	
+	/**
+	 * Lit les informations de l'instance de l'obstacle depuis les préférences
+	 */
+	public void loadFromPreferences() {
+		super.loadFromPreferences();
+		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
+		
+		int prefsCountDown = prefs.getInteger(getPreferencesKey() + ".countDown", -1);
+		if (prefsCountDown != -1) {
+			countDown = prefsCountDown;
+		}
+	}
+	
+	@Override
+	public void saveToPreferences() {
+		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
+		prefs.putInteger(getPreferencesKey() + ".countDown", countDown);
+		
+		// Faire le super en dernier car il contient le flush()
+		super.saveToPreferences();
 	}
 }

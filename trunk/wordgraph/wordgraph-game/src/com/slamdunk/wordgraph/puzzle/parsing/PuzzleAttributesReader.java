@@ -206,9 +206,9 @@ public class PuzzleAttributesReader {
 		puzzleAttributes.setObstacleManager(manager);
 		
 		// Parcourt de tous les obstacles placés sur la grille
-		int idx = 0;
+		int obstacleId = 0;
 		String type;
-		while ((type = properties.getProperty("obstacle." + idx + ".type")) != null) {
+		while ((type = properties.getProperty("obstacle." + obstacleId + ".type")) != null) {
 			Obstacle obstacle = null;
 			switch (ObstaclesTypes.valueOf(type)) {
 			case ISLE:
@@ -236,74 +236,12 @@ public class PuzzleAttributesReader {
 				obstacle = new HiddenObstacle();
 				break;
 			}
-			obstacle.initFromProperties(properties, "obstacle." + idx);
+			obstacle.setId(obstacleId);
+			obstacle.initFromProperties(properties, "obstacle." + obstacleId);
 			manager.add(obstacle);
 			
-			idx++;
+			obstacleId++;
 		}
-		
-//		// Lettres cachées
-//		String obstacleFog = properties.getProperty("obstacles.fog", "");
-//		if (!obstacleFog.isEmpty()) {
-//			String[] maskedLetters = obstacleFog.split(",");
-//			for (String letter : maskedLetters) {
-//				manager.add(new FogObstacle(letter));
-//			}
-//		}
-//		
-//		// Lettres intruses
-//		String obstacleIntruder = properties.getProperty("obstacles.intruder", "");
-//		if (!obstacleIntruder.isEmpty()) {
-//			String[] intruderParameters = obstacleIntruder.split(",");
-//			for (String parameters : intruderParameters) {
-//				manager.add(IntruderObstacle.createFromProperties(parameters));
-//			}
-//		}
-//		
-//		// Lettres changeantes
-//		String obstacleMorph = properties.getProperty("obstacles.morph", "");
-//		if (!obstacleMorph.isEmpty()) {
-//			String[] morphingParameters = obstacleMorph.split(",");
-//			for (String parameters : morphingParameters) {
-//				manager.add(MorphObstacle.createFromProperties(parameters));
-//			}
-//		}
-//		
-//		// Lettres piégées
-//		String obstacleBomb = properties.getProperty("obstacles.bomb", "");
-//		if (!obstacleBomb.isEmpty()) {
-//			String[] bombingParameters = obstacleBomb.split(",");
-//			for (String parameters : bombingParameters) {
-//				manager.add(BombObstacle.createFromProperties(parameters));
-//			}
-//		}
-//		
-//		// Lettres dans la pierre
-//		String stoneFog = properties.getProperty("obstacles.stone", "");
-//		if (!stoneFog.isEmpty()) {
-//			String[] stonedLetters = stoneFog.split(",");
-//			for (String letter : stonedLetters) {
-//				manager.add(new StoneObstacle(letter));
-//			}
-//		}
-//		
-//		// Catégorie affichée
-//		String obstacleCategory = properties.getProperty("obstacles.category", "");
-//		if (!obstacleCategory.isEmpty()) {
-//			String[] categoryParameters = obstacleCategory.split(",");
-//			for (String parameters : categoryParameters) {
-//				manager.add(CategoryObstacle.createFromProperties(parameters));
-//			}
-//		}
-//		
-//		// Indice masqué
-//		String obstacleHidden = properties.getProperty("obstacles.hidden", "");
-//		if (!obstacleHidden.isEmpty()) {
-//			String[] hiddenClues = obstacleHidden.split(",");
-//			for (String clueIndex : hiddenClues) {
-//				manager.add(new HiddenObstacle(clueIndex));
-//			}
-//		}
 	}
 
 	/**

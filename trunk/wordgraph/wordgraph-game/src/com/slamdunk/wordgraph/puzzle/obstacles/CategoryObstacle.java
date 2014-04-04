@@ -16,6 +16,10 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 public class CategoryObstacle extends ClueObstacle{
 	private String category;
 	
+	public CategoryObstacle() {
+		setType(ObstaclesTypes.CATEGORY);
+	}
+	
 	public String getCategory() {
 		return category;
 	}
@@ -42,7 +46,7 @@ public class CategoryObstacle extends ClueObstacle{
 		if (word.equals(getRiddle().getSolution())) {
 			setActive(false);
 			applyEffect(null);
-			writePreferenceObstacleActive(false);
+			saveToPreferences();
 		}
 	}
 

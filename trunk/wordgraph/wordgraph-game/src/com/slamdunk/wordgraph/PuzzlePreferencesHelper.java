@@ -1,16 +1,15 @@
 package com.slamdunk.wordgraph;
 
-import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
 
 /**
  * Permet de manipuler facilement les préférences liées à un puzzle d'un pack en particulier
  *
  */
-public class PuzzlePreferencesHelper {
+public class PuzzlePreferencesHelper implements Preferences {
 	private Preferences prefs;
 	
 	public PuzzlePreferencesHelper(String puzzlePack, String puzzleName) {
@@ -53,24 +52,6 @@ public class PuzzlePreferencesHelper {
 
 	public String getPreferencesKey(String puzzlePack, String puzzleName) {
 		return puzzlePack + "_" + puzzleName;
-	}
-
-	public void setLinksSize(List<PuzzleLink> links) {
-		for (PuzzleLink link : links) {
-			prefs.putInteger("link." + link.getName() + ".size", link.getSize());
-		}
-		prefs.flush();
-	}
-	
-	/**
-	 * Indique si le lien mentionné est trouvé ou non
-	 * @param puzzlePack
-	 * @param puzzleName
-	 * @param name
-	 * @return
-	 */
-	public int getLinkSize(String name) {
-		return prefs.getInteger("link." + name + ".size", -1);
 	}
 
 	/**
@@ -127,33 +108,6 @@ public class PuzzlePreferencesHelper {
 		prefs.flush();
 	}
 
-	public boolean isObstacleActive(String type, String target) {
-		return prefs.getBoolean("isObstacleActive." + type + "." + target, true);
-	}
-
-	public void setObstacleActive(String type, String target, boolean isActive) {
-		prefs.putBoolean("isObstacleActive." + type + "." + target, isActive);
-		prefs.flush();
-	}
-	
-	public int getMorphCurrentLetterIndex(String type, String target) {
-		return prefs.getInteger("morphCurrentLetterIndex." + type + "." + target, 0);
-	}
-
-	public void setMorphCurrentLetterIndex(String type, String target, int index) {
-		prefs.putInteger("morphCurrentLetterIndex." + type + "." + target, index);
-		prefs.flush();
-	}
-
-	public int getBombCountDown(String target) {
-		return prefs.getInteger("bombCountDown." + target, -1);
-	}
-	
-	public void setBombCountDown(String target, int countDown) {
-		prefs.putInteger("bombCountDown." + target, countDown);
-		prefs.flush();
-	}
-
 	public void setLayout(String[] layout) {
 		prefs.putInteger("layout.size", layout.length);
 		for (int curLine = 0; curLine < layout.length; curLine++) {
@@ -172,5 +126,89 @@ public class PuzzlePreferencesHelper {
 			layout[curLine] = prefs.getString("layout." + curLine);
 		}
 		return layout;
+	}
+
+	public void putBoolean(String key, boolean val) {
+		prefs.putBoolean(key, val);
+	}
+
+	public void putInteger(String key, int val) {
+		prefs.putInteger(key, val);
+	}
+
+	public void putLong(String key, long val) {
+		prefs.putLong(key, val);
+	}
+
+	public void putFloat(String key, float val) {
+		prefs.putFloat(key, val);
+	}
+
+	public void putString(String key, String val) {
+		prefs.putString(key, val);
+	}
+
+	public void put(Map<String, ?> vals) {
+		prefs.put(vals);
+	}
+
+	public boolean getBoolean(String key) {
+		return prefs.getBoolean(key);
+	}
+
+	public int getInteger(String key) {
+		return prefs.getInteger(key);
+	}
+
+	public long getLong(String key) {
+		return prefs.getLong(key);
+	}
+
+	public float getFloat(String key) {
+		return prefs.getFloat(key);
+	}
+
+	public String getString(String key) {
+		return prefs.getString(key);
+	}
+
+	public boolean getBoolean(String key, boolean defValue) {
+		return prefs.getBoolean(key, defValue);
+	}
+
+	public int getInteger(String key, int defValue) {
+		return prefs.getInteger(key, defValue);
+	}
+
+	public long getLong(String key, long defValue) {
+		return prefs.getLong(key, defValue);
+	}
+
+	public float getFloat(String key, float defValue) {
+		return prefs.getFloat(key, defValue);
+	}
+
+	public String getString(String key, String defValue) {
+		return prefs.getString(key, defValue);
+	}
+
+	public Map<String, ?> get() {
+		return prefs.get();
+	}
+
+	public boolean contains(String key) {
+		return prefs.contains(key);
+	}
+
+	public void clear() {
+		prefs.clear();
+	}
+
+	public void remove(String key) {
+		prefs.remove(key);
+	}
+
+	public void flush() {
+		prefs.flush();
 	}
 }

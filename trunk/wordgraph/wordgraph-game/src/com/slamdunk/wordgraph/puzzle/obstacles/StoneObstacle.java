@@ -12,6 +12,11 @@ import com.slamdunk.wordgraph.puzzle.grid.GridCell;
  * avec une lettre adjacente.
  */
 public class StoneObstacle extends CellObstacle{
+	
+	public StoneObstacle() {
+		setType(ObstaclesTypes.STONE);
+	}
+	
 	@Override
 	public void applyEffect(Grid grid) {
 		super.applyEffect(grid);
@@ -23,7 +28,7 @@ public class StoneObstacle extends CellObstacle{
 			button.setDisabled(true);
 		} else {
 			// Sinon on remet le bon texte
-			button.setText(getTarget());
+			button.setText(getCell().getLetter());
 			button.setDisabled(false);
 		}
 	}
@@ -38,8 +43,8 @@ public class StoneObstacle extends CellObstacle{
 		for (GridCell cell : cells) {
 			if (cell.isAround(stonedCell)) {
 				setActive(false);
-				writePreferenceObstacleActive(false);
 				applyEffect(getManager().getGrid());
+				saveToPreferences();
 				break;
 			}
 		}
