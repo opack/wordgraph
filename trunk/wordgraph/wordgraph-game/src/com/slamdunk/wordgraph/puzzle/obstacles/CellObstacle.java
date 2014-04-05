@@ -48,12 +48,7 @@ public abstract class CellObstacle extends Obstacle {
 		cell = grid.getCell(line, column);
 		// Activation de l'obstacle s'il y a bien un noeud et que l'obstacle n'est pas
 		// marqué comme inactif dans les préférences
-		setActive(cell != null && isActive());
-		if (isActive()) {
-			cell.addObstacle(this);
-		}
-		// Application de l'effet de l'obstacle
-		applyEffect(grid);
+		cell.addObstacle(this);
 	}
 	
 	public GridCell getCell() {

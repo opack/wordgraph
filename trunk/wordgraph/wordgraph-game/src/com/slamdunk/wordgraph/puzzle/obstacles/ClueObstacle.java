@@ -50,8 +50,6 @@ public abstract class ClueObstacle extends Obstacle {
 		// Activation de l'obstacle s'il y a bien un noeud et que l'obstacle n'est pas
 		// marqué comme inactif dans les préférences
 		setActive(riddle != null && isActive());
-		// Application de l'effet de l'obstacle
-		applyEffect(grid);
 	}
 	
 	/**

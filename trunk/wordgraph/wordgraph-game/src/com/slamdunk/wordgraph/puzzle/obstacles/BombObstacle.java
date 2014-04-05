@@ -1,6 +1,5 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
-import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
 
 /**
@@ -24,12 +22,6 @@ public class BombObstacle extends CellObstacle{
 	}
 	
 	@Override
-	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
-		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
-		applyEffect(grid);
-	}
-
-	@Override
 	public void applyEffect(Grid grid) {
 		super.applyEffect(grid);
 		// Si l'obstacle est actif, on masque la lettre
@@ -37,13 +29,16 @@ public class BombObstacle extends CellObstacle{
 			// Place une image de bombe et un libellé avec le décompte
 			if (getImage() == null) {
 				createImage("obstacle-bomb");
-				label = new Label(String.valueOf(countDown), Assets.defaultPuzzleSkin.get("text", LabelStyle.class));
+				label = new Label("", Assets.defaultPuzzleSkin.get("text", LabelStyle.class));
+				label.setText(String.valueOf(countDown));
 				TextButton button = getCell().getButton();
 				button.addActor(label);
 				label.setWidth(button.getWidth());
 				label.setAlignment(Align.center);
 				label.setZIndex(0);
 			}
+			// Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
+			updateAndDetonate();
 		}
 		// Si, après le updateAndDetonate, la bombe n'est plus active, alors
 		// on retire la bombe
@@ -56,8 +51,6 @@ public class BombObstacle extends CellObstacle{
 				label = null;
 			}
 		}
-		// Met à jour le libellé de décompte et, si nécessaire, fait exploser la bombe
-		updateAndDetonate();
 	}
 	
 	/**
@@ -66,6 +59,7 @@ public class BombObstacle extends CellObstacle{
 	private void updateAndDetonate() {
 		if (countDown == 0) {
 			ObstacleManager manager = getManager();
+			Grid grid = manager.getGrid();
 			// Suppression de l'obstacle Bomb
 			setActive(false);
 			// On ne désactive pas l'obstacle car il sera transformé en île
@@ -75,7 +69,8 @@ public class BombObstacle extends CellObstacle{
 			IsleObstacle isle = new IsleObstacle();
 			isle.setLine(getLine());
 			isle.setColumn(getColumn());
-			isle.puzzleLoaded(manager.getGrid(), manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
+			isle.puzzleLoaded(grid, manager.getPuzzleAttributes(), manager.getStage(), getPuzzlePreferences());
+			isle.applyEffect(grid);
 			manager.add(isle);
 		} else {
 			label.setText(String.valueOf(countDown));
