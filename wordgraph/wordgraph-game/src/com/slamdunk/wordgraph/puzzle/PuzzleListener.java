@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
@@ -21,18 +19,6 @@ public interface PuzzleListener {
 	 * @param puzzlePreferences	Les préférences qui contiennent diverses infos
 	 */
 	void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences);
-	
-	/**
-	 * Méthode appelée une fois qu'un lien est marqué comme utilisé
-	 * @param word
-	 */
-	void linkUsed(PuzzleLink link);
-	
-	/**
-	 * Méthode appelée une fois qu'un noeud est passé à l'état invisible
-	 * @param word
-	 */
-	void nodeHidden(PuzzleNode button);
 	
 	/**
 	 * Méthode appelée lorsqu'un mot est validé avec succès

@@ -10,12 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.slamdunk.utils.DoubleEntryArray;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
-
 
 public class PuzzleButtonDecorator {
 	private static PuzzleButtonDecorator instance;
@@ -62,32 +60,6 @@ public class PuzzleButtonDecorator {
 				button.setDisabled(false);	
 			}
 		}
-	}
-	
-	/**
-	 * Applique le style correspondant à l'état de la lettre
-	 * indiqué. Le style choisi dépend également des obstacles
-	 * actifs sur le noeud : le premier obstacle actif donne son
-	 * style au bouton.
-	 * @param button
-	 * @param contains
-	 */
-	public void setStyle(PuzzleNode node, LetterStates state) {
-		TextButton button = node.getButton();
-		List<Obstacle> obstacles = node.getObstacles();
-		TextButtonStyle style = styles.get(state, null);
-		if (obstacles != null) {
-			for (Obstacle obstacle : node.getObstacles()) {
-				if (obstacle.isObstacleDrawn()) {
-					TextButtonStyle obstacleStyle = styles.get(state, obstacle.getType());
-					if (obstacleStyle != null) {
-						style = obstacleStyle;
-						break;
-					}
-				}
-			}
-		}
-		button.setStyle(style);
 	}
 	
 	/**
