@@ -5,6 +5,7 @@ import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 
 public class ScoreBoard {
 	private int score;
+	private int scoreMultiplier;
 	private int rightSuggestionSeries;
 	private boolean hasMadeWrongSuggestions;
 	private Label label;
@@ -17,6 +18,7 @@ public class ScoreBoard {
 		score = puzzlePreferences.getScore();
 		rightSuggestionSeries = puzzlePreferences.getRightSuggestionSeries();
 		hasMadeWrongSuggestions = puzzlePreferences.getHasMadeWrongSuggestions();
+		scoreMultiplier = 1;
 	}
 
 	/**
@@ -24,7 +26,7 @@ public class ScoreBoard {
 	 * @param value
 	 */
 	public void updateScore(int value) {
-		score += value;
+		score += value * scoreMultiplier;
 		puzzlePreferences.setScore(score);
 		updateLabel();
 	}
@@ -109,5 +111,13 @@ public class ScoreBoard {
 
 	public boolean hasMadeWrongSuggestions() {
 		return hasMadeWrongSuggestions;
+	}
+
+	public int getScoreMultiplier() {
+		return scoreMultiplier;
+	}
+
+	public void setScoreMultiplier(int scoreMultiplier) {
+		this.scoreMultiplier = scoreMultiplier;
 	}
 }

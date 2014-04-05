@@ -19,16 +19,14 @@ import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.Options;
 import com.slamdunk.wordgraph.WordGraphGame;
-import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
-import com.slamdunk.wordgraph.puzzle.grid.Grid;
+import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
 
 public class BlackMarketScreen implements Screen {
 	
 	private WordGraphGame game;
 	private Stage stage;
 	
-	private Grid grid;
-	private PuzzleAttributes puzzleAttributes;
+	private PuzzleScreen puzzleScreen;
 	
 	private TextButton validateButton;
 	
@@ -40,12 +38,8 @@ public class BlackMarketScreen implements Screen {
 		stage = new Stage();
 	}
 	
-	public void setGrid(Grid grid) {
-		this.grid = grid;
-	}
-
-	public void setPuzzleAttributes(PuzzleAttributes puzzleAttributes) {
-		this.puzzleAttributes = puzzleAttributes;
+	public void setPuzzleScreen(PuzzleScreen puzzleScreen) {
+		this.puzzleScreen = puzzleScreen;
 	}
 
 	/**
@@ -99,7 +93,7 @@ public class BlackMarketScreen implements Screen {
 	private void createUI() {
 		stage.clear();
 		// Récupération de la skin à appliquer
-		Skin skin = puzzleAttributes.getSkin();
+		Skin skin = puzzleScreen.getPuzzleAttributes().getSkin();
 		if (skin == null) {
 			skin = Assets.uiSkin;
 		}
@@ -121,10 +115,15 @@ public class BlackMarketScreen implements Screen {
 		ButtonGroup itemsButtons = new ButtonGroup();
 		for (BlackMarketItem item : BlackMarketItem.values()) {
 			TextButton button = (TextButton)creator.getActor(item.name());
+			button.setDisabled(!item.isAvailable(puzzleScreen));
 			itemsButtons.add(button);
 			
 		}		
 		itemsButtons.uncheckAll();
+		
+		// Nombre de bonus détenus
+		final Label countLabel = (Label)creator.getActor("count");
+		countLabel.setText("x0");
 		
 		// Affectation des listeners
 		creator.getActor("back").addListener(new ButtonClickListener() {
@@ -151,7 +150,7 @@ public class BlackMarketScreen implements Screen {
 				String descriptionText = PropertiesManager.getString("blackmarket", descriptionKey, "");
 				descriptionLabel.setText(descriptionText);
 				
-				String priceKey = selectedItem.name() + ".price." + Options.langCode;
+				String priceKey = selectedItem.name() + ".price";
 				String priceText = PropertiesManager.getString("blackmarket", priceKey, "");
 				priceLabel.setText(priceText);
 				
@@ -191,7 +190,7 @@ public class BlackMarketScreen implements Screen {
 	
 	private void onValidate() {
 		if (selectedItem != null) {
-			selectedItem.use(grid);
+			selectedItem.use(puzzleScreen);
 			onBack();
 		}
 	}

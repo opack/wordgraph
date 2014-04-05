@@ -63,7 +63,7 @@
        ui.image="puzzle-background" />
     <rect
        style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="blackmarket"
+       id="black-market"
        width="47"
        height="47"
        x="427.5"
@@ -122,6 +122,19 @@
        ui.style="puzzle-validate"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
     <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.86458302;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="score-multiplier"
+       width="45.236881"
+       height="29.135418"
+       x="343.33084"
+       y="267.98544"
+       ry="0"
+       ui.style="puzzle-multiplier"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.visible="false"
+       ui.touchable="disabled"
+       ui.align="16" />
+    <rect
        style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="backspace"
        width="79"
@@ -140,8 +153,7 @@
        y="56.28968"
        ry="0"
        ui.style="puzzle-score"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
-       ui.text="Temps : %02d:%02d" />
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label" />
     <rect
        style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.86458302;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="score"
