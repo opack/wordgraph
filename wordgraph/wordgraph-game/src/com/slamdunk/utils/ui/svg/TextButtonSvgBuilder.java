@@ -1,8 +1,11 @@
 package com.slamdunk.utils.ui.svg;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class TextButtonSvgBuilder extends UISvgBuilder {
 	private String language;
@@ -28,6 +31,9 @@ public class TextButtonSvgBuilder extends UISvgBuilder {
 		parseTextKey(button);
 		parseText(button);
 		
+		// Gère la propriété image
+		parseImage(skin, button);
+		
 		return button;
 	}
 
@@ -41,6 +47,18 @@ public class TextButtonSvgBuilder extends UISvgBuilder {
 		if (hasAttribute("ui.text-key")) {
 			String key = actorDescription.getAttribute("ui.text-key");
 			button.setText(getValueString(key, language));
+		}
+	}
+	
+	private void parseImage(Skin skin, TextButton button) {
+		if (hasAttribute("ui.image")) {
+			String atlasRegionName = actorDescription.getAttribute("ui.image");
+			TextureRegion region = skin.getAtlas().findRegion(atlasRegionName);
+			if (region != null) {
+				Image image = new Image();
+				image.setDrawable(new TextureRegionDrawable(region));
+				button.add(image).center().expand();
+			}
 		}
 	}
 }

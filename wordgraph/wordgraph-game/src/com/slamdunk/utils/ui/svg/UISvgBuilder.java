@@ -1,6 +1,7 @@
 package com.slamdunk.utils.ui.svg;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
@@ -81,6 +82,9 @@ public abstract class UISvgBuilder {
 		// Gère la propriété visible
 		parseVisibleKey(actor);
 		parseVisible(actor);
+		
+		// Gère la propriété touchable
+		parseTouchable(actor);
 		
 		return actor;
 	}
@@ -231,6 +235,19 @@ public abstract class UISvgBuilder {
 		if (hasAttribute("ui.visible-key")) {
 			String key = actorDescription.getAttribute("ui.visible-key");
 			actor.setVisible(globalValues.getBoolean(key));
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * @param actor
+	 * @return true si la propriété a été trouvée et lue
+	 */
+	protected boolean parseTouchable(Actor actor) {
+		if (hasAttribute("ui.touchable")) {
+			actor.setTouchable(Touchable.valueOf(actorDescription.getAttribute("ui.touchable")));
 			return true;
 		}
 		return false;

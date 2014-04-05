@@ -183,4 +183,42 @@ public class ObstacleManager implements PuzzleListener {
         	}
         }
 	}
+
+	/**
+	 * Indique s'il y a au moins 1 obstacle applicable à une lettre
+	 * encore actif.
+	 * @return
+	 */
+	public boolean hasLetterObstacles() {
+		return hasActiveObstacles(
+			ObstaclesTypes.BOMB,
+			ObstaclesTypes.FOG,
+			ObstaclesTypes.INTRUDER,
+			ObstaclesTypes.ISLE,
+			ObstaclesTypes.MORPH,
+			ObstaclesTypes.STONE);
+	}
+	
+	/**
+	 * Indique s'il y a au moins 1 obstacle applicable à un indice
+	 * encore actif.
+	 * @return
+	 */
+	public boolean hasClueObstacles() {
+		return hasActiveObstacles(
+			ObstaclesTypes.CATEGORY,
+			ObstaclesTypes.HIDDEN);
+	}
+
+	private boolean hasActiveObstacles(ObstaclesTypes... types) {
+		for (ObstaclesTypes type : types) {
+			List<Obstacle> obstacles = obstaclesByType.get(type);
+			for (Obstacle obstacle : obstacles) {
+				if (obstacle.isActive()) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }

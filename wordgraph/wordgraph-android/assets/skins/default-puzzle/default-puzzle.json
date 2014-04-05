@@ -260,132 +260,20 @@
 			"name":"obstacle-stone",
 			"color":"green"
 		},
-		"bonus-item0-up":{
-			"name":"bonus-item0",
+		"bonus-buy-up":{
+			"name":"bonus-buy",
 			"color":"brown"
 		},
-		"bonus-item0-down":{
-			"name":"bonus-item0",
+		"bonus-buy-down":{
+			"name":"bonus-buy",
 			"color":"green-dark"
 		},
-		"bonus-item0-checked":{
-			"name":"bonus-item0",
+		"bonus-buy-checked":{
+			"name":"bonus-buy",
 			"color":"green"
 		},
-		"bonus-item0-disabled":{
-			"name":"bonus-item0",
-			"color":"grey"
-		},
-		"bonus-item1-up":{
-			"name":"bonus-item1",
-			"color":"brown"
-		},
-		"bonus-item1-down":{
-			"name":"bonus-item1",
-			"color":"green-dark"
-		},
-		"bonus-item1-checked":{
-			"name":"bonus-item1",
-			"color":"green"
-		},
-		"bonus-item1-disabled":{
-			"name":"bonus-item1",
-			"color":"grey"
-		},
-		"bonus-horoscope-up":{
-			"name":"bonus-horoscope",
-			"color":"brown"
-		},
-		"bonus-horoscope-down":{
-			"name":"bonus-horoscope",
-			"color":"green-dark"
-		},
-		"bonus-horoscope-checked":{
-			"name":"bonus-horoscope",
-			"color":"green"
-		},
-		"bonus-horoscope-disabled":{
-			"name":"bonus-horoscope",
-			"color":"grey"
-		},
-		"bonus-spyglass-up":{
-			"name":"bonus-spyglass",
-			"color":"brown"
-		},
-		"bonus-spyglass-down":{
-			"name":"bonus-spyglass",
-			"color":"green-dark"
-		},
-		"bonus-spyglass-checked":{
-			"name":"bonus-spyglass",
-			"color":"green"
-		},
-		"bonus-spyglass-disabled":{
-			"name":"bonus-spyglass",
-			"color":"grey"
-		},
-		"bonus-item4-up":{
-			"name":"bonus-item4",
-			"color":"brown"
-		},
-		"bonus-item4-down":{
-			"name":"bonus-item4",
-			"color":"green-dark"
-		},
-		"bonus-item4-checked":{
-			"name":"bonus-item4",
-			"color":"green"
-		},
-		"bonus-item4-disabled":{
-			"name":"bonus-item4",
-			"color":"grey"
-		},
-		"bonus-chrono-up":{
-			"name":"bonus-chrono",
-			"color":"brown"
-		},
-		"bonus-chrono-down":{
-			"name":"bonus-chrono",
-			"color":"green-dark"
-		},
-		"bonus-chrono-checked":{
-			"name":"bonus-chrono",
-			"color":"green"
-		},
-		"bonus-chrono-disabled":{
-			"name":"bonus-chrono",
-			"color":"grey"
-		},
-		"bonus-two_times-up":{
-			"name":"bonus-two_times",
-			"color":"brown"
-		},
-		"bonus-two_times-down":{
-			"name":"bonus-two_times",
-			"color":"green-dark"
-		},
-		"bonus-two_times-checked":{
-			"name":"bonus-two_times",
-			"color":"green"
-		},
-		"bonus-two_times-disabled":{
-			"name":"bonus-two_times",
-			"color":"grey"
-		},
-		"bonus-map-up":{
-			"name":"bonus-map",
-			"color":"brown"
-		},
-		"bonus-map-down":{
-			"name":"bonus-map",
-			"color":"green-dark"
-		},
-		"bonus-map-checked":{
-			"name":"bonus-map",
-			"color":"green"
-		},
-		"bonus-map-disabled":{
-			"name":"bonus-map",
+		"bonus-buy-disabled":{
+			"name":"bonus-buy",
 			"color":"grey"
 		}
 	},
@@ -574,77 +462,22 @@
 			"font":"default-font",
 			"fontColor":"black",
 		},
-		"bonus-chrono":{
-			"up":"bonus-chrono",
+		"bonus":{
+			"up":"button-brown-up",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"bonus-chrono-checked",
+			"down":"button-brown-down",
 			"downFontColor":"black",
-			"checked":"bonus-chrono-checked",
-			"disabled":"bonus-chrono-disabled"
+			"checked":"button-green-up",
+			"disabled":"button-brown-disabled"
 		},
-		"bonus-horoscope":{
-			"up":"bonus-horoscope",
+		"bonus-buy":{
+			"up":"bonus-buy",
 			"font":"default-font",
 			"fontColor":"black",
-			"down":"bonus-horoscope-checked",
+			"down":"bonus-buy-checked",
 			"downFontColor":"black",
-			"checked":"bonus-horoscope-checked",
-			"disabled":"bonus-horoscope-disabled"
-		},
-		"bonus-item0":{
-			"up":"bonus-item0",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-item0-checked",
-			"downFontColor":"black",
-			"checked":"bonus-item0-checked",
-			"disabled":"bonus-item0-disabled"
-		},
-		"bonus-item1":{
-			"up":"bonus-item1",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-item1-checked",
-			"downFontColor":"black",
-			"checked":"bonus-item1-checked",
-			"disabled":"bonus-item1-disabled"
-		},
-		"bonus-item4":{
-			"up":"bonus-item4",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-item4-checked",
-			"downFontColor":"black",
-			"checked":"bonus-item4-checked",
-			"disabled":"bonus-item4-disabled"
-		},
-		"bonus-map":{
-			"up":"bonus-map",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-map-checked",
-			"downFontColor":"black",
-			"checked":"bonus-map-checked",
-			"disabled":"bonus-map-disabled"
-		},
-		"bonus-spyglass":{
-			"up":"bonus-spyglass",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-spyglass-checked",
-			"downFontColor":"black",
-			"checked":"bonus-spyglass-checked",
-			"disabled":"bonus-spyglass-disabled"
-		},
-		"bonus-two_times":{
-			"up":"bonus-two_times",
-			"font":"default-font",
-			"fontColor":"black",
-			"down":"bonus-two_times-checked",
-			"downFontColor":"black",
-			"checked":"bonus-two_times-checked",
-			"disabled":"bonus-two_times-disabled"
+			"disabled":"bonus-buy-disabled"
 		}
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle":{
@@ -673,6 +506,10 @@
 		"puzzle-score":{
 			"font":"score-font",
 			"fontColor":"black"
+		},
+		"puzzle-multiplier":{
+			"font":"score-font",
+			"fontColor":"green"
 		},
 		"puzzle-solution":{
 			"font":"solution-font",

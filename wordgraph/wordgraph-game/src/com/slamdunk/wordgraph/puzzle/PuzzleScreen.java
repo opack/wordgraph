@@ -3,8 +3,10 @@ package com.slamdunk.wordgraph.puzzle;
 import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -32,6 +34,7 @@ import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
+import com.slamdunk.wordgraph.blackmarket.BlackMarketItem;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
@@ -53,11 +56,14 @@ public class PuzzleScreen implements Screen {
 	
 	private ScoreBoard scoreBoard;
 	private Chronometer chrono;
+	
+	private Set<BlackMarketItem> activeBonus;
 
 	// Composants de l'interface qui seront réutilisés
 	private Stage stage;
 	private Label suggestionLabel;
 	private TextButton validateButton;
+	private Label scoreMultiplierLabel;
 	private TextButton backspaceButton;
 	private TextButton jokerButton;
 	private TextButton blackMarketButton;
@@ -83,8 +89,13 @@ public class PuzzleScreen implements Screen {
 		this.game = game;
 		pendingLetters = new LinkedList<String>();
 		selectedCells = new LinkedList<GridCell>();
+		activeBonus = new HashSet<BlackMarketItem>();
 		
 		stage = new Stage();
+	}
+	
+	public void addBonus(BlackMarketItem bonus) {
+		activeBonus.add(bonus);
 	}
 	
 	private void addListener(PuzzleListener listener) {
@@ -170,10 +181,11 @@ public class PuzzleScreen implements Screen {
 		}
 		suggestionLabel = (Label)creator.getActor("suggestion");
 		validateButton = (TextButton)creator.getActor("validate");
+		scoreMultiplierLabel = (Label)creator.getActor("score-multiplier");
 		backspaceButton = (TextButton)creator.getActor("backspace");
 		finishedImage = (Image)creator.getActor("finished");
 		jokerButton = (TextButton)creator.getActor("joker");
-		blackMarketButton = (TextButton)creator.getActor("blackmarket");
+		blackMarketButton = (TextButton)creator.getActor("black-market");
 		
 		// Image de fond
 		Image background = (Image)creator.getActor("background");
@@ -184,7 +196,9 @@ public class PuzzleScreen implements Screen {
 		title.setText(puzzleAttributes.getInfos().getLabel());
 		
 		// Label de temps et de score
+		chrono.setFormatStrings("Temps : %02d:%02d", "Pause : %04.1f");
 		chrono.setLabel((Label)creator.getActor("timer"), 1f);
+		chrono.updateLabel();
 		scoreBoard.setLabel((Label)creator.getActor("score"));
 		
 		// Chargement des indices
@@ -469,11 +483,15 @@ public class PuzzleScreen implements Screen {
 			scoreBoard.addRightSuggestionSeries();
 			scoreBoard.updateScore(riddle);			
 		} else {
+			// Retrait de points
 			scoreBoard.badSuggestion();
 			
 			// Notifie les listeners qu'un mot a été refusé
 			notifyWordRejected(suggestion);
 		}
+		
+		// Que le mot ait été accepté ou non, on remet le multiplicateur à 1
+		setScoreMultiplier(1);
 		
 		// Application des obstacles sur le graphe
 		obstacleManager.applyEffect();
@@ -680,9 +698,17 @@ public class PuzzleScreen implements Screen {
 	 * Méthode appelée quand le joueur clique sur BlackMarket
 	 */
 	private void onBlackMarket() {
-		game.showBlackMarketScreen(puzzleAttributes, grid);
+		game.showBlackMarketScreen(this);
 	}
 	
+	public PuzzleAttributes getPuzzleAttributes() {
+		return puzzleAttributes;
+	}
+
+	public Chronometer getChrono() {
+		return chrono;
+	}
+
 	/**
 	 * Retourne à l'écran de pack
 	 */
@@ -794,5 +820,19 @@ public class PuzzleScreen implements Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
+	}
+
+	public void setScoreMultiplier(int multiplier) {
+		scoreMultiplierLabel.setVisible(multiplier > 1);
+		scoreMultiplierLabel.setText("x" + multiplier);
+		scoreBoard.setScoreMultiplier(multiplier);
+	}
+
+	public ObstacleManager getObstacleManager() {
+		return obstacleManager;
+	}
+
+	public String getCurrentWord() {
+		return suggestionTextBounds.getText().toString();
 	}
 }

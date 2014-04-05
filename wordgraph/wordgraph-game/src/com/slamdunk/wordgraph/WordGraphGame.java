@@ -102,9 +102,8 @@ public class WordGraphGame extends Game {
 	/**
 	 * Affiche l'écran de sélection d'objet au marché noir
 	 */
-	public void showBlackMarketScreen(PuzzleAttributes puzzleAttributes, Grid grid) {
-		blackMarket.setGrid(grid);
-		blackMarket.setPuzzleAttributes(puzzleAttributes);
+	public void showBlackMarketScreen(PuzzleScreen puzzleScreen) {
+		blackMarket.setPuzzleScreen(puzzleScreen);
 		setScreen(blackMarket);
 	}
 }
