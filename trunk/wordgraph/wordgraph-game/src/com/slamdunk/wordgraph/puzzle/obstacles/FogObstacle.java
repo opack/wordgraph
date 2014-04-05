@@ -35,9 +35,7 @@ public class FogObstacle extends CellObstacle{
 		// Si la lettre de cet obstacle est contenue dans le mot validé,
 		// alors le brouillard est dissipé
 		if (cells.contains(getCell())) {
-			setActive(false);
-			applyEffect(getManager().getGrid());
-			saveToPreferences();
+			deactivate(getManager().getGrid());
 		}
 	}
 }

@@ -835,4 +835,8 @@ public class PuzzleScreen implements Screen {
 	public String getCurrentWord() {
 		return suggestionTextBounds.getText().toString();
 	}
+
+	public Grid getGrid() {
+		return grid;
+	}
 }

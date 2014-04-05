@@ -77,6 +77,23 @@ public abstract class Obstacle implements PuzzleListener {
 	}
 	
 	/**
+	 * Active l'obstacle, en faisant tous les effets graphiques nécessaires
+	 */
+	public void activate(Grid grid) {
+		setActive(true);
+		applyEffect(grid);
+	}
+	
+	/**
+	 * Désctive l'obstacle, en faisant tous les effets graphiques nécessaires
+	 */
+	public void deactivate(Grid grid) {
+		setActive(false);
+		applyEffect(grid);
+		saveToPreferences();
+	}
+	
+	/**
 	 * Retourne le type de l'obstacle
 	 * @return
 	 */

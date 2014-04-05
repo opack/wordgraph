@@ -1,6 +1,9 @@
-- Fonctionnement grille
-	- Permettre la sélection des lettres voisines
-	- Afficher une grille de lettres
+- Laisser les lettres se dessiner et laisser les obstacles se dessiner aux-mêmes :
+	- le draw de la lettre appelle le draw de l'obstacle (créer un LetterButton extends TextButton)
+	- quand l'obstacle se dessine seul, il peut ensuite faire des effets graphiques pour
+	son apparition/disparition lors de son activation/désactivation, mais aussi gérer des
+	effets tant qu'il est actif, comme le FOG qui peut alors faire du vrai brouillard qui
+	bouge.
 - Au lieu de modifier l'image de la lettre quand elle est mise en valeur
 par un joker, la mettre en valeur différemment pour que le joueur voit bien toujours si ces lettres sont
 connectées à la dernière lettre jouée, et donc sélectionnable.
