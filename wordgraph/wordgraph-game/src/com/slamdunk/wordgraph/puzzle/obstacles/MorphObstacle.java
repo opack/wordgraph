@@ -86,9 +86,6 @@ public class MorphObstacle extends CellObstacle{
 		// Conserve la lettre source lors du premier changement
 		GridCell cell = getCell();
 		String oldLetter = cell.getLetter();
-		if (originalLetter == null) {
-			originalLetter = oldLetter;
-		}
 		
 		// Si on veut appliquer la même lettre, on n'a rien à faire
 		if (letter.equals(oldLetter)) {
@@ -103,6 +100,9 @@ public class MorphObstacle extends CellObstacle{
 	@Override
 	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		super.puzzleLoaded(grid, puzzleAttributes, stage, puzzlePreferences);
+		
+		// Enregistre la lettre originelle
+		originalLetter = getCell().getLetter();
 		
 		// Met à jour la lettre actuellement affichée
 		morphLetter();

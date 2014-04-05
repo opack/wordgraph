@@ -812,6 +812,7 @@ public class PuzzleScreen implements Screen {
 	        loadPuzzle();
 	        createUI();
 			notifyPuzzleLoaded();
+			obstacleManager.applyEffect();
 		}
 		// Dans tous les cas, l'écran actuel doit récupérer les input
 		Gdx.input.setInputProcessor(stage);

@@ -106,9 +106,7 @@ public class ObstacleManager implements PuzzleListener {
 	 */
 	public void applyEffect() {
 		for (Obstacle obstacle : getTempObstaclesList()) {
-        	if (obstacle.isActive()) {
-        		obstacle.applyEffect(grid);
-        	}
+    		obstacle.applyEffect(grid);
         }
 	}
 	
