@@ -115,7 +115,6 @@ public class BlackMarketScreen implements Screen {
 		ButtonGroup itemsButtons = new ButtonGroup();
 		for (BlackMarketItem item : BlackMarketItem.values()) {
 			TextButton button = (TextButton)creator.getActor(item.name());
-			button.setDisabled(!item.isAvailable(puzzleScreen));
 			itemsButtons.add(button);
 			
 		}		
@@ -134,6 +133,7 @@ public class BlackMarketScreen implements Screen {
         });
 		final Label nameLabel = (Label)creator.getActor("name");
 		final Label descriptionLabel = (Label)creator.getActor("description");
+		final Label unavailableInfoLabel = (Label)creator.getActor("unavailable-info");
 		final Label priceLabel = (Label)creator.getActor("price");
 		final EventListener itemSelectionListener = new ButtonClickListener() {
 			@Override
@@ -149,6 +149,13 @@ public class BlackMarketScreen implements Screen {
 				String descriptionKey = selectedItem.name() + ".description." + Options.langCode;
 				String descriptionText = PropertiesManager.getString("blackmarket", descriptionKey, "");
 				descriptionLabel.setText(descriptionText);
+				
+				String unavailableInfoText = "";
+				if (!selectedItem.isAvailable(puzzleScreen)) {
+					String unavailableInfoKey = selectedItem.name() + ".unavailableInfo." + Options.langCode;
+					unavailableInfoText = PropertiesManager.getString("blackmarket", unavailableInfoKey, "");
+				}
+				unavailableInfoLabel.setText(unavailableInfoText);
 				
 				String priceKey = selectedItem.name() + ".price";
 				String priceText = PropertiesManager.getString("blackmarket", priceKey, "");
@@ -185,7 +192,9 @@ public class BlackMarketScreen implements Screen {
 	}
 	
 	private void activateValidation() {
-		validateButton.setDisabled(selectedItem == null);
+		validateButton.setDisabled(
+			selectedItem == null
+			|| !selectedItem.isAvailable(puzzleScreen));
 	}
 	
 	private void onValidate() {

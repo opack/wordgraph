@@ -98,6 +98,11 @@ public class PuzzleScreen implements Screen {
 		activeBonus.add(bonus);
 	}
 	
+
+	public Set<BlackMarketItem> getBonuses() {
+		return activeBonus;
+	}
+	
 	private void addListener(PuzzleListener listener) {
 		if (listeners == null) {
 			listeners = new ArrayList<PuzzleListener>();

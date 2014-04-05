@@ -228,12 +228,24 @@
        ui.text="Après avoir choisi un article, validez avec le bouton en bas.
 Vous pouvez aussi acheter un article sans l'utiliser grâce au bouton ci-dessous." />
     <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="unavailable-info"
+       width="469"
+       height="71.85714"
+       x="5.5000024"
+       y="659.5"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="bonus-unavailable"
+       ui.align="5"
+       ui.wrap="true" />
+    <rect
        style="opacity:0.5;color:#000000;fill:#800080;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="price-coin"
        width="31"
        height="31"
        x="222.78569"
-       y="640.21429"
+       y="600.21429"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Image"
        ui.image="coin" />
@@ -254,7 +266,7 @@ Vous pouvez aussi acheter un article sans l'utiliser grâce au bouton ci-dessous
        width="46.14286"
        height="29"
        x="171.35713"
-       y="641.21429"
+       y="601.21429"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
        ui.style="text"
@@ -265,7 +277,7 @@ Vous pouvez aussi acheter un article sans l'utiliser grâce au bouton ci-dessous
        width="47"
        height="47"
        x="261.64285"
-       y="632.21429"
+       y="592.21429"
        ry="0"
        ui.style="bonus-buy"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton" />
