@@ -18,8 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
@@ -159,30 +157,12 @@ public class ObstacleManager implements PuzzleListener {
         	}
         }
 	}
-
-	@Override
-	public void linkUsed(PuzzleLink link) {
-		for (Obstacle obstacle : getTempObstaclesList()) {
-        	if (obstacle.isActive()) {
-        		obstacle.linkUsed(link);
-        	}
-        }
-	}
 	
 	@Override
 	public void wordValidated(String word, List<GridCell> cells) {
 		for (Obstacle obstacle : getTempObstaclesList()) {
         	if (obstacle.isActive()) {
         		obstacle.wordValidated(word, cells);
-        	}
-        }
-	}
-
-	@Override
-	public void nodeHidden(PuzzleNode node) {
-		for (Obstacle obstacle : getTempObstaclesList()) {
-        	if (obstacle.isActive()) {
-        		obstacle.nodeHidden(node);
         	}
         }
 	}

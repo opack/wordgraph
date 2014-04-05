@@ -7,8 +7,6 @@ import com.slamdunk.utils.PropertiesEx;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleListener;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleLink;
-import com.slamdunk.wordgraph.puzzle.graph.DELETE.PuzzleNode;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
@@ -117,16 +115,6 @@ public abstract class Obstacle implements PuzzleListener {
 	public void puzzleLoaded(Grid grid, PuzzleAttributes puzzleAttributes, Stage stage, PuzzlePreferencesHelper puzzlePreferences) {
 		this.puzzlePreferences = puzzlePreferences;
 		loadFromPreferences();
-	}
-	
-	@Override
-	public void linkUsed(PuzzleLink link) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void nodeHidden(PuzzleNode node) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
