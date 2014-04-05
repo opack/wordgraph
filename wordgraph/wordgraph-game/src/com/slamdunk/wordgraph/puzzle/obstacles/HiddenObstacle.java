@@ -19,9 +19,7 @@ public class HiddenObstacle extends ClueObstacle{
 		super.wordValidated(word, cells);
 		// Si le mot validé est celui de cet obstacle, alors l'obstacle disparaît
 		if (word.equals(getRiddle().getSolution())) {
-			setActive(false);
-			applyEffect(null);
-			saveToPreferences();
+			deactivate(null);
 		}
 	}
 	

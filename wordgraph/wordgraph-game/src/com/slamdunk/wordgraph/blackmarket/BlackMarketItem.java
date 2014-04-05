@@ -1,12 +1,24 @@
 package com.slamdunk.wordgraph.blackmarket;
 
+import java.util.List;
+
+import com.badlogic.gdx.math.MathUtils;
 import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
+import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 
 public enum BlackMarketItem {
 	remove_letter_obstacle {
 		@Override
 		public void use(PuzzleScreen puzzleScreen) {
-			System.out.println("Utilisation du bonus " + name());
+			// Récupération de la liste des obstacles appliqués à des lettres
+			List<Obstacle> obstacles = puzzleScreen.getObstacleManager().getLetterObstacles();
+			
+			// Choix d'un obstacle au hasard
+			int index = MathUtils.random(0, obstacles.size() - 1);
+			Obstacle obstacle = obstacles.get(index);
+			
+			// Désactivation de cet obstacle
+			obstacle.deactivate(puzzleScreen.getGrid());
 		}
 		
 		@Override
@@ -17,7 +29,15 @@ public enum BlackMarketItem {
 	remove_clue_obstacle {
 		@Override
 		public void use(PuzzleScreen puzzleScreen) {
-			System.out.println("Utilisation du bonus " + name());
+			// Récupération de la liste des obstacles appliqués à des lettres
+			List<Obstacle> obstacles = puzzleScreen.getObstacleManager().getClueObstacles();
+			
+			// Choix d'un obstacle au hasard
+			int index = MathUtils.random(0, obstacles.size() - 1);
+			Obstacle obstacle = obstacles.get(index);
+			
+			// Désactivation de cet obstacle
+			obstacle.deactivate(puzzleScreen.getGrid());
 		}
 
 		@Override

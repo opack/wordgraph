@@ -42,9 +42,7 @@ public class StoneObstacle extends CellObstacle{
 		GridCell stonedCell = getCell();
 		for (GridCell cell : cells) {
 			if (cell.isAround(stonedCell)) {
-				setActive(false);
-				applyEffect(getManager().getGrid());
-				saveToPreferences();
+				deactivate(getManager().getGrid());
 				break;
 			}
 		}

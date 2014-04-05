@@ -1,5 +1,14 @@
 package com.slamdunk.wordgraph.puzzle.obstacles;
 
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.BOMB;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.CATEGORY;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.FOG;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.HIDDEN;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.INTRUDER;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.ISLE;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.MORPH;
+import static com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes.STONE;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +24,20 @@ import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.grid.GridCell;
 
 public class ObstacleManager implements PuzzleListener {
+	private static final ObstaclesTypes[] CLUE_OBSTACLE_TYPES = {
+		CATEGORY,
+		HIDDEN
+	};
+	
+	private static final ObstaclesTypes[] LETTER_OBSTACLE_TYPES = {
+		BOMB,
+		FOG,
+		INTRUDER,
+		ISLE,
+		MORPH,
+		STONE
+	};
+	
 	private Grid grid;
 	private PuzzleAttributes puzzleAttributes;
 	private Stage stage;
@@ -57,6 +80,24 @@ public class ObstacleManager implements PuzzleListener {
 	
 	public List<Obstacle> getObstacles(ObstaclesTypes type) {
 		return obstaclesByType.get(type);
+	}
+	
+	/**
+	 * Crée une liste avec les obstacles actifs du type indiqué
+	 * @param types
+	 * @return
+	 */
+	public List<Obstacle> getActiveObstacles(ObstaclesTypes... types) {
+		List<Obstacle> letterObstacles = new ArrayList<Obstacle>();
+		for (ObstaclesTypes type : types) {
+			List<Obstacle> obstacles = obstaclesByType.get(type);
+			for (Obstacle obstacle : obstacles) {
+				if (obstacle.isActive()) {
+					letterObstacles.add(obstacle);
+				}
+			}
+		}
+		return letterObstacles;
 	}
 
 	/**
@@ -190,13 +231,7 @@ public class ObstacleManager implements PuzzleListener {
 	 * @return
 	 */
 	public boolean hasLetterObstacles() {
-		return hasActiveObstacles(
-			ObstaclesTypes.BOMB,
-			ObstaclesTypes.FOG,
-			ObstaclesTypes.INTRUDER,
-			ObstaclesTypes.ISLE,
-			ObstaclesTypes.MORPH,
-			ObstaclesTypes.STONE);
+		return hasActiveObstacles(LETTER_OBSTACLE_TYPES);
 	}
 	
 	/**
@@ -205,9 +240,7 @@ public class ObstacleManager implements PuzzleListener {
 	 * @return
 	 */
 	public boolean hasClueObstacles() {
-		return hasActiveObstacles(
-			ObstaclesTypes.CATEGORY,
-			ObstaclesTypes.HIDDEN);
+		return hasActiveObstacles(CLUE_OBSTACLE_TYPES);
 	}
 
 	private boolean hasActiveObstacles(ObstaclesTypes... types) {
@@ -220,5 +253,21 @@ public class ObstacleManager implements PuzzleListener {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Retourne la liste des obstacles actifs appliqués sur des lettres
+	 * @return
+	 */
+	public List<Obstacle> getLetterObstacles() {
+		return getActiveObstacles(LETTER_OBSTACLE_TYPES);
+	}
+	
+	/**
+	 * Retourne la liste des obstacles actifs appliqués sur des lettres
+	 * @return
+	 */
+	public List<Obstacle> getClueObstacles() {
+		return getActiveObstacles(CLUE_OBSTACLE_TYPES);
 	}
 }
