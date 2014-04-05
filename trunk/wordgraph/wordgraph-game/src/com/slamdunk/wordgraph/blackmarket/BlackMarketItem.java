@@ -86,6 +86,11 @@ public enum BlackMarketItem {
 			puzzleScreen.setScoreMultiplier(2);
 			puzzleScreen.addBonus(this);
 		}
+		
+		@Override
+		public boolean isAvailable(PuzzleScreen puzzleScreen) {
+			return !puzzleScreen.getBonuses().contains(two_times);
+		}
 	},
 	map {
 		@Override

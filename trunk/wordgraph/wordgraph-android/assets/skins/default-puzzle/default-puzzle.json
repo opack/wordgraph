@@ -523,6 +523,10 @@
 		"text":{
 			"font":"default-font",
 			"fontColor":"black"
+		},
+		"bonus-unavailable":{
+			"font":"riddle-font",
+			"fontColor":"red"
 		}
 	},
 	"com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle":{
