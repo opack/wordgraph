@@ -244,21 +244,9 @@
 			"name":"obstacle-fog",
 			"color":"yellow"
 		},
-		"obstacle-fog-joker":{
-			"name":"obstacle-fog",
-			"color":"green"
-		},
 		"obstacle-isle-selected":{
 			"name":"obstacle-isle",
 			"color":"yellow"
-		},
-		"obstacle-isle-joker":{
-			"name":"obstacle-isle",
-			"color":"green"
-		},
-		"obstacle-stone-joker":{
-			"name":"obstacle-stone",
-			"color":"green"
 		},
 		"bonus-buy-up":{
 			"name":"bonus-buy",
@@ -427,18 +415,8 @@
 			"font":"default-font",
 			"fontColor":"black",
 		},
-		"obstacle-fog-joker":{
-			"up":"obstacle-fog-joker",
-			"font":"default-font",
-			"fontColor":"black",
-		},
 		"obstacle-stone-normal":{
 			"up":"obstacle-stone",
-			"font":"default-font",
-			"fontColor":"black",
-		},
-		"obstacle-stone-joker":{
-			"up":"obstacle-stone-joker",
 			"font":"default-font",
 			"fontColor":"black",
 		},
@@ -454,11 +432,6 @@
 		},
 		"obstacle-isle-selected":{
 			"up":"obstacle-isle-selected",
-			"font":"default-font",
-			"fontColor":"black",
-		},
-		"obstacle-isle-joker":{
-			"up":"obstacle-isle-joker",
 			"font":"default-font",
 			"fontColor":"black",
 		},

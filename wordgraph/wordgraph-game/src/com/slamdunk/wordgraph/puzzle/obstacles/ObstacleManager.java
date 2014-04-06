@@ -89,9 +89,11 @@ public class ObstacleManager implements PuzzleListener {
 		List<Obstacle> letterObstacles = new ArrayList<Obstacle>();
 		for (ObstaclesTypes type : types) {
 			List<Obstacle> obstacles = obstaclesByType.get(type);
-			for (Obstacle obstacle : obstacles) {
-				if (obstacle.isActive()) {
-					letterObstacles.add(obstacle);
+			if (obstacles != null) {
+				for (Obstacle obstacle : obstacles) {
+					if (obstacle.isActive()) {
+						letterObstacles.add(obstacle);
+					}
 				}
 			}
 		}
@@ -224,9 +226,11 @@ public class ObstacleManager implements PuzzleListener {
 	private boolean hasActiveObstacles(ObstaclesTypes... types) {
 		for (ObstaclesTypes type : types) {
 			List<Obstacle> obstacles = obstaclesByType.get(type);
-			for (Obstacle obstacle : obstacles) {
-				if (obstacle.isActive()) {
-					return true;
+			if (obstacles != null) {
+				for (Obstacle obstacle : obstacles) {
+					if (obstacle.isActive()) {
+						return true;
+					}
 				}
 			}
 		}

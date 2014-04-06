@@ -113,6 +113,7 @@ public class PuzzleAttributesReader {
 			addDefault(skin, "puzzle-backspace", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-bullet", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-joker", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "puzzle-black-market", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter-selected", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-letter-highlighted", TextButtonStyle.class, Assets.defaultPuzzleSkin);
@@ -122,6 +123,14 @@ public class PuzzleAttributesReader {
 			addDefault(skin, "joker-rook", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "joker-knight", TextButtonStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "joker-queen", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-fog-normal", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-fog-selected", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-stone-normal", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-intruder-normal", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-isle-normal", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "obstacle-isle-selected", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "bonus", TextButtonStyle.class, Assets.defaultPuzzleSkin);
+			
 			// LabelStyles
 			addDefault(skin, "mainTitle", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-title", LabelStyle.class, Assets.defaultPuzzleSkin);
@@ -129,15 +138,17 @@ public class PuzzleAttributesReader {
 			addDefault(skin, "puzzle-score", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-solution", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "puzzle-suggestion", LabelStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "puzzle-multiplier", LabelStyle.class, Assets.defaultPuzzleSkin);
+			addDefault(skin, "bonus-unavailable", LabelStyle.class, Assets.defaultPuzzleSkin);
 			addDefault(skin, "text", LabelStyle.class, Assets.defaultPuzzleSkin);
+			
 			// TextureRegions
 			// Pas possible d'utiliser les TextureRegions d'un autre atlas car si on décharge
 			// l'atlas enrichi avec la valeur par défaut, la TextureRegion source sera déchargée
 			// aussi. Du coup, l'atlas source sera incohérent et cela provoque des problèmes
 			// d'affichage. Le plus simple est donc de s'assurer que les skins disposent bien
 			// des TextureRegions nécessaires.
-			// -> link-normal
-			// -> link-highlighted
+			// -> bonus-panel
 		}
 	}
 

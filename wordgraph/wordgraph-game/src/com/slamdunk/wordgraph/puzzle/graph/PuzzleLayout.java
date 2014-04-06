@@ -10,7 +10,7 @@ public class PuzzleLayout {
 	private String[][] layout;
 	
 	public PuzzleLayout(int width, int height) {
-		layout = new String[width][height];
+		layout = new String[height][width];
 		this.height = height;
 		this.width = width;
 	}
