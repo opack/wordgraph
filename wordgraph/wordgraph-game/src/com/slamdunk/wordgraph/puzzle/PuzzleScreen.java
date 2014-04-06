@@ -12,8 +12,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,6 +37,7 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.blackmarket.BlackMarketItem;
+import com.slamdunk.wordgraph.effect.VisualEffect;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
 import com.slamdunk.wordgraph.puzzle.grid.Grid;
@@ -58,6 +61,8 @@ public class PuzzleScreen implements Screen {
 	private Chronometer chrono;
 	
 	private Set<BlackMarketItem> activeBonus;
+	private List<VisualEffect> effects;
+	private List<VisualEffect> renderingEffects;
 
 	// Composants de l'interface qui seront réutilisés
 	private Stage stage;
@@ -90,6 +95,8 @@ public class PuzzleScreen implements Screen {
 		pendingLetters = new LinkedList<String>();
 		selectedCells = new LinkedList<GridCell>();
 		activeBonus = new HashSet<BlackMarketItem>();
+		effects = new ArrayList<VisualEffect>();
+		renderingEffects = new ArrayList<VisualEffect>();
 		
 		stage = new Stage();
 	}
@@ -174,6 +181,7 @@ public class PuzzleScreen implements Screen {
 		if (skin == null) {
 			skin = Assets.defaultPuzzleSkin;
 		}
+		puzzleAttributes.setSkin(skin);
 		PuzzleButtonDecorator.init(skin);
 		
 		// Création des composants depuis le layout définit dans le SVG
@@ -793,6 +801,19 @@ public class PuzzleScreen implements Screen {
         Gdx.gl.glClearColor(245 / 255f, 237 / 255f, 217 / 255f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         stage.draw();
+        
+        // Dessin des effets visuels
+        renderingEffects.clear();
+        renderingEffects.addAll(effects);
+        SpriteBatch batch = stage.getSpriteBatch();
+        batch.begin();
+        for (VisualEffect effect : renderingEffects) {
+        	if (!effect.update(batch, delta)) {
+        		// Si l'effet est terminé, on le retire
+        		effects.remove(effect);
+        	}
+        }
+        batch.end();
 
         fpsLogger.log();
 	}
@@ -844,5 +865,13 @@ public class PuzzleScreen implements Screen {
 
 	public Grid getGrid() {
 		return grid;
+	}
+
+	public Actor getActor(String name) {
+		return stage.getRoot().findActor(name);
+	}
+
+	public void addEffect(VisualEffect effect) {
+		effects.add(effect);
 	}
 }

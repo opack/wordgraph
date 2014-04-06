@@ -3,7 +3,11 @@ package com.slamdunk.wordgraph.blackmarket;
 import java.util.List;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.slamdunk.wordgraph.effect.HighlightClueEffect;
+import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
+import com.slamdunk.wordgraph.puzzle.Riddle;
 import com.slamdunk.wordgraph.puzzle.obstacles.Obstacle;
 
 public enum BlackMarketItem {
@@ -48,7 +52,23 @@ public enum BlackMarketItem {
 	crystal_ball {
 		@Override
 		public void use(PuzzleScreen puzzleScreen) {
-			System.out.println("Utilisation du bonus " + name());
+			// Extraction de la dernière lettre
+			String word = puzzleScreen.getCurrentWord();
+			String lastLetter = word.substring(word.length() - 1);
+			
+			// Mise en évidence des indices concernés
+			PuzzleAttributes attributes = puzzleScreen.getPuzzleAttributes();
+			for (Riddle riddle : attributes.getRiddles()) {
+				if (riddle.getSolution().contains(lastLetter)) {
+					Label label = (Label)puzzleScreen.getActor("riddle" + riddle.getId());
+					
+					HighlightClueEffect effect = new HighlightClueEffect();
+					effect.setHighlightActor(label);
+					effect.init(puzzleScreen);
+					
+					puzzleScreen.addEffect(effect);
+				}
+			}
 		}
 		
 		@Override
