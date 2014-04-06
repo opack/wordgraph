@@ -297,6 +297,10 @@ public class PuzzleScreen implements Screen {
 		TextButtonStyle letterStyle = PuzzleButtonDecorator.getInstance().getLetterStyle(NORMAL);
 		gridTable = (Table)creator.getActor("grid");
 		PuzzleLayout layout = puzzleAttributes.getLayout();
+		float letterSize = Math.min(
+			gridTable.getWidth() / layout.getWidth() - 10,
+			gridTable.getHeight() / layout.getHeight() - 10);
+		
 		grid = new Grid(layout.getHeight(), layout.getWidth());
 		for (int curLine = 0; curLine < layout.getHeight(); curLine ++) {
 			for (int curColumn = 0; curColumn < layout.getWidth(); curColumn ++) {
@@ -321,7 +325,7 @@ public class PuzzleScreen implements Screen {
 				});
 				
 				// Ajout du bouton à la grille
-				gridTable.add(button).expand().fill().pad(5);
+				gridTable.add(button).size(letterSize).pad(5);
 			}
 			// Nouvelle ligne
 			gridTable.row();
@@ -516,7 +520,7 @@ public class PuzzleScreen implements Screen {
 	}
 
 	/**
-	 * Charge un puzzle et crée le graphe
+	 * Charge un puzzle et crée la grille
 	 * @param puzzleName
 	 */
 	public void loadPuzzle() {
@@ -766,6 +770,7 @@ public class PuzzleScreen implements Screen {
 		jokerButton.setVisible(false);
 		blackMarketButton.setVisible(false);
 		gridTable.setVisible(false);
+		linkDrawer.setVisible(false);
 	}
 
 	/**
@@ -805,6 +810,7 @@ public class PuzzleScreen implements Screen {
 			// On arrête le compteur et masque le graphe pendant l'affichage de la boîte de dialoug
 			chrono.stop();
 			gridTable.setVisible(false);
+			linkDrawer.setVisible(false);
 			
 			MessageBoxUtils.showConfirm(
 				"Quitter le puzzle ?",
@@ -825,6 +831,7 @@ public class PuzzleScreen implements Screen {
 						// Redémarre le compteur et raffiche le graphe
 						chrono.start();
 						gridTable.setVisible(true);
+						linkDrawer.setVisible(true);
 					}
 				});
 		}

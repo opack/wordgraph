@@ -29,12 +29,12 @@ public class TableSvgBuilder extends UISvgBuilder {
 	private void parseBackground(Skin skin, Table table) {
 		if (hasAttribute("ui.background")) {
 			String atlasRegionName = actorDescription.getAttribute("ui.background");
-			NinePatch patch = skin.getPatch(atlasRegionName);
-			if (patch != null) {
+			if (skin.has(atlasRegionName, NinePatch.class)) {
+				NinePatch patch = skin.getPatch(atlasRegionName);
 				table.setBackground(new NinePatchDrawable(patch));
 			} else {
 				// Pas de 9-Patch, on tente de trouver une simple image
-				TextureRegion region = skin.getRegion(atlasRegionName);
+				TextureRegion region = skin.getAtlas().findRegion(atlasRegionName);
 				if (region != null) {
 					table.setBackground(new TextureRegionDrawable(region));
 				}

@@ -1,6 +1,5 @@
 package com.slamdunk.wordgraph.puzzle;
 
-import static com.slamdunk.wordgraph.puzzle.LetterStates.JOKER;
 import static com.slamdunk.wordgraph.puzzle.LetterStates.NORMAL;
 import static com.slamdunk.wordgraph.puzzle.LetterStates.SELECTED;
 
@@ -30,17 +29,16 @@ public class PuzzleButtonDecorator {
 	
 	private PuzzleButtonDecorator(final Skin skin) {
 		styles = new DoubleEntryArray<LetterStates, ObstaclesTypes, TextButtonStyle>();
-		registerStyles(null, skin, "puzzle-letter", "puzzle-letter-selected", "puzzle-letter-highlighted");
-		registerStyles(ObstaclesTypes.FOG, skin, "obstacle-fog-normal", "obstacle-fog-selected", "obstacle-fog-joker");
-		registerStyles(ObstaclesTypes.STONE, skin, "obstacle-stone-normal", "obstacle-stone-normal", "obstacle-stone-joker");
-		registerStyles(ObstaclesTypes.INTRUDER, skin, "obstacle-intruder-normal", "obstacle-intruder-normal", "obstacle-intruder-normal");
-		registerStyles(ObstaclesTypes.ISLE, skin, "obstacle-isle-normal", "obstacle-isle-selected", "obstacle-isle-joker");
+		registerStyles(null, skin, "puzzle-letter", "puzzle-letter-selected");
+		registerStyles(ObstaclesTypes.FOG, skin, "obstacle-fog-normal", "obstacle-fog-selected");
+		registerStyles(ObstaclesTypes.STONE, skin, "obstacle-stone-normal", "obstacle-stone-normal");
+		registerStyles(ObstaclesTypes.INTRUDER, skin, "obstacle-intruder-normal", "obstacle-intruder-normal");
+		registerStyles(ObstaclesTypes.ISLE, skin, "obstacle-isle-normal", "obstacle-isle-selected");
 	}
 	
-	public void registerStyles(ObstaclesTypes type, Skin skin, String normalStyleName, String selectedStyleName, String jokerStyleName) {
+	public void registerStyles(ObstaclesTypes type, Skin skin, String normalStyleName, String selectedStyleName) {
 		styles.put(NORMAL, type, skin.get(normalStyleName, TextButtonStyle.class));
 		styles.put(SELECTED, type, skin.get(selectedStyleName, TextButtonStyle.class));
-		styles.put(JOKER, type, skin.get(jokerStyleName, TextButtonStyle.class));
 	}
 
 	/**
