@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="346.33716"
-     inkscape:cy="103.20401"
+     inkscape:zoom="2.8284272"
+     inkscape:cx="94.379671"
+     inkscape:cy="237.70717"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -6349,5 +6349,17 @@
            inkscape:connector-curvature="0" />
       </g>
     </g>
+    <rect
+       style="color:#000000;fill:#d1ffd4;fill-opacity:0.49019608;fill-rule:nonzero;stroke:#105100;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect6711-8-9-0"
+       width="30.5"
+       height="24.500002"
+       x="79.502304"
+       y="748.78418"
+       rx="3.6754358"
+       ry="3.05795"
+       inkscape:export-filename="../work/bonus-crystal_ball.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
