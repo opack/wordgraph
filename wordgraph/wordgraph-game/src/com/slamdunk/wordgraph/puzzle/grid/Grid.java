@@ -3,6 +3,8 @@ package com.slamdunk.wordgraph.puzzle.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+
 /**
  * Représente une grille de jeu.
  */
@@ -127,5 +129,18 @@ public class Grid {
 		}
 		// Si on arrive ici, c'est qu'on n'a pas trouvé la lettre recherchée
 		return false;
+	}
+
+	public GridCell getCell(Button button) {
+			if (button != null) {
+			for (GridCell[] line : cells) {
+				for (GridCell cell : line) {
+					if (button.equals(cell.getButton())) {
+						return cell;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

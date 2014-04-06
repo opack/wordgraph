@@ -9,11 +9,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -833,7 +837,8 @@ public class PuzzleScreen implements Screen {
 						gridTable.setVisible(true);
 						linkDrawer.setVisible(true);
 					}
-				});
+				}
+			);
 		}
 	}
 
@@ -978,7 +983,30 @@ public class PuzzleScreen implements Screen {
 			obstacleManager.applyEffect();
 		}
 		// Dans tous les cas, l'écran actuel doit récupérer les input
-		Gdx.input.setInputProcessor(stage);
+		InputProcessor proc = new InputAdapter() {
+			private Vector2 screenCoords = new Vector2();
+			private Vector2 stageCoords;
+			
+			@Override
+			public boolean touchDragged(int screenX, int screenY, int pointer) {
+				// Calcul des coordonnées pour le stage
+				screenCoords.set(screenX, screenY);
+				stageCoords = stage.screenToStageCoordinates(screenCoords);
+				
+				// Récupération de l'éventuel bouton
+				Actor hit = stage.hit(stageCoords.x, stageCoords.y, true);
+				if (hit != null && (hit instanceof TextButton)) {
+					// Récupère la cellule associée et sélectionne la lettre
+					GridCell cell = grid.getCell((Button)hit);
+					if (cell != null) {
+						selectLetter(cell);
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+		Gdx.input.setInputProcessor(new InputMultiplexer(proc, stage));
 	}
 
 	@Override
