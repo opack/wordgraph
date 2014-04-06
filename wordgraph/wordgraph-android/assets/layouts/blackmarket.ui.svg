@@ -32,8 +32,8 @@
      showgrid="false"
      inkscape:window-width="1282"
      inkscape:window-height="820"
-     inkscape:window-x="1603"
-     inkscape:window-y="40"
+     inkscape:window-x="1569"
+     inkscape:window-y="39"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -118,7 +118,7 @@
        id="remove_letter_obstacle"
        width="95"
        height="95"
-       x="5.4999981"
+       x="67.833336"
        y="133.07143"
        ry="0"
        ui.style="bonus"
@@ -129,7 +129,7 @@
        id="remove_clue_obstacle"
        width="95"
        height="95"
-       x="130.16666"
+       x="192.5"
        y="133.07143"
        ry="0"
        ui.style="bonus"
@@ -140,7 +140,7 @@
        id="crystal_ball"
        width="95"
        height="95"
-       x="254.83333"
+       x="317.16666"
        y="133.07143"
        ry="0"
        ui.style="bonus"
@@ -148,21 +148,10 @@
        ui.image="bonus-crystal_ball" />
     <rect
        style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="spyglass"
-       width="95"
-       height="95"
-       x="379.5"
-       y="133.07143"
-       ry="0"
-       ui.style="bonus"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
-       ui.image="bonus-spyglass" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="item4"
        width="95"
        height="95"
-       x="5.4999981"
+       x="67.833336"
        y="296.35715"
        ry="0"
        ui.style="bonus"
@@ -173,7 +162,7 @@
        id="chrono"
        width="95"
        height="95"
-       x="130.16666"
+       x="192.5"
        y="296.35715"
        ry="0"
        ui.style="bonus"
@@ -184,23 +173,12 @@
        id="two_times"
        width="95"
        height="95"
-       x="254.83333"
+       x="317.16666"
        y="296.35715"
        ry="0"
        ui.style="bonus"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
        ui.image="bonus-two_times" />
-    <rect
-       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       id="map"
-       width="95"
-       height="95"
-       x="379.5"
-       y="296.35715"
-       ry="0"
-       ui.style="bonus"
-       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
-       ui.image="bonus-map" />
     <rect
        style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.65241283;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="name"
@@ -225,8 +203,7 @@
        ui.style="puzzle-riddle"
        ui.align="3"
        ui.wrap="true"
-       ui.text="Après avoir choisi un article, validez avec le bouton en bas.
-Vous pouvez aussi acheter un article sans l'utiliser grâce au bouton ci-dessous." />
+       ui.text="Après avoir choisi un article, validez avec le bouton en bas. Vous pouvez aussi acheter un article sans l'utiliser grâce au bouton ci-dessous." />
     <rect
        style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.99999994;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="unavailable-info"

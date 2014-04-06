@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -30,13 +31,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Scaling;
+import com.slamdunk.utils.PropertiesManager;
 import com.slamdunk.utils.ui.ButtonClickListener;
 import com.slamdunk.utils.ui.MessageBoxUtils;
 import com.slamdunk.utils.ui.svg.SvgUICreator;
 import com.slamdunk.wordgraph.Assets;
+import com.slamdunk.wordgraph.Options;
 import com.slamdunk.wordgraph.PuzzlePreferencesHelper;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.blackmarket.BlackMarketItem;
+import com.slamdunk.wordgraph.effect.HighlightClueEffect;
 import com.slamdunk.wordgraph.effect.VisualEffect;
 import com.slamdunk.wordgraph.pack.PuzzleInfos;
 import com.slamdunk.wordgraph.puzzle.graph.PuzzleLayout;
@@ -286,6 +290,9 @@ public class PuzzleScreen implements Screen {
 			}
 		}
 		
+		// Panneau des bonus
+		initBonusPanel(creator);
+		
 		// Grille de boutons
 		TextButtonStyle letterStyle = PuzzleButtonDecorator.getInstance().getLetterStyle(NORMAL);
 		gridTable = (Table)creator.getActor("grid");
@@ -384,6 +391,129 @@ public class PuzzleScreen implements Screen {
 		suggestionTextBounds = new Label("", suggestionLabel.getStyle());
 	}
 	
+
+	private void initBonusPanel(SvgUICreator creator) {
+		// Récupération des objets
+		final Table panel = (Table)creator.getActor("bonus-panel");
+		final Button displayBonusPanel = (Button)creator.getActor("display-bonus-panel");
+		TextButton bonusRemoveLetterObstacle = (TextButton)creator.getActor("remove_letter_obstacle");
+		TextButton bonusRemoveClueObstacle = (TextButton)creator.getActor("remove_clue_obstacle");
+		TextButton bonusCrystalBall = (TextButton)creator.getActor("crystal_ball");
+		TextButton bonusItem4 = (TextButton)creator.getActor("item4");
+		TextButton bonusChrono = (TextButton)creator.getActor("chrono");
+		TextButton bonusTwoTimes = (TextButton)creator.getActor("two_times");
+		final Table bonusInfoTable = (Table)creator.getActor("bonus-info");
+		final Label nameLabel = (Label)creator.getActor("bonus-name");
+		final Label descriptionLabel = (Label)creator.getActor("bonus-description");
+		final Label unavailableInfoLabel = (Label)creator.getActor("bonus-unavailable-info");
+		
+		// Place tous les boutons dans un groupe pour qu'un seul soit actif à la fois
+		final ButtonGroup bonusButtons = new ButtonGroup();
+		
+		// Affectation des listeners
+		final ButtonClickListener displayPanelListener = new ButtonClickListener() {
+			private boolean displayed;
+			
+			@Override
+			public void clicked(Button button) {
+				if (displayed) {
+					// Masque le panneau d'infos
+					bonusInfoTable.setVisible(false);
+					
+					// Fait remonter le panneau de bonus
+					panel.addAction(Actions.moveTo(panel.getX(), stage.getHeight() - displayBonusPanel.getHeight() - 5, 0.3f, Interpolation.fade));
+				} else {
+					// On s'assure qu'aucun bouton n'arrive sélectionné
+					bonusButtons.uncheckAll();
+					
+					// Affichage du panneau (au premier plan)
+					panel.setZIndex(stage.getActors().size + 1);
+					panel.addAction(Actions.moveTo(panel.getX(), stage.getHeight() - panel.getHeight() + 20, 0.5f, Interpolation.bounceOut));
+				}
+				displayed = !displayed;
+			}
+        };
+        displayBonusPanel.addListener(displayPanelListener);
+		ButtonClickListener bonusListener = new ButtonClickListener() {
+			BlackMarketItem lastSelectedItem;
+			@Override
+			public void clicked(Button button) {
+				// Choisit le joker sélectionné
+				BlackMarketItem selectedItem = BlackMarketItem.valueOf(button.getName());
+				if (lastSelectedItem == selectedItem) {
+					// Si le bonus ne peut pas être appliqué, on ne fait rien
+					if (!selectedItem.isAvailable(PuzzleScreen.this)) {
+						return;
+					}
+					
+					// Masque le panneau d'infos
+					bonusInfoTable.setVisible(false);
+					
+					// Déclenche l'effet
+					selectedItem.use(PuzzleScreen.this);
+					
+					// Cache le panneau des bonus
+					displayPanelListener.clicked(null);
+				} else {
+					lastSelectedItem = selectedItem;
+					
+					// Change les libellés
+					String nameKey = selectedItem.name() + ".name." + Options.langCode;
+					String nameText = PropertiesManager.getString("blackmarket", nameKey, "");
+					nameLabel.setText(nameText);
+					
+					String descriptionKey = selectedItem.name() + ".description." + Options.langCode;
+					String descriptionText = PropertiesManager.getString("blackmarket", descriptionKey, "");
+					descriptionLabel.setText(descriptionText);
+					
+					String unavailableInfoText = "";
+					if (!selectedItem.isAvailable(PuzzleScreen.this)) {
+						String unavailableInfoKey = selectedItem.name() + ".unavailableInfo." + Options.langCode;
+						unavailableInfoText = PropertiesManager.getString("blackmarket", unavailableInfoKey, "");
+					}
+					unavailableInfoLabel.setText(unavailableInfoText);
+					
+//					String priceKey = selectedItem.name() + ".price";
+//					String priceText = PropertiesManager.getString("blackmarket", priceKey, "");
+//					priceLabel.setText(priceText);
+					
+					// Affiche la table en face du bonus
+					bonusInfoTable.pack();
+					bonusInfoTable.setPosition(
+						panel.getX() - 5 - bonusInfoTable.getWidth(),
+						panel.getY() + button.getY() + button.getHeight() - bonusInfoTable.getHeight());
+					bonusInfoTable.setVisible(true);
+					bonusInfoTable.setZIndex(stage.getActors().size + 1);
+				}
+			}
+		};
+		
+		// Activation des boutons et affectation du listener
+		for (BlackMarketItem item : BlackMarketItem.values()) {
+			TextButton button = (TextButton)creator.getActor(item.name());
+			button.addListener(bonusListener);
+			bonusButtons.add(button);
+		}
+		
+		// Ajouts dans la table des boutons de bonus
+		panel.add().expand().row();
+		panel.add(bonusRemoveLetterObstacle).size(56).pad(5).row();
+		panel.add(bonusRemoveClueObstacle).size(56).pad(5).row();
+		panel.add(bonusCrystalBall).size(56).pad(5).row();
+		panel.add(bonusItem4).size(56).pad(5).row();
+		panel.add(bonusChrono).size(56).pad(5).row();
+		panel.add(bonusTwoTimes).size(56).pad(5).row();
+		panel.add(displayBonusPanel).center().padTop(10).size(48);
+		panel.pack();
+		panel.setPosition(
+			stage.getWidth() - 5 - panel.getWidth(),
+			stage.getHeight() - displayBonusPanel.getHeight() - 5);
+		
+		// Ajouts dans la table des infos bonus
+		bonusInfoTable.add(nameLabel).width(nameLabel.getWidth()).row();
+		bonusInfoTable.add(descriptionLabel).width(descriptionLabel.getWidth()).row();
+		bonusInfoTable.add(unavailableInfoLabel).width(unavailableInfoLabel.getWidth()).row();
+	}
 
 	/**
 	 * Charge un puzzle et crée le graphe
@@ -704,7 +834,7 @@ public class PuzzleScreen implements Screen {
 	 * Méthode appelée quand le joueur clique sur Joker
 	 */
 	private void onJoker() {
-		game.showJokerScreen(puzzleAttributes, grid);
+		game.showJokerScreen();
 	}
 	
 	/**
@@ -859,10 +989,6 @@ public class PuzzleScreen implements Screen {
 		return obstacleManager;
 	}
 
-	public String getCurrentWord() {
-		return suggestionTextBounds.getText().toString();
-	}
-
 	public Grid getGrid() {
 		return grid;
 	}
@@ -873,5 +999,27 @@ public class PuzzleScreen implements Screen {
 
 	public void addEffect(VisualEffect effect) {
 		effects.add(effect);
+	}
+
+	public LinkedList<GridCell> getSelectedCells() {
+		return selectedCells;
+	}
+
+	public void highlightCell(GridCell cell) {
+		HighlightClueEffect effect = new HighlightClueEffect();
+		effect.setHighlightActor(cell.getButton());
+		effect.init(this);
+		
+		addEffect(effect);
+	}
+
+	public void highlightRiddle(int riddleId) {
+		Label label = (Label)getActor("riddle" + riddleId);
+		
+		HighlightClueEffect effect = new HighlightClueEffect();
+		effect.setHighlightActor(label);
+		effect.init(this);
+		
+		addEffect(effect);
 	}
 }

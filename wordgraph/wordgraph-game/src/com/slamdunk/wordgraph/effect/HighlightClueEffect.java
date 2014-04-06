@@ -13,7 +13,7 @@ public class HighlightClueEffect implements VisualEffect {
 	/**
 	 * Durée de l'effet, en secondes
 	 */
-	private static final float HIGHLIGHT_TIME = 5.0f;
+	private static final float HIGHLIGHT_TIME = 5.2f;
 	/**
 	 * Interval de clignottement, en secondes
 	 */

@@ -5,63 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 bonus-buy
   rotate: false
-  xy: 84, 2
+  xy: 84, 86
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 bonus-chrono
   rotate: false
-  xy: 484, 627
+  xy: 296, 139
   size: 48, 80
   orig: 48, 80
   offset: 0, 0
   index: -1
 bonus-crystal_ball
   rotate: false
-  xy: 296, 140
+  xy: 484, 455
   size: 62, 80
   orig: 62, 80
   offset: 0, 0
   index: -1
-bonus-map
+bonus-panel
   rotate: false
-  xy: 2, 52
-  size: 85, 83
-  orig: 85, 83
+  xy: 484, 537
+  size: 74, 484
+  orig: 74, 484
   offset: 0, 0
   index: -1
 bonus-remove_clue_obstacle
   rotate: false
-  xy: 2, 2
+  xy: 874, 973
   size: 80, 48
   orig: 80, 48
   offset: 0, 0
   index: -1
 bonus-remove_letter_obstacle
   rotate: false
-  xy: 132, 140
+  xy: 2, 54
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-bonus-spyglass
-  rotate: false
-  xy: 484, 709
-  size: 78, 64
-  orig: 78, 64
-  offset: 0, 0
-  index: -1
 bonus-two_times
   rotate: false
-  xy: 880, 976
+  xy: 346, 173
   size: 82, 46
   orig: 82, 46
   offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 484, 561
+  xy: 560, 738
   size: 64, 64
   split: 7, 8, 7, 12
   orig: 64, 64
@@ -69,14 +62,14 @@ button
   index: -1
 coin
   rotate: false
-  xy: 484, 495
+  xy: 560, 672
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 highlight_clue
   rotate: false
-  xy: 696, 942
+  xy: 772, 941
   size: 34, 28
   split: 6, 6, 5, 5
   orig: 34, 28
@@ -84,56 +77,49 @@ highlight_clue
   index: -1
 joker-bishop
   rotate: false
-  xy: 484, 857
+  xy: 132, 139
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-knight
   rotate: false
-  xy: 614, 942
+  xy: 560, 856
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-queen
   rotate: false
-  xy: 214, 140
+  xy: 690, 941
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 joker-rook
   rotate: false
-  xy: 484, 775
+  xy: 214, 139
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 link
   rotate: false
-  xy: 484, 222
+  xy: 518, 250
   size: 27, 7
   orig: 27, 7
   offset: 0, 0
   index: -1
-link-node
-  rotate: false
-  xy: 484, 429
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 obstacle-bomb
   rotate: false
-  xy: 566, 808
+  xy: 484, 324
   size: 64, 63
   orig: 64, 63
   offset: 0, 0
   index: -1
 obstacle-category
   rotate: false
-  xy: 360, 142
+  xy: 642, 810
   size: 32, 26
   split: 5, 5, 4, 4
   orig: 32, 26
@@ -141,14 +127,14 @@ obstacle-category
   index: -1
 obstacle-fog
   rotate: false
-  xy: 484, 363
+  xy: 560, 606
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 obstacle-hidden
   rotate: false
-  xy: 189, 112
+  xy: 346, 145
   size: 32, 26
   split: 6, 5, 4, 4
   orig: 32, 26
@@ -156,58 +142,35 @@ obstacle-hidden
   index: -1
 obstacle-intruder-revealed
   rotate: false
-  xy: 484, 231
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-obstacle-intruder-revealed-selected
-  rotate: false
-  xy: 484, 297
+  xy: 560, 540
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 obstacle-isle
   rotate: false
-  xy: 632, 877
-  size: 64, 63
-  split: 32, 31, 29, 33
-  pad: 15, 15, 15, 15
-  orig: 64, 63
-  offset: 0, 0
-  index: -1
-obstacle-isle
-  rotate: false
-  xy: 632, 760
-  size: 64, 50
-  orig: 64, 50
-  offset: 0, 0
-  index: -1
-obstacle-isle-selected
-  rotate: false
-  xy: 566, 756
+  xy: 956, 971
   size: 64, 50
   orig: 64, 50
   offset: 0, 0
   index: -1
 obstacle-morph
   rotate: false
-  xy: 632, 812
+  xy: 484, 259
   size: 64, 63
   orig: 64, 63
   offset: 0, 0
   index: -1
 obstacle-stone
   rotate: false
-  xy: 566, 873
+  xy: 484, 389
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 popup-window
   rotate: false
-  xy: 442, 188
+  xy: 484, 225
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -216,84 +179,84 @@ popup-window
   index: -1
 puzzle-back-down
   rotate: false
-  xy: 2, 137
+  xy: 2, 136
   size: 128, 83
   orig: 128, 83
   offset: 0, 0
   index: -1
 puzzle-back-up
   rotate: false
-  xy: 484, 939
+  xy: 560, 938
   size: 128, 83
   orig: 128, 83
   offset: 0, 0
   index: -1
 puzzle-background
   rotate: false
-  xy: 2, 222
+  xy: 2, 221
   size: 480, 800
   orig: 480, 800
   offset: 0, 0
   index: -1
 puzzle-backspace
   rotate: false
-  xy: 798, 972
+  xy: 2, 2
   size: 80, 50
   orig: 80, 50
   offset: 0, 0
   index: -1
 puzzle-black-market-down
   rotate: false
-  xy: 964, 974
+  xy: 84, 36
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-black-market-up
   rotate: false
-  xy: 564, 706
+  xy: 642, 888
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-bullet-checked
   rotate: false
-  xy: 614, 742
+  xy: 626, 790
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 puzzle-bullet-normal
   rotate: false
-  xy: 698, 928
+  xy: 118, 22
   size: 12, 12
   orig: 12, 12
   offset: 0, 0
   index: -1
 puzzle-cancel
   rotate: false
-  xy: 360, 170
+  xy: 560, 804
   size: 80, 50
   orig: 80, 50
   offset: 0, 0
   index: -1
 puzzle-joker-down
   rotate: false
-  xy: 89, 87
+  xy: 642, 838
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-joker-up
   rotate: false
-  xy: 139, 90
+  xy: 430, 171
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 puzzle-suggestion
   rotate: false
-  xy: 89, 53
+  xy: 84, 2
   size: 32, 32
   split: 4, 4, 5, 5
   pad: 5, 5, 5, 5
@@ -302,14 +265,14 @@ puzzle-suggestion
   index: -1
 puzzle-validate
   rotate: false
-  xy: 696, 972
+  xy: 772, 971
   size: 100, 50
   orig: 100, 50
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 534, 691
+  xy: 808, 953
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
