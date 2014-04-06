@@ -981,6 +981,7 @@ public class PuzzleScreen implements Screen {
 	        createUI();
 			notifyPuzzleLoaded();
 			obstacleManager.applyEffect();
+			cancelWord();
 		}
 		// Dans tous les cas, l'écran actuel doit récupérer les input
 		InputProcessor proc = new InputAdapter() {
