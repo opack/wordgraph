@@ -7,9 +7,7 @@ import com.slamdunk.wordgraph.blackmarket.BlackMarketScreen;
 import com.slamdunk.wordgraph.joker.JokerScreen;
 import com.slamdunk.wordgraph.pack.PackScreen;
 import com.slamdunk.wordgraph.packlist.PackListScreen;
-import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
 import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
-import com.slamdunk.wordgraph.puzzle.grid.Grid;
 
 public class WordGraphGame extends Game {
 
@@ -93,9 +91,8 @@ public class WordGraphGame extends Game {
 	/**
 	 * Affiche l'écran de sélection de joker
 	 */
-	public void showJokerScreen(PuzzleAttributes puzzleAttributes, Grid grid) {
-		joker.setGrid(grid);
-		joker.setPuzzleAttributes(puzzleAttributes);
+	public void showJokerScreen() {
+		joker.setPuzzleScreen(puzzle);
 		setScreen(joker);
 	}
 	

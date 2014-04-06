@@ -25,16 +25,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="230.70169"
-     inkscape:cy="404.26857"
+     inkscape:cx="211.88577"
+     inkscape:cy="989.9807"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
-     inkscape:window-x="1432"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1282"
+     inkscape:window-height="820"
+     inkscape:window-x="1608"
+     inkscape:window-y="40"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -66,8 +66,8 @@
        id="black-market"
        width="47"
        height="47"
-       x="427.5"
-       y="5.6701121"
+       x="508.55219"
+       y="11.73103"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
        ui.style="puzzle-black-market" />
@@ -77,7 +77,7 @@
        width="47"
        height="47"
        x="374.64285"
-       y="5.6701121"
+       y="3.6701121"
        ry="0"
        ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
        ui.style="puzzle-joker" />
@@ -218,5 +218,138 @@
          x="-328.52969"
          y="75.238846"
          id="tspan3836">dessinés sous les lettres :</tspan></text>
+    <rect
+       style="opacity:0.5;color:#000000;fill:#ff00ff;stroke:#000000;stroke-width:0.38823551;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-panel"
+       width="70.548859"
+       height="469.944"
+       x="412.8284"
+       y="-486.28094"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Table"
+       ui.image="bonus-panel"
+       ui.background="bonus-panel" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="remove_letter_obstacle"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-448.9588"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-remove_letter_obstacle" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="remove_clue_obstacle"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-387.95871"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-remove_clue_obstacle" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="crystal_ball"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-326.95859"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-crystal_ball" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="item4"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-265.9585"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-item4" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="chrono"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-204.95842"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-chrono" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:0.58333331;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="two_times"
+       width="55.416668"
+       height="55.416668"
+       x="419.88727"
+       y="-143.95831"
+       ry="0"
+       ui.style="bonus"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.image="bonus-two_times" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#008000;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="display-bonus-panel"
+       width="47"
+       height="47"
+       x="427.16663"
+       y="-70.357147"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.TextButton"
+       ui.style="puzzle-black-market" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#ff00ff;stroke:#000000;stroke-width:0.52142256;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-info"
+       width="265.37509"
+       height="225.35388"
+       x="143.58916"
+       y="-457.68491"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Table"
+       ui.visible="false"
+       ui.background="popup-window" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.4771156;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-name"
+       width="249.52289"
+       height="29.522884"
+       x="151.01532"
+       y="-451.03223"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="text"
+       ui.align="1" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.72936571;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-description"
+       width="249.27063"
+       height="117.67772"
+       x="151.14145"
+       y="-419.56601"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="puzzle-riddle"
+       ui.align="3"
+       ui.wrap="true" />
+    <rect
+       style="opacity:0.5;color:#000000;fill:#0000ff;stroke:#000000;stroke-width:0.51797712;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="bonus-unavailable-info"
+       width="249.48203"
+       height="59.300259"
+       x="151.03575"
+       y="-299.90326"
+       ry="0"
+       ui.class="com.badlogic.gdx.scenes.scene2d.ui.Label"
+       ui.style="bonus-unavailable"
+       ui.align="3"
+       ui.wrap="true" />
   </g>
 </svg>

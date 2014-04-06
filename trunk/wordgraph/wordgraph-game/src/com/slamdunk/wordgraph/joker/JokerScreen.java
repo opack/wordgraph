@@ -27,9 +27,9 @@ import com.slamdunk.wordgraph.Assets;
 import com.slamdunk.wordgraph.Options;
 import com.slamdunk.wordgraph.WordGraphGame;
 import com.slamdunk.wordgraph.puzzle.PuzzleAttributes;
+import com.slamdunk.wordgraph.puzzle.PuzzleScreen;
 import com.slamdunk.wordgraph.puzzle.PuzzleTypes;
 import com.slamdunk.wordgraph.puzzle.Riddle;
-import com.slamdunk.wordgraph.puzzle.grid.Grid;
 import com.slamdunk.wordgraph.puzzle.obstacles.CategoryObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.HiddenObstacle;
 import com.slamdunk.wordgraph.puzzle.obstacles.ObstaclesTypes;
@@ -39,8 +39,7 @@ public class JokerScreen implements Screen {
 	private WordGraphGame game;
 	private Stage stage;
 	
-	private Grid grid;
-	private PuzzleAttributes puzzleAttributes;
+	private PuzzleScreen puzzleScreen;
 	
 	private TextButton validateButton;
 	
@@ -55,12 +54,8 @@ public class JokerScreen implements Screen {
 		riddlesByName = new HashMap<String, Riddle>();
 	}
 	
-	public void setGrid(Grid grid) {
-		this.grid = grid;
-	}
-
-	public void setPuzzleAttributes(PuzzleAttributes puzzleAttributes) {
-		this.puzzleAttributes = puzzleAttributes;
+	public void setPuzzleScreen(PuzzleScreen puzzleScreen) {
+		this.puzzleScreen = puzzleScreen;
 	}
 
 	/**
@@ -113,6 +108,9 @@ public class JokerScreen implements Screen {
 	
 	private void createUI() {
 		stage.clear();
+		
+		PuzzleAttributes puzzleAttributes = puzzleScreen.getPuzzleAttributes();
+		
 		// Récupération de la skin à appliquer
 		Skin skin = puzzleAttributes.getSkin();
 		if (skin == null) {
@@ -308,7 +306,7 @@ public class JokerScreen implements Screen {
 	
 	private void onValidate() {
 		if (selectedRiddle != null && selectedJoker != null) {
-			selectedJoker.decorate(selectedRiddle.getSolution(), grid);
+			selectedJoker.decorate(selectedRiddle, puzzleScreen);
 			onBack();
 		}
 	}
