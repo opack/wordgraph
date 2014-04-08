@@ -17,12 +17,14 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
@@ -311,6 +313,8 @@ public class PuzzleScreen implements Screen {
 				// Création du bouton
 				final String letter = layout.getLetter(curLine, curColumn);
 				final TextButton button = new TextButton(letter, letterStyle);
+				// On ne veut pas que le libellé récupère les hits
+				button.getLabel().setTouchable(Touchable.disabled);
 				if ("_".equals(letter)) {
 					button.setVisible(false);
 				}
@@ -988,6 +992,10 @@ public class PuzzleScreen implements Screen {
 			private Vector2 screenCoords = new Vector2();
 			private Vector2 stageCoords;
 			
+			private float thirdWidth;
+			private float thirdHeight;
+			private Rectangle centerArea = new Rectangle();
+			
 			@Override
 			public boolean touchDragged(int screenX, int screenY, int pointer) {
 				// Calcul des coordonnées pour le stage
@@ -996,7 +1004,10 @@ public class PuzzleScreen implements Screen {
 				
 				// Récupération de l'éventuel bouton
 				Actor hit = stage.hit(stageCoords.x, stageCoords.y, true);
-				if (hit != null && (hit instanceof TextButton)) {
+				if (hit != null
+				&& (hit instanceof TextButton)
+				// On s'intéresse à ce drag s'il est au centre du bouton
+				&& isInCenterAreaOf(stageCoords, hit)) {
 					// Récupère la cellule associée et sélectionne la lettre
 					GridCell cell = grid.getCell((Button)hit);
 					if (cell != null) {
@@ -1005,6 +1016,20 @@ public class PuzzleScreen implements Screen {
 					}
 				}
 				return false;
+			}
+
+			private boolean isInCenterAreaOf(Vector2 coords, Actor hit) {
+				// Le centre est une zone d'un tiers de la taille du bouton au centre
+				// de celui-ci.
+				thirdWidth = hit.getWidth() / 3;
+				thirdHeight = hit.getHeight() / 3;
+				
+				centerArea.x = hit.getX() + thirdWidth;
+				centerArea.y = hit.getY() + thirdHeight;
+				centerArea.width = thirdWidth;
+				centerArea.height = thirdHeight;
+				
+				return centerArea.contains(coords);
 			}
 		};
 		Gdx.input.setInputProcessor(new InputMultiplexer(proc, stage));

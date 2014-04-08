@@ -92,7 +92,7 @@ public class BombObstacle extends CellObstacle{
 		super.initFromProperties(properties, key);
 		
 		// Lit le compte-à-rebours initial
-		countDown = properties.getIntegerProperty(key + ".countDown", 10);
+		countDown = properties.getIntegerProperty(key + ".countdown", 10);
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public class BombObstacle extends CellObstacle{
 		super.loadFromPreferences();
 		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
 		
-		int prefsCountDown = prefs.getInteger(getPreferencesKey() + ".countDown", -1);
+		int prefsCountDown = prefs.getInteger(getPreferencesKey() + ".countdown", -1);
 		if (prefsCountDown != -1) {
 			countDown = prefsCountDown;
 		}
@@ -111,7 +111,7 @@ public class BombObstacle extends CellObstacle{
 	@Override
 	public void saveToPreferences() {
 		PuzzlePreferencesHelper prefs = getPuzzlePreferences();
-		prefs.putInteger(getPreferencesKey() + ".countDown", countDown);
+		prefs.putInteger(getPreferencesKey() + ".countdown", countDown);
 		
 		// Faire le super en dernier car il contient le flush()
 		super.saveToPreferences();
