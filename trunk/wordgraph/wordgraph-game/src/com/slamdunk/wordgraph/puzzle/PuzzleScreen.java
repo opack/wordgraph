@@ -81,7 +81,6 @@ public class PuzzleScreen implements Screen {
 	private Label scoreMultiplierLabel;
 	private TextButton backspaceButton;
 	private TextButton jokerButton;
-	private TextButton blackMarketButton;
 	private Table gridTable;
 	private LinkDrawer linkDrawer;
 	private Image finishedImage;
@@ -208,7 +207,6 @@ public class PuzzleScreen implements Screen {
 		backspaceButton = (TextButton)creator.getActor("backspace");
 		finishedImage = (Image)creator.getActor("finished");
 		jokerButton = (TextButton)creator.getActor("joker");
-		blackMarketButton = (TextButton)creator.getActor("black-market");
 		
 		// Image de fond
 		Image background = (Image)creator.getActor("background");
@@ -351,9 +349,6 @@ public class PuzzleScreen implements Screen {
 		// Chargement de l'image de fin de puzzle
 		finishedImage.setScaling(Scaling.none);
 		finishedImage.setDrawable(new TextureRegionDrawable(Assets.puzzleDone));
-		if (puzzlePreferences.isFinished()) {
-        	displayFinishImage();
-		}
 		
 		// Affectation des listeners
 		creator.getActor("back").addListener(new ButtonClickListener() {
@@ -366,12 +361,6 @@ public class PuzzleScreen implements Screen {
 			@Override
 			public void clicked(Button button) {
 				onJoker();
-			}
-        });
-		blackMarketButton.addListener(new ButtonClickListener() {
-			@Override
-			public void clicked(Button button) {
-				onBlackMarket();
 			}
         });
 		validateButton.addListener(new ButtonClickListener() {
@@ -401,6 +390,11 @@ public class PuzzleScreen implements Screen {
 		
 		// Création du libellé de suggestion courante
 		suggestionTextBounds = new Label("", suggestionLabel.getStyle());
+		
+		// Si le puzzle est fini, on l'affiche
+		if (puzzlePreferences.isFinished()) {
+        	displayFinishImage();
+		}
 	}
 	
 
@@ -624,7 +618,12 @@ public class PuzzleScreen implements Screen {
 			riddle.setFound(true);
 			
 			// Mise à jour des libellés de solution
-			final Label label = (Label)stage.getRoot().findActor("solution" + riddleId);
+			Label label = (Label)stage.getRoot().findActor("solution" + riddleId);
+			if (puzzleAttributes.getInfos().getType() == PuzzleTypes.SENTENCE) {
+				// Pour les puzzles de type SENTENCE, le libellé de solution est le même
+				// que celui d'indice
+				label = (Label)stage.getRoot().findActor("riddle" + riddleId);
+			}
 			final Button bullet = (Button)stage.getRoot().findActor("bullet" + riddleId);
 			if (label != null) {
 				// Envoie la suggestion vers le label de solution
@@ -776,9 +775,9 @@ public class PuzzleScreen implements Screen {
 		backspaceButton.setVisible(false);
 		finishedImage.setVisible(true);
 		jokerButton.setVisible(false);
-		blackMarketButton.setVisible(false);
 		gridTable.setVisible(false);
 		linkDrawer.setVisible(false);
+		stage.getRoot().findActor("bonus-panel").setVisible(false);
 	}
 
 	/**
@@ -992,8 +991,8 @@ public class PuzzleScreen implements Screen {
 			private Vector2 screenCoords = new Vector2();
 			private Vector2 stageCoords;
 			
-			private float thirdWidth;
-			private float thirdHeight;
+			private float quarterWidth;
+			private float quarterHeight;
 			private Rectangle centerArea = new Rectangle();
 			
 			@Override
@@ -1019,15 +1018,15 @@ public class PuzzleScreen implements Screen {
 			}
 
 			private boolean isInCenterAreaOf(Vector2 coords, Actor hit) {
-				// Le centre est une zone d'un tiers de la taille du bouton au centre
-				// de celui-ci.
-				thirdWidth = hit.getWidth() / 3;
-				thirdHeight = hit.getHeight() / 3;
+				// Le centre est une zone de la moitié de la taille du 
+				// bouton au centre de celui-ci.
+				quarterWidth = hit.getWidth() / 4;
+				quarterHeight = hit.getHeight() / 4;
 				
-				centerArea.x = hit.getX() + thirdWidth;
-				centerArea.y = hit.getY() + thirdHeight;
-				centerArea.width = thirdWidth;
-				centerArea.height = thirdHeight;
+				centerArea.x = hit.getX() + quarterWidth;
+				centerArea.y = hit.getY() + quarterHeight;
+				centerArea.width = quarterWidth * 2;
+				centerArea.height = quarterHeight * 2;
 				
 				return centerArea.contains(coords);
 			}
